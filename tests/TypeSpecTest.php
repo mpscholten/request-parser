@@ -2,7 +2,9 @@
 
 namespace Test\Common\Foundation\RequestSpec;
 
+use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\IntParser;
+use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
@@ -34,5 +36,17 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'type', 'b');
         $this->assertInstanceOf(OneOfParser::class, $spec->oneOf(['a', 'b']));
+    }
+
+    public function testDateTime()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'createdAt', '01-01-2016');
+        $this->assertInstanceOf(DateTimeParser::class, $spec->dateTime());
+    }
+
+    public function testJson()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'payload', '{}');
+        $this->assertInstanceOf(JsonParser::class, $spec->json());
     }
 }
