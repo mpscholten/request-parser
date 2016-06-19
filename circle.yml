@@ -1,3 +1,11 @@
 machine:
     php:
         version: 7.0.4
+
+dependencies:
+  pre:
+      - sed -i 's/^;//' /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+
+test:
+  override:
+      - vendor/bin/phpunit --cover-html=$CIRCLE_ARTIFACTS

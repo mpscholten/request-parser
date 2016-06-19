@@ -12,8 +12,4 @@
             <directory>./src</directory>
         </whitelist>
     </filter>
-
-    <logging>
-        <log type="coverage-html" target="./code-coverage"/>
-    </logging>
 </phpunit>
