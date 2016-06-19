@@ -4,10 +4,6 @@ namespace Common\Foundation\RequestSpec;
 
 namespace MPScholten\RequestParser;
 
-/**
- * This class also provides support for Enum values, e.g.:
- *     `$order = SortOrder::fromString($this->bodyParameter('order')->oneOf([SortOrder::ASC(), SortOrder::DESC()])->defaultsTo(SortOrder::ASC());`
- */
 class OneOfParser extends AbstractValueParser
 {
     private $validValues;
