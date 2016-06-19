@@ -120,9 +120,9 @@ In general you first specify the parameter name, followed by the type and then s
 
 For more examples, check out the `examples/` directory of this repository. It contains several runnable examples.
 
-##### Beyond integer values: Strings, Enums, DateTimes and Json Payloads
+##### Integers, Enums, DateTimes and Json Payloads
 
-Often we need more than just integers. *RequestParser* also provides methods for other data types:
+Often we need more than just strings. *RequestParser* also provides methods for other data types:
 
 ```php
 class DashboardController
