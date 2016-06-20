@@ -4,6 +4,7 @@ namespace Test\Common\Foundation\RequestSpec;
 
 use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\IntParser;
+use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
@@ -19,11 +20,16 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
         };
     }
 
-
     public function testInt()
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'id', '100');
         $this->assertInstanceOf(IntParser::class, $spec->int());
+    }
+
+    public function testFloat()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'ratio', '0.91');
+        $this->assertInstanceOf(FloatParser::class, $spec->float());
     }
 
     public function testString()
