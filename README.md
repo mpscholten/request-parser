@@ -4,7 +4,7 @@
 
 Small PHP Library for type-safe input handling.
 
-# The Problem
+### The Problem
 
 Let's say you have an action which lists some entities. This includings paging, ascending or descending ordering and optional filtering by time the entity was created.
 This action will have some kind of input parsing which can look like this:
@@ -48,7 +48,7 @@ public function index()
 
 That's what this library offers. It allows you to express "this action requires a page parameter of type int" or "this action has an optional parameter createdAt of type DateTime".
 
-# Getting Started
+### Getting Started
 
 Install via composer
 
@@ -95,6 +95,8 @@ When doing `GET /MyController/myAction?someParameter=example`, the `$someParamet
 You might wonder what happens when we leave out the `?someParameter` part, like `GET /MyController/myAction`. In this case the
 `$this->queryParameter('someParameter')->string()->required()` will throw a `NotFoundException`. This exception can
 be handled by your application to show an error message.
+
+Take a look at [the examples](https://github.com/mpscholten/request-parser/tree/master/examples).
 
 #### Optional Parameters
 
@@ -161,7 +163,7 @@ All of these types also provide a `defaultsTo` variant.
 ##### POST Requests:
 When we're dealing with a POST request, we need to use `$this->bodyParameter($name)` to access form fields or the ajax payload.
 
-# Autocompletion
+### Autocompletion
 
 The library allows you to take extensive use of autocompletion features of your IDE. E.g. after typing `$this->queryParameter('someParameter)->`
 your IDE will offer you all the possible input types, e.g. `string()` or `int()`. After picking a type, e.g. `string()`, your IDE will offer
@@ -170,7 +172,7 @@ your IDE will offer you all the possible input types, e.g. `string()` or `int()`
 ![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-type.png?raw=true)
 ![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-required.png?raw=true)
 
-# Static Analysis
+### Static Analysis
 
 The library supports static analysis by your IDE. E.g. when having a parameter like `$createdAt = $this->queryParameter('createdAt')->dateTime()->required();`,
 your IDE will know that `$createdAt` is a `DateTime` object. This allows you to detect type errors while editing and also decreases the maintenance cost of
@@ -178,7 +180,7 @@ an action because the types improve legibility.
 
 The library also decreases the risk of unexpected null values because parameters always have an explicit default value or are required.
 
-# Error Handling
+### Error Handling
 
 When a parameter is required but not found, the library will throw an exception. The default exception is `\MPScholten\RequestParser\NotFoundException`.
 You can override the exception:
@@ -207,12 +209,12 @@ try {
 }
 ```
 
-# Tests
+### Tests
 
 ```
 vendor/bin/phpunit
 ```
 
-# Contributing
+### Contributing
 
 Feel free to send pull requests!
