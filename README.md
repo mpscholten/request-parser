@@ -56,7 +56,9 @@ Install via composer
 composer require mpscholten/request-parser
 ```
 
-If you're using the `symfony/http-foundation` `Request`, you just need to import a trait into your controller:
+If you're using the `symfony/http-foundation` `Request`, you just need to import a trait into your controller. If you're using some other `Request` abstraction (or maybe just plain old `$_GET` and friends), [check out this example](https://github.com/mpscholten/request-parser/blob/master/examples/not-symfony.php).
+
+The following example asumes you're using the symfony `Request`:
 
 ```php
 class MyController
