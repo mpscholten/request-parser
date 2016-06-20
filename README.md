@@ -83,7 +83,7 @@ class MyController
     
     public function myAction()
     {
-        $someParameter = $this->queryParameter('someParameter)->string()->required();
+        $someParameter = $this->queryParameter('someParameter')->string()->required();
     }
 }
 ```
