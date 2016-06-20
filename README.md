@@ -1,6 +1,6 @@
 # request parser
 
-[![CircleCI](https://circleci.com/gh/mpscholten/request-parser.svg?style=svg&circle-token=2925effe7800b6c3327a81f53e2f9c6d7488e0d1)](https://circleci.com/gh/mpscholten/request-parser)
+[![Latest Stable Version](https://poser.pugx.org/mpscholten/request-parser/version)](https://packagist.org/packages/mpscholten/request-parser) [![License](https://poser.pugx.org/mpscholten/request-parser/license)](https://packagist.org/packages/mpscholten/request-parser) [![Circle CI](https://circleci.com/gh/mpscholten/request-parser.svg?style=shield)](https://circleci.com/gh/mpscholten/request-parser)
 
 Small PHP Library for type-safe input handling.
 
