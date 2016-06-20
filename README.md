@@ -53,7 +53,7 @@ That's what this library offers. It allows you to express "this action requires 
 Install via composer
 
 ```
-composer install
+composer require mpscholten/request-parser
 ```
 
 If you're using the `symfony/http-foundation` `Request`, you just need to import a trait into your controller:
