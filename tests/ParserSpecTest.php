@@ -3,6 +3,7 @@
 use MPScholten\RequestParser\AbstractValueParser;
 use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\IntParser;
+use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
@@ -22,6 +23,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         return [
             // [spec, default-value]
             [new IntParser($this->createExceptionFactory(), 'id', null), 1],
+            [new FloatParser($this->createExceptionFactory(), 'ratio', null), 0.91],
             [new StringParser($this->createExceptionFactory(), 'name', null), 'default value'],
             [new OneOfParser($this->createExceptionFactory(), 'type', null, ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
@@ -34,6 +36,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         return [
             // [spec, default-value, real-value]
             [new IntParser($this->createExceptionFactory(), 'id', 1337), 1, 1337],
+            [new FloatParser($this->createExceptionFactory(), 'ratio', 0.91), 1.0, 0.91],
             [new StringParser($this->createExceptionFactory(), 'name', 'quintly'), '', 'quintly'],
             [new OneOfParser($this->createExceptionFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
@@ -45,6 +48,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [new IntParser($this->createExceptionFactory(), 'id', 'string instead of an int'), 1],
+            [new FloatParser($this->createExceptionFactory(), 'ration', 'string instead of an float'), 0.91],
             // StringParser has no invalid data types
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],

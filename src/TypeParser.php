@@ -20,6 +20,11 @@ class TypeParser
         return new IntParser($this->exceptionFactory, $this->name, $this->value);
     }
 
+    public function float()
+    {
+        return new FloatParser($this->exceptionFactory, $this->name, $this->value);
+    }
+
     public function string()
     {
         return new StringParser($this->exceptionFactory, $this->name, $this->value);
