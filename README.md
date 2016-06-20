@@ -1,5 +1,7 @@
 # request parser
 
+[![CircleCI](https://circleci.com/gh/mpscholten/request-parser.svg?style=svg&circle-token=2925effe7800b6c3327a81f53e2f9c6d7488e0d1)](https://circleci.com/gh/mpscholten/request-parser)
+
 Small PHP Library for type-safe input handling.
 
 # The Problem
@@ -81,7 +83,7 @@ class MyController
     
     public function myAction()
     {
-        $someParameter = $this->queryParameter('someParameter)->string()->required();
+        $someParameter = $this->queryParameter('someParameter')->string()->required();
     }
 }
 ```
@@ -162,6 +164,9 @@ When we're dealing with a POST request, we need to use `$this->bodyParameter($na
 The library allows you to take extensive use of autocompletion features of your IDE. E.g. after typing `$this->queryParameter('someParameter)->`
 your IDE will offer you all the possible input types, e.g. `string()` or `int()`. After picking a type, e.g. `string()`, your IDE will offer
 `required()` or `defaultsTo(defaultValue)` to specify the behavior when the parameter is not set.
+
+![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-type.png?raw=true)
+![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-required.png?raw=true)
 
 # Static Analysis
 
