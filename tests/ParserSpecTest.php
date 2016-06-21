@@ -30,14 +30,8 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new OneOfParser($this->createExceptionFactory(), 'type', null, ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
             [new JsonParser($this->createExceptionFactory(), 'config', null), ['value' => true]],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'YES', null), true],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'Y', null), true],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'NO', null), false],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'N', null), false],
-            [new BooleanParser($this->createExceptionFactory(), 'true', null), true],
-            [new BooleanParser($this->createExceptionFactory(), '1', null), true],
-            [new BooleanParser($this->createExceptionFactory(), 'false', null), false],
-            [new BooleanParser($this->createExceptionFactory(), '0', null), false]
+            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', null), true],
+            [new BooleanParser($this->createExceptionFactory(), 'isNice', null), true]
         ];
     }
 
@@ -47,8 +41,8 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             // [spec, default-value, real-value]
             [new IntParser($this->createExceptionFactory(), 'id', 1337), 1, 1337],
             [new FloatParser($this->createExceptionFactory(), 'ratio', 0.91), 1.0, 0.91],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', true), false, true],
-            [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 1), false, true],
+            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'yes'), true, true],
+            [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'true'), true, true],
             [new StringParser($this->createExceptionFactory(), 'name', 'quintly'), '', 'quintly'],
             [new OneOfParser($this->createExceptionFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
@@ -61,8 +55,8 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         return [
             [new IntParser($this->createExceptionFactory(), 'id', 'string instead of an int'), 1],
             [new FloatParser($this->createExceptionFactory(), 'ration', 'string instead of an float'), 0.91],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'absolutely'), false],
-            [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'without-doubt'), false],
+            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', null), false],
+            [new BooleanParser($this->createExceptionFactory(), 'isAwesome', null), false],
             // StringParser has no invalid data types
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],
