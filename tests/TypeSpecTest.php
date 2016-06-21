@@ -5,6 +5,7 @@ namespace Test\Common\Foundation\RequestSpec;
 use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
+use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
@@ -54,5 +55,11 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'payload', '{}');
         $this->assertInstanceOf(JsonParser::class, $spec->json());
+    }
+
+    public function testYesNoBoolean()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'isAwesome', 'yes');
+        $this->assertInstanceOf(YesNoBooleanParser::class, $spec->yesNoBoolean());
     }
 }

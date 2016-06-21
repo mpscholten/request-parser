@@ -44,4 +44,9 @@ class TypeParser
     {
         return new JsonParser($this->exceptionFactory, $this->name, $this->value);
     }
+
+    public function yesNoBoolean()
+    {
+        return new YesNoBooleanParser($this->exceptionFactory, $this->name, $this->value);
+    }
 }
