@@ -64,7 +64,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],
             [new JsonParser($this->createExceptionFactory(), 'config', 'invalid json{'), ['value' => true]],
-            [new CommaSeparatedStringParser($this->createExceptionFactory(), 'groups', '1;2;3;4'), ['1', '2', '3', '4']]
+            [new CommaSeparatedStringParser($this->createExceptionFactory(), 'groups', null), ['1', '2', '3', '4']]
         ];
     }
 
