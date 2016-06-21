@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser;
 
-class CommaSeparatedStringParser
+class CommaSeparatedStringParser extends AbstractValueParser
 {
     protected function parse($value)
     {
