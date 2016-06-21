@@ -6,6 +6,7 @@ use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\YesNoBooleanParser;
+use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
@@ -61,5 +62,11 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'isAwesome', 'yes');
         $this->assertInstanceOf(YesNoBooleanParser::class, $spec->yesNoBoolean());
+    }
+
+    public function testBoolean()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'isAwesome', 'true');
+        $this->assertInstanceOf(BooleanParser::class, $spec->boolean());
     }
 }
