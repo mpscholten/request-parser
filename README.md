@@ -151,6 +151,15 @@ class DashboardController
         
         // GET /dashboard?config={"a":true}     =>   $json == ['a' => true]
         $json = $this->queryParameter('config')->json()->required();
+        
+        // GET /dashboard?includeWidgets=true    =>   $includeWidgets == true
+        // GET /dashboard?includeWidgets=false   =>   $includeWidgets == false
+        // GET /dashboard?includeWidgets=0       =>   $includeWidgets == false
+        // GET /dashboard?includeWidgets=abcde   =>   A NotFoundException will be thrown
+        $includeWidgets = $this->queryParameter('includeWidgets')->boolean()->required();
+        
+        // GET /image?scale=2.5   =>   $scale = 2.5
+        $scale = $this->queryParameter('scale')->float()->required();
     }
 }
 ```
