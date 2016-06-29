@@ -6,7 +6,13 @@ class BooleanParser extends AbstractValueParser
 {
     protected function parse($value)
     {
-        return strtoupper($value) === 'TRUE' || strtoupper($value) === '1';
+        if (strtoupper($value) === 'TRUE' || strtoupper($value) === '1') {
+            return true;
+        }
+        if (strtoupper($value) === 'FALSE' || strtoupper($value) === '0') {
+            return false;
+        }
+        return null;
     }
 
     /**

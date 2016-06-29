@@ -6,7 +6,13 @@ class YesNoBooleanParser extends AbstractValueParser
 {
     protected function parse($value)
     {
-        return strtoupper($value) === 'YES' || strtoupper($value) === 'Y';
+        if (strtoupper($value) === 'YES' || strtoupper($value) === 'Y') {
+            return true;
+        }
+        if (strtoupper($value) === 'NO' || strtoupper($value) === 'N') {
+            return false;
+        }
+        return null;
     }
 
     /**
