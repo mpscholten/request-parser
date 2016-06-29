@@ -140,6 +140,9 @@ class DashboardController
         // GET /dashboard?name=Hello   =>   $dashboardName == "Hello"
         $dashboardName = $this->queryParameter('name')->string()->required();
         
+        // Get /dashboard?name=   => $dashboardName == "default value"
+        $dashboardName = $this->queryParameter('name')->string()->defaultsToIfEmpty("default value");
+        
         // GET /dashboard?status=private  =>   $dashboardStatus == "private"
         // GET /dashboard?status=public   =>   $dashboardStatus == "public"
         // GET /dashboard?status=invalid  =>   A NotFoundException will be thrown
@@ -158,7 +161,11 @@ class DashboardController
         // GET /dashboard?includeWidgets=abcde   =>   A NotFoundException will be thrown
         $includeWidgets = $this->queryParameter('includeWidgets')->boolean()->required();
         
-        // GET /image?scale=2.5   =>   $scale = 2.5
+        // GET /dashboard?includeWidgets=yes   =>   $includeWidgets == true
+        // GET /dashboard?includeWidgets=no    =>   $includeWidgets == false
+        $includeWidgets = $this->queryParameter('includeWidgets')->yesNoBoolean()->required();
+        
+        // GET /image?scale=2.5   =>   $scale == 2.5
         $scale = $this->queryParameter('scale')->float()->required();
     }
 }
