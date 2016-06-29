@@ -12,7 +12,6 @@ use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
 use MPScholten\RequestParser\TypeParser;
-use MPScholten\RequestParser\CommaSeparatedStringParser;
 
 class TypeSpecTest extends \PHPUnit_Framework_TestCase
 {
