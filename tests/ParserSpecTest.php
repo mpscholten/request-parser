@@ -10,7 +10,6 @@ use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
-use MPScholten\RequestParser\CommaSeparatedStringParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,8 +31,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
             [new JsonParser($this->createExceptionFactory(), 'config', null), ['value' => true]],
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', null), true],
-            [new BooleanParser($this->createExceptionFactory(), 'isNice', null), true],
-            [new CommaSeparatedStringParser($this->createExceptionFactory(), 'groups', null), ['1', '2', '3', '4']]
+            [new BooleanParser($this->createExceptionFactory(), 'isNice', null), true]
         ];
     }
 
@@ -48,8 +46,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new StringParser($this->createExceptionFactory(), 'name', 'quintly'), '', 'quintly'],
             [new OneOfParser($this->createExceptionFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
-            [new JsonParser($this->createExceptionFactory(), 'config', '{"value":false}'), ['value' => true], ['value' => false]],
-            [new CommaSeparatedStringParser($this->createExceptionFactory(), 'groups', '1,2,3,4'), ['5', '6', '7', '8'], ['1', '2', '3', '4']]
+            [new JsonParser($this->createExceptionFactory(), 'config', '{"value":false}'), ['value' => true], ['value' => false]]
         ];
     }
 
@@ -63,8 +60,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             // StringParser has no invalid data types
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],
-            [new JsonParser($this->createExceptionFactory(), 'config', 'invalid json{'), ['value' => true]],
-            [new CommaSeparatedStringParser($this->createExceptionFactory(), 'groups', null), ['1', '2', '3', '4']]
+            [new JsonParser($this->createExceptionFactory(), 'config', 'invalid json{'), ['value' => true]]
         ];
     }
 
