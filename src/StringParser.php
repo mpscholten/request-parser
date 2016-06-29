@@ -26,4 +26,17 @@ class StringParser extends AbstractValueParser
     {
         return parent::required();
     }
+
+    /**
+     * @param string $defaultValue
+     * @return string
+     */
+    public function defaultsToIfEmpty($defaultValue)
+    {
+        if ($this->value === '') {
+            return $defaultValue;
+        }
+        
+        return $this->defaultsTo($defaultValue);
+    }
 }
