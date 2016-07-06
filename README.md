@@ -239,6 +239,10 @@ try {
 }
 ```
 
+### Is It Production Ready?
+
+Absolutely. This library was initially developed at [quintly](https://www.quintly.com) and is extensively used in production since 2015. Using it at scale in production means there's a a big focus on backwards compatibility and not breaking stuff.
+
 ### Tests
 
 ```
