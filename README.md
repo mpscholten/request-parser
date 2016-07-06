@@ -46,7 +46,7 @@ public function index()
 }
 ```
 
-That's what this library offers. It allows you to express "this action requires a page parameter of type int" or "this action has an optional parameter createdAt of type DateTime, and will be set to a default value if absent".
+That's what this library offers. It allows you to express "_this action requires a page parameter of type int_" or "_this action has an optional parameter createdAt of type DateTime, and will be set to a default value if absent_".
 
 ### Getting Started
 
