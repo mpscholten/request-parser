@@ -6,8 +6,8 @@ Small PHP Library for type-safe input handling.
 
 ### The Problem
 
-Let's say you have an action which lists some entities. This includings paging, ascending or descending ordering and optional filtering by time the entity was created.
-This action will have some kind of input parsing which can look like this:
+Let's say you have an action which lists some entities. This includes paging, ascending or descending ordering and optional filtering by the time the entity was created.
+This action will have some kind of input parsing, which can look like this:
 
 ```php
 public function index()
@@ -32,7 +32,7 @@ public function index()
 }
 ```
 
-Obvious this code is not very nice to read because it is not very descriptive. It's also pretty verbose for what it's doing.
+Obviously this code is not very nice to read because it is not very descriptive. It's also pretty verbose for what it's doing.
 And when you don't pay close attention you will probably miss a null check or a type check.
 
 Now compare the above code to this version:
@@ -46,7 +46,7 @@ public function index()
 }
 ```
 
-That's what this library offers. It allows you to express "this action requires a page parameter of type int" or "this action has an optional parameter createdAt of type DateTime".
+That's what this library offers. It allows you to express "_this action requires a page parameter of type int_" or "_this action has an optional parameter createdAt of type DateTime, and will be set to a default value if absent_".
 
 ### Examples
 
