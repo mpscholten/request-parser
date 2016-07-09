@@ -89,7 +89,6 @@ class CommaSeparatedParser extends AbstractValueParser
     public function required()
     {
         return parent::required();
-        return $this;
     }
 
     public function int()
