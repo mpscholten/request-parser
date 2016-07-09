@@ -83,7 +83,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
             ,
-            [(new CommaSeparatedParser($this->createExceptionFactory(), '{"event":"page_view","deviceTimestamp":"2016-01-01 08:10:00.151","url":"https://www.domain.com/"}', null))->json(),
+            [(new CommaSeparatedParser($this->createExceptionFactory(), 'events', '{"event":"page_view","deviceTimestamp":"2016-01-01 08:10:00.151","url":"https://www.domain.com/"}'))->json(),
                 [
                     ['event' => 'page_view', 'deviceTimestamp' => '2016-01-01 08:10:00.151', 'url' => 'https://www.domain.com/product/smart-phone/'],
                     ['event' => 'add_to_cart', 'deviceTimestamp' => '2016-01-01 08:10:10.982', 'url' => 'https://www.domain.com/product/smart-phone/'],
