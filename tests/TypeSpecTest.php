@@ -12,7 +12,7 @@ use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
 use MPScholten\RequestParser\TypeParser;
-use MPScholten\RequestParser\CommaSeparatedStringParser;
+use MPScholten\RequestParser\CommaSeparatedParser;
 
 class TypeSpecTest extends \PHPUnit_Framework_TestCase
 {
@@ -71,9 +71,9 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(BooleanParser::class, $spec->boolean());
     }
 
-    public function testCommaSeparatedString()
+    public function testCommaSeparated()
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'groups', '1,2,3,4');
-        $this->assertInstanceOf(CommaSeparatedStringParser::class, $spec->commaSeparatedString());
+        $this->assertInstanceOf(CommaSeparatedParser::class, $spec->CommaSeparated()->int());
     }
 }
