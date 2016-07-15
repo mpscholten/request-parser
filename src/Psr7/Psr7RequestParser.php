@@ -9,8 +9,7 @@ class Psr7RequestParser
 {
     private $request;
     private $exceptionFactory;
-
-
+    
     public function __construct(ServerRequestInterface $request, $exceptionFactory = null)
     {
         $this->request = $request;
