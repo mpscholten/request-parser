@@ -73,8 +73,8 @@ composer require mpscholten/request-parser
 
 **Integrations:**
 
- - If you're using `symfony/http-foundation`, [click here](#symfony-httpfoundation)
- - If you're using a Psr7 `ServerRequestInterface` implementation, [click here](#psr7)
+ - If you're using `symfony/http-foundation`, [click here](#symfony-httpfoundation).
+ - If you're using a Psr7 `ServerRequestInterface` implementation, [click here](#psr7).
  - If you're using some other `Request` abstraction (or maybe just plain old `$_GET` and friends), [check out this example](https://github.com/mpscholten/request-parser/blob/master/examples/not-symfony.php).
 
 #### Symfony HttpFoundation
