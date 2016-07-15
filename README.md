@@ -70,9 +70,16 @@ Install via composer
 composer require mpscholten/request-parser
 ```
 
-If you're using the `symfony/http-foundation` `Request`, you just need to import a trait into your controller. If you're using some other `Request` abstraction (or maybe just plain old `$_GET` and friends), [check out this example](https://github.com/mpscholten/request-parser/blob/master/examples/not-symfony.php).
 
-The following example asumes you're using the symfony `Request`:
+**Integrations:**
+
+ - If you're using `symfony/http-foundation`, [click here](#symfony-httpfoundation)
+ - If you're using a Psr7 `ServerRequestInterface` implementation, [click here](#psr7)
+ - If you're using some other `Request` abstraction (or maybe just plain old `$_GET` and friends), [check out this example](https://github.com/mpscholten/request-parser/blob/master/examples/not-symfony.php).
+
+#### Symfony HttpFoundation
+
+The following example assumes you're using the symfony `Request`:
 
 ```php
 class MyController
@@ -93,6 +100,48 @@ class MyController
     use \MPScholten\RequestParser\Symfony\ControllerHelperTrait;
     
     public function __construct(Request $request)
+    {
+        $this->initRequestParser($request);
+    }
+    
+    public function myAction()
+    {
+        $someParameter = $this->queryParameter('someParameter')->string()->required();
+    }
+}
+```
+
+When doing `GET /MyController/myAction?someParameter=example`, the `$someParameter` variable will contain the string `"example"`.
+
+You might wonder what happens when we leave out the `?someParameter` part, like `GET /MyController/myAction`. In this case the
+`$this->queryParameter('someParameter')->string()->required()` will throw a `NotFoundException`. This exception can
+be handled by your application to show an error message.
+
+Take a look at [the examples](https://github.com/mpscholten/request-parser/tree/master/examples).
+
+#### Psr7
+
+The following example assumes you're using the Psr7 `ServerRequestInterface`:
+
+```php
+class MyController
+{
+    use \MPScholten\RequestParser\Psr7\ControllerHelperTrait;
+    
+    public function __construct(ServerRequestInterface $request)
+    {
+        $this->initRequestParser($request);
+    }
+}
+```
+
+Then you can use the library like this:
+```php
+class MyController
+{
+    use \MPScholten\RequestParser\Psr7\ControllerHelperTrait;
+    
+    public function __construct(ServerRequestInterface $request)
     {
         $this->initRequestParser($request);
     }
