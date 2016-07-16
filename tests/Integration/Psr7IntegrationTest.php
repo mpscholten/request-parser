@@ -87,4 +87,3 @@ class Psr7Controller
         return $this->parameter('notFound')->string()->required();
     }
 }
-
