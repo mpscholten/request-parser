@@ -48,6 +48,20 @@ public function index()
 
 That's what this library offers. It allows you to express "_this action requires a page parameter of type int_" or "_this action has an optional parameter createdAt of type DateTime, and will be set to a default value if absent_".
 
+### Examples
+
+If you'd like to go straight to the code now, you can just play around with the examples.
+
+0. `cd /tmp`
+1. `git clone git@github.com:mpscholten/request-parser.git`
+2. `cd request-parser`
+3. `composer install`
+4. `cd examples`
+5. `php -S localhost:8080`
+6. Open it: http://localhost:8080/symfony.php?action=hello
+
+There are also several other php files inside the examples directory. To get your hands dirty, I suggest just modifing the examples a bit.
+
 ### Getting Started
 
 Install via composer
@@ -224,6 +238,10 @@ try {
     echo $e->getMessage();
 }
 ```
+
+### Is It Production Ready?
+
+Absolutely. This library was initially developed at [quintly](https://www.quintly.com) and is extensively used in production since april 2015. Using it at scale in production means there's a a big focus on backwards compatibility and not breaking stuff.
 
 ### Tests
 

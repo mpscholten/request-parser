@@ -1,7 +1,5 @@
 <?php
 
-namespace Common\Foundation\RequestSpec;
-
 namespace MPScholten\RequestParser;
 
 class OneOfParser extends AbstractValueParser
