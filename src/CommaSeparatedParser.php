@@ -4,6 +4,8 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedParser extends AbstractValueParser
 {
+    private $dataType;
+
     const INT = 'INT';
     const STRING = 'STRING';
     const FLOAT = 'FLOAT';
@@ -12,26 +14,34 @@ class CommaSeparatedParser extends AbstractValueParser
     const JSON = 'JSON';
     const DATE_TIME = 'DATE_TIME';
 
-    private $type;
+    /**
+     * CommaSeparated constructor.
+     * @param callable $exceptionFactory
+     * @param string $name
+     * @param string $value
+     * @param string $type
+     */
+    public function __construct(callable $exceptionFactory, $name, $value, $type = self::STRING)
+    {
+        $this->dataType = $type;
+        parent::__construct($exceptionFactory, $name, $value);
+    }
 
     protected function parse($value)
     {
-        if (!isset($this->type)) {
-            $this->type = self::STRING;
-        }
-        $valuesArray = explode(",", $value);
-        switch ($this->type) {
+        $value = explode(",", $value);
+        switch ($this->dataType) {
             case self::INT:
-                $valuesArray = array_map('intval', $valuesArray);
+                $value = array_map('intval', $value);
                 break;
             case self::STRING:
                 // do nothing, already exploded
                 break;
             case self::FLOAT:
-                $valuesArray = array_map('floatval', $valuesArray);
+                $value = array_map('floatval', $value);
                 break;
             case self::BOOLEAN:
-                $valuesArray = array_map(function($element) {
+                $value = array_map(function($element) {
                     if (strtoupper($element) === 'TRUE' || $element === '1') {
                         return true;
                     }
@@ -39,10 +49,10 @@ class CommaSeparatedParser extends AbstractValueParser
                         return false;
                     }
                     return null;
-                }, $valuesArray);
+                }, $value);
                 break;
             case self::YES_NO_BOOLEAN:
-                $valuesArray = array_map(function($element) {
+                $value = array_map(function($element) {
                     if (strtoupper($element) === 'YES' || strtoupper($element) === 'Y') {
                         return true;
                     }
@@ -50,15 +60,16 @@ class CommaSeparatedParser extends AbstractValueParser
                         return false;
                     }
                     return null;
-                }, $valuesArray);
+                }, $value);
                 break;
             case self::JSON:
-                $valuesArray = array_map(function($element) {
+                $value = array_map(function($element) {
                     return json_decode($element, true);
-                }, $valuesArray);
+                }, $value);
                 break;
             case self::DATE_TIME:
-                $valuesArray = array_map(function($element) {
+                date_default_timezone_set('UTC');
+                $value = array_map(function($element) {
                     if ($element === '') {
                         return null;
                     }
@@ -67,15 +78,15 @@ class CommaSeparatedParser extends AbstractValueParser
                     } catch (\Exception $e) {
                         return null;
                     }
-                }, $valuesArray);
+                }, $value);
                 break;
         }
-        return $valuesArray;
+        return $value;
     }
 
     /**
-     * @param array $defaultValue
-     * @return array
+     * @param int[]|float[]|string[]|boolean[]|\DateTime[]|[] $defaultValue
+     * @return int[]|float[]|string[]|boolean[]|\DateTime[]|[]
      */
     public function defaultsTo($defaultValue)
     {
@@ -84,52 +95,10 @@ class CommaSeparatedParser extends AbstractValueParser
 
     /**
      * @throws \Exception
-     * @return array
+     * @return boolean
      */
     public function required()
     {
         return parent::required();
-    }
-
-    public function int()
-    {
-        $this->type = self::INT;
-        return $this;
-    }
-
-    public function string()
-    {
-        $this->type = self::STRING;
-        return $this;
-    }
-
-    public function float()
-    {
-        $this->type = self::FLOAT;
-        return $this;
-    }
-
-    public function boolean()
-    {
-        $this->type = self::BOOLEAN;
-        return $this;
-    }
-
-    public function yesNoBoolean()
-    {
-        $this->type = self::YES_NO_BOOLEAN;
-        return $this;
-    }
-
-    public function json()
-    {
-        $this->type = self::JSON;
-        return $this;
-    }
-
-    public function dateTime()
-    {
-        $this->type = self::DATE_TIME;
-        return $this;
     }
 }
