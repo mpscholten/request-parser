@@ -3,9 +3,10 @@
 namespace MPScholten\RequestParser\Psr7;
 
 use MPScholten\RequestParser\RequestParser;
+use MPScholten\RequestParser\RequestParserFactory;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Psr7RequestParser
+class Psr7RequestParserFactory implements RequestParserFactory
 {
     private $request;
     private $exceptionFactory;

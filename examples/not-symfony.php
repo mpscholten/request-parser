@@ -12,45 +12,60 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestParserFactory
+{
+    /**
+     * @var array
+     */
+    private $request;
+    private $exceptionFactory;
+
+    public function __construct(array $request, $exceptionFactory)
+    {
+        $this->request = $request;
+        $this->exceptionFactory = $exceptionFactory;
+    }
+
+    public function createQueryParser()
+    {
+        return new MPScholten\RequestParser\RequestParser(
+            function ($parameterName) {
+                if (isset($this->request[$parameterName])) {
+                    return $this->request[$parameterName];
+                }
+
+                return null;
+            },
+            $this->exceptionFactory
+        );
+    }
+
+    public function createBodyParser()
+    {
+        return new MPScholten\RequestParser\RequestParser(
+            function ($parameterName) {
+                if (isset($this->request[$parameterName])) {
+                    return $this->request[$parameterName];
+                }
+
+                return null;
+            },
+            $this->exceptionFactory
+        );
+    }
+}
+
 trait CustomControllerHelperTrait
 {
-    private $queryParser;
-    private $bodyParser;
+    use \MPScholten\RequestParser\BaseControllerHelperTrait;
 
-    protected final function initRequestParser()
+    /**
+     * Will be called during the `initRequestParser()` call in `MyController`
+     */
+    protected final function createRequestParserFactory($request, $exceptionFactory)
     {
-        $this->queryParser = new MPScholten\RequestParser\RequestParser(
-            function ($parameterName) {
-                if (isset($_GET[$parameterName])) {
-                    return $_GET[$parameterName];
-                }
-
-                return null;
-            },
-            null
-        );
-        $this->bodyParser = new MPScholten\RequestParser\RequestParser(
-            function ($parameterName) {
-                if (isset($_POST[$parameterName])) {
-                    return $_POST[$parameterName];
-                }
-
-                return null;
-            },
-            null
-        );
+        return new CustomRequestParserFactory($request, $exceptionFactory);
     }
-
-    protected function queryParameter($name)
-    {
-        return $this->queryParser->get($name);
-    }
-
-    protected function bodyParameter($name)
-    {
-        return $this->bodyParser->get($name);
-    }
-
 }
 
 class MyController
@@ -59,7 +74,13 @@ class MyController
 
     public function __construct()
     {
-        $this->initRequestParser();
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $request = $_GET;
+        } else {
+            $request = $_POST;
+        }
+
+        $this->initRequestParser($request);
     }
 
     public function hello()

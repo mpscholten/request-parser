@@ -16,9 +16,10 @@ trait BaseControllerHelperTrait
 
     protected final function initRequestParser($request, callable $exceptionFactory = null)
     {
-        $requestParser = $this->createRequestParser($request, $exceptionFactory);
-        $this->queryParser = $requestParser->createQueryParser();
-        $this->bodyParser = $requestParser->createBodyParser();
+        /** @var $requestParserFactory RequestParserFactory */
+        $requestParserFactory = $this->createRequestParserFactory($request, $exceptionFactory);
+        $this->queryParser = $requestParserFactory->createQueryParser();
+        $this->bodyParser = $requestParserFactory->createBodyParser();
     }
 
     /**
