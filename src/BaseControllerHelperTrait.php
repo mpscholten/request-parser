@@ -2,9 +2,6 @@
 
 namespace MPScholten\RequestParser;
 
-use MPScholten\RequestParser\RequestParser;
-use MPScholten\RequestParser\TypeParser;
-
 trait BaseControllerHelperTrait
 {
     /**
