@@ -54,4 +54,9 @@ class TypeParser
     {
         return new BooleanParser($this->exceptionFactory, $this->name, $this->value);
     }
+
+    public function commaSeparated()
+    {
+        return new CommaSeparatedTypeParser($this->exceptionFactory, $this->name, $this->value);
+    }
 }
