@@ -32,9 +32,8 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
             [new JsonParser($this->createExceptionFactory(), 'config', null), ['value' => true]],
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', null), true],
-            [new BooleanParser($this->createExceptionFactory(), 'isNice', null), true],
+            [new BooleanParser($this->createExceptionFactory(), 'isNice', null), true]
             // TODO: [spec, default-value] with comma-separated data types
-            [new CommaSeparatedTypeParser($this->createExceptionFactory(), 'array', null), [1, 2, 3]]
         ];
     }
 
