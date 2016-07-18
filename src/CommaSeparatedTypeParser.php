@@ -76,10 +76,11 @@ class CommaSeparatedTypeParser
      */
     public function json()
     {
+        $valuesArr = [];
         if (!empty($this->value) && $this->value[0] !== '[' && $this->value[strlen($this->value) - 1] !== ']') {
-            $valuesArr = '[' . $this->value . ']';
+            $this->value = '[' . $this->value . ']';
         }
-        $valuesArr = json_decode($valuesArr, true);
+        $this->value = json_decode($valuesArr, true);
         foreach (explode(',', $this->value) as $value) {
             $valuesArr[] = (new JsonParser($this->exceptionFactory, $this->name, json_encode($value)))->required();
         }
