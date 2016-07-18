@@ -1,10 +1,13 @@
 <?php
+
 namespace MPScholten\RequestParser;
+
 class CommaSeparatedTypeParser
 {
     private $value;
     private $name;
     private $exceptionFactory;
+
     const INT = 'INT';
     const STRING = 'STRING';
     const FLOAT = 'FLOAT';
@@ -12,38 +15,96 @@ class CommaSeparatedTypeParser
     const YES_NO_BOOLEAN = 'YES_NO_BOOLEAN';
     const JSON = 'JSON';
     const DATE_TIME = 'DATE_TIME';
+
     public function __construct(callable $exceptionFactory, $name, $value)
     {
         $this->exceptionFactory = $exceptionFactory;
         $this->value = $value;
         $this->name = $name;
     }
+
+    /**
+     * @return int[]
+     */
     public function int()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::INT);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+           $valuesArr[] = (new IntParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
+
+    /**
+     * @return float[]
+     */
     public function float()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::FLOAT);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+            $valuesArr[] = (new FloatParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
+
+    /**
+     * @return string[]
+     */
     public function string()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::STRING);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+            $valuesArr[] = (new StringParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
+
+    /**
+     * @return \DateTime[]
+     */
     public function dateTime()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::DATE_TIME);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+            $valuesArr[] = (new DateTimeParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
+
+    /**
+     * @return array
+     */
     public function json()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::JSON);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+            $valuesArr[] = (new JsonParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
+
+    /**
+     * @return boolean[]
+     */
     public function yesNoBoolean()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::YES_NO_BOOLEAN);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+            $valuesArr[] = (new YesNoBooleanParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
+
+    /**
+     * @return boolean[]
+     */
+
     public function boolean()
     {
-        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value, self::BOOLEAN);
+        $valuesArr = [];
+        foreach (explode(',', $this->value) as $value) {
+            $valuesArr[] = (new BooleanParser($this->exceptionFactory, $this->name, $value))->required();
+        }
+        return $valuesArr;
     }
 }
