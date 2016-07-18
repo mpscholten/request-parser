@@ -8,14 +8,6 @@ class CommaSeparatedTypeParser
     private $name;
     private $exceptionFactory;
 
-    const INT = 'INT';
-    const STRING = 'STRING';
-    const FLOAT = 'FLOAT';
-    const BOOLEAN = 'BOOLEAN';
-    const YES_NO_BOOLEAN = 'YES_NO_BOOLEAN';
-    const JSON = 'JSON';
-    const DATE_TIME = 'DATE_TIME';
-
     public function __construct(callable $exceptionFactory, $name, $value)
     {
         $this->exceptionFactory = $exceptionFactory;
