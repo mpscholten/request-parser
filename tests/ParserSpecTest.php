@@ -63,7 +63,35 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new StringParser($this->createExceptionFactory(), 'name', 'quintly'), '', 'quintly'],
             [new OneOfParser($this->createExceptionFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
-            [new JsonParser($this->createExceptionFactory(), 'config', '{"value":false}'), ['value' => true], ['value' => false]]
+            [new JsonParser($this->createExceptionFactory(), 'config', '{"value":false}'), ['value' => true], ['value' => false]],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'groups', '1,2,3,4', 'INT'), ['5', '6', '7', '8'], ['1', '2', '3', '4']],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'fruits', 'cherry,apricot', 'STRING'),
+                ['apple', 'banana', 'orange', 'pear'],
+                ['cherry', 'apricot']
+            ],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'precipitation', '0.91,8.15,4.101', 'FLOAT'), [91.0, 15.8], [0.91, 8.15, 4.101]],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'trueFalseAnswers', 'true,false,true', 'BOOLEAN'), [true, true, false], [true, false, true]],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'yesNoAnswers', 'yes,yes,no', 'YES_NO_BOOLEAN'), [true, false, true], [true, true, false]],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'dateSamples', '2016-01-01,2016-01-02,2016-01-03', 'DATE_TIME'),
+                [
+                    new \DateTime('2010-12-24')
+                ],
+                [
+                    new \DateTime('2016-01-01'),
+                    new \DateTime('2016-01-02'),
+                    new \DateTime('2016-01-03')
+                ]
+            ],
+            [new CommaSeparatedParser($this->createExceptionFactory(), 'events', '{"event":"page_view","deviceTimestamp":"2016-01-01 08:10:00.151","url":"https://www.domain.com/"}', 'JSON'),
+                [
+                    ['event' => 'page_view', 'deviceTimestamp' => '2016-01-01 08:10:00.151', 'url' => 'https://www.domain.com/product/smart-phone/'],
+                    ['event' => 'add_to_cart', 'deviceTimestamp' => '2016-01-01 08:10:10.982', 'url' => 'https://www.domain.com/product/smart-phone/'],
+                    ['event' => 'page_view', 'deviceTimestamp' => '2016-01-01 08:10:11.101', 'url' => 'https://www.domain.com/shopping-cart/']
+                ],
+                [
+                    ['event' => 'page_view', 'deviceTimestamp' => '2016-01-01 08:10:00.151', 'url' => 'https://www.domain.com/']
+                ]
+            ]
         ];
     }
 
