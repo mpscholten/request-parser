@@ -97,7 +97,7 @@ class CommaSeparatedParser extends AbstractValueParser
 
     /**
      * @throws \Exception
-     * @return boolean
+     * @return int[]|float[]|string[]|boolean[]|\DateTime[]|[]
      */
     public function required()
     {
