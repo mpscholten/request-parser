@@ -98,7 +98,6 @@ class CommaSeparatedTypeParser
     /**
      * @return boolean[]
      */
-
     public function boolean()
     {
         $valuesArr = [];
