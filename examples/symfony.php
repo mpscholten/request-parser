@@ -9,7 +9,7 @@
 //   | http://localhost:8080/not-symfony.php?action=hello&name=yourname
 //   | http://localhost:8080/symfony.php?action=helloWithDefault
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
-//   | http://localhost:8080/symfony.php?action=valuesArray&arr=1,2,3
+//   | http://localhost:8080/symfony.php?action=valuesArray&userIds=21,22,23
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -49,9 +49,8 @@ class MyController
 
     public function valuesArray()
     {
-        $name = $this->queryParameter('arr')->commaSeparated()->int();
-        var_dump($name);
-        return "<br/><br/>The above is a var_dump result of <i>arr</i>";
+        $userIds = $this->queryParameter('userIds')->commaSeparated()->int();
+        return print_r($userIds, true);
     }
 }
 
