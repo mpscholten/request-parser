@@ -48,27 +48,6 @@ public function index()
 
 That's what this library offers. It allows you to express "_this action requires a page parameter of type int_" or "_this action has an optional parameter createdAt of type DateTime, and will be set to a default value if absent_".
 
-### Supported Data Types
-
-| Date Type  | Request example | Input example |
-| ------------- | ------------- | ------------- |
-| **_String_** | `$this->queryParameter('name') ->string() ->required();` | `'John Doe'`  |
-| **_Comma-Separated String_** | `$this->queryParameter('names') ->commaSeparatedString() ->required()` | `'John Doe,John Oliver'` |
-| **_Integer_** | `$this->queryParameter('id') ->int() ->required()` | `'5'` |
-| **_Comma-Separated Integer_**  | `$this->queryParameter('groupIds') ->commaSeparatedInt() ->required()` | `'5,6,7,8'` |
-| **_Float_** | `$this->queryParameter('ratio') ->float() ->required()` | `'0.98'` |
-| **_Comma-Separated Float_**  | `$this->queryParameter('precipitation') ->commaSeparatedFloat() ->required()` | `'0.98,1.24,5.21'`  |
-| **_DateTime_** | `$this->queryParameter('timestamp') ->dateTime() ->required()` | `'2016-07-20'` |
-| **_Comma-Separated DateTime_** | `$this->queryParameter('eventTimes') ->commaSeparatedDateTime() ->required()` | `'2016-07-20 13:10:50,2016-07-21 12:01:07'`  |
-| **_Boolean_** | `$this->queryParameter('success') ->boolean() ->required()` | `'true'` | 
-| **_Comma-Separated Boolean_** | `$this->queryParameter('answers') ->commaSeparatedBoolean() ->required()` | `'1,0,0,1'` |
-| **_Yes/No Boolean_**  | `$this->queryParameter('success') ->yesNoBoolean() ->required()` | `'yes'`  |
-| **_Comma-Separated Yes/No Boolean_** | `$this->queryParameter('answers') ->commaSeparatedYesNoBoolean() ->required()` | `'y,n,n,y,n'`  |
-| **_JSON_** | `$this->queryParameter('payload') ->json() ->required()` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"}'` |
-| **_Comma-Separated JSON_** | `$this ->queryParameter('events')->json() ->required()` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"},{"event":"add_to_basket","timestamp":"2016-07-20 13:11:01"}'`  |
-
-
-
 ### Examples
 
 If you'd like to go straight to the code now, you can just play around with the examples.
@@ -256,6 +235,26 @@ class DashboardController
 ```
 
 All of these types also provide a `defaultsTo` variant.
+
+###### Supported Data Types
+
+| Type  | Code example | Input example |
+| ------------- | ------------- | ------------- |
+| **String** | `$this->queryParameter('name') ->string() ->required();` | `'John Doe'`  |
+| **Comma-Separated String** | `$this->queryParameter('names') ->commaSeparatedString() ->required();` | `'John Doe,John Oliver'` |
+| **Integer** | `$this->queryParameter('id') ->int() ->required();` | `'5'` |
+| **Comma-Separated Integer**  | `$this->queryParameter('groupIds') ->commaSeparatedInt() ->required();` | `'5,6,7,8'` |
+| **Float** | `$this->queryParameter('ratio') ->float() ->required();` | `'0.98'` |
+| **Comma-Separated Float**  | `$this->queryParameter('precipitation') ->commaSeparatedFloat() ->required();` | `'0.98,1.24,5.21'`  |
+| **DateTime** | `$this->queryParameter('timestamp') ->dateTime() ->required();` | `'2016-07-20'` |
+| **Comma-Separated DateTime** | `$this->queryParameter('eventTimes') ->commaSeparatedDateTime() ->required();` | `'2016-07-20 13:10:50,2016-07-21 12:01:07'`  |
+| **Boolean** | `$this->queryParameter('success') ->boolean() ->required();` | `'true'` | 
+| **Comma-Separated Boolean** | `$this->queryParameter('answers') ->commaSeparatedBoolean() ->required();` | `'1,0,0,1'` |
+| **Yes/No Boolean**  | `$this->queryParameter('success') ->yesNoBoolean() ->required();` | `'yes'`  |
+| **Comma-Separated Yes/No Boolean** | `$this->queryParameter('answers') ->commaSeparatedYesNoBoolean() ->required();` | `'y,n,n,y,n'`  |
+| **JSON** | `$this->queryParameter('payload') ->json() ->required();` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"}'` |
+| **Comma-Separated JSON** | `$this ->queryParameter('events')->json() ->required();` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"},{"event":"add_to_basket","timestamp":"2016-07-20 13:11:01"}'`  |
+
 
 ##### GET Requests:
 `$this->queryParameter($name)` tells the controller that we want a query parameter ([everything after the "?" is called the query string](https://en.wikipedia.org/wiki/Query_string)). This is usually what we want when dealing with GET requests
