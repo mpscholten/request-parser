@@ -52,20 +52,20 @@ That's what this library offers. It allows you to express "_this action requires
 
 | Date Type  | Request example | Input example |
 | ------------- | ------------- | ------------- |
-| **_String_** | ` $this->queryParameter('name') ->string() ->required();` | `'John Doe'`  |
-| **_Comma-Separated String_** | ` $this->queryParameter('names')->commaSeparatedString()-> | `'John Doe,John Oliver'` |
-| **_Integer_** | ` $this->queryParameter('id') ->int() ->required()` | `'5'` |
-| **_Comma-Separated Integer_**  | ` $this->queryParameter('groupIds')->commaSeparatedInt()->required()` | `'5,6,7,8'` |
-| **_Float_** | ` $this->queryParameter('ratio') ->float() ->required()` | `'0.98'` |
-| **_Comma-Separated Float_**  | ` $this->queryParameter('precipitation') ->commaSeparatedFloat() ->required()` | `'0.98,1.24,5.21'`  |
-| **_DateTime_** | ` $this->queryParameter('timestamp') ->dateTime() ->required()` | `'2016-07-20'` |
-| **_Comma-Separated DateTime_** | ` $this->queryParameter('eventTimes') ->commaSeparatedDateTime() ->required()` | `'2016-07-20 13:10:50,2016-07-21 12:01:07'` |
-| **_Boolean_** | ` $this->queryParameter('success') ->boolean() ->required()` | `'true'` | 
-| **_Comma-Separated Boolean_** | ` $this->queryParameter('answers') ->commaSeparatedBoolean() ->required()` | `'1,0,0,1'` |
-| **_Yes/No Boolean_**  | ` $this->queryParameter('success') ->yesNoBoolean() ->required()` | `'yes'`  |
-| **_Comma-Separated Yes/No Boolean_** | ` $this->queryParameter('answers') ->commaSeparatedYesNoBoolean() ->required()` | `'y,n,n,y,n'`  |
-| **_JSON_** | ` $this->queryParameter('payload') ->json() ->required()` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"}'` |
-| **_Comma-Separated JSON_** | ` $this ->queryParameter('events')->json() ->required()` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"},{"event":"add_to_basket","timestamp":"2016-07-20 13:11:01"}'` |
+| **_String_** | `$this->queryParameter('name') ->string() ->required();` | `'John Doe'`  |
+| **_Comma-Separated String_** | `$this->queryParameter('names') ->commaSeparatedString() ->required()` | `'John Doe,John Oliver'` |
+| **_Integer_** | `$this->queryParameter('id') ->int() ->required()` | `'5'` |
+| **_Comma-Separated Integer_**  | `$this->queryParameter('groupIds') ->commaSeparatedInt() ->required()` | `'5,6,7,8'` |
+| **_Float_** | `$this->queryParameter('ratio') ->float() ->required()` | `'0.98'` |
+| **_Comma-Separated Float_**  | `$this->queryParameter('precipitation') ->commaSeparatedFloat() ->required()` | `'0.98,1.24,5.21'`  |
+| **_DateTime_** | `$this->queryParameter('timestamp') ->dateTime() ->required()` | `'2016-07-20'` |
+| **_Comma-Separated DateTime_** | `$this->queryParameter('eventTimes') ->commaSeparatedDateTime() ->required()` | `'2016-07-20 13:10:50,2016-07-21 12:01:07'`  |
+| **_Boolean_** | `$this->queryParameter('success') ->boolean() ->required()` | `'true'` | 
+| **_Comma-Separated Boolean_** | `$this->queryParameter('answers') ->commaSeparatedBoolean() ->required()` | `'1,0,0,1'` |
+| **_Yes/No Boolean_**  | `$this->queryParameter('success') ->yesNoBoolean() ->required()` | `'yes'`  |
+| **_Comma-Separated Yes/No Boolean_** | `$this->queryParameter('answers') ->commaSeparatedYesNoBoolean() ->required()` | `'y,n,n,y,n'`  |
+| **_JSON_** | `$this->queryParameter('payload') ->json() ->required()` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"}'` |
+| **_Comma-Separated JSON_** | `$this ->queryParameter('events')->json() ->required()` | `'{"event":"click","timestamp":"2016-07-20 13:10:50"},{"event":"add_to_basket","timestamp":"2016-07-20 13:11:01"}'`  |
 
 
 
