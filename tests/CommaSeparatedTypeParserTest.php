@@ -74,14 +74,14 @@ class CommaSeparatedTypeParserTest extends \PHPUnit_Framework_TestCase
     public function testCsvWithBoolean()
     {
         $expected = [false, true, true];
-        $result = (new CommaSeparatedBooleanParser($this->createExceptionFactory(), 'intArr', 'false,true,true'))->required();
+        $result = (new CommaSeparatedBooleanParser($this->createExceptionFactory(), 'boolArr', 'false,true,true'))->required();
         $this->assertEquals($expected, $result);
     }
 
     public function testCsvWithYesNoBoolean()
     {
         $expected = [true, false, true];
-        $result = (new CommaSeparatedYesNoBooleanParser($this->createExceptionFactory(), 'intArr', 'Y,N,Y'))->required();
+        $result = (new CommaSeparatedYesNoBooleanParser($this->createExceptionFactory(), 'yesNoBoolArr', 'Y,N,Y'))->required();
         $this->assertEquals($expected, $result);
     }
 }

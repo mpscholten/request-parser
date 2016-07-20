@@ -7,7 +7,7 @@ class CommaSeparatedBooleanParser extends AbstractValueParser
     protected function parse($value)
     {
         $booleanArr = explode(',', $value);
-        foreach ($booleanArr as $item => $key) {
+        foreach ($booleanArr as $key => $item) {
             if (strtoupper($item) === 'TRUE' || $item === '1') {
                 $booleanArr[$key] =  true;
                 continue;

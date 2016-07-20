@@ -11,6 +11,7 @@
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
 //   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
 //   | http://localhost:8080/symfony.php?action=dateTimeArray&timestamps=2016-01-01%2000:00:00,2016-12-31%2023:59:59
+//   | http://localhost:8080/symfony.php?action=booleanArray&answers=true,false,true
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -57,6 +58,12 @@ class MyController
     public function dateTimeArray()
     {
         $userIds = $this->queryParameter('timestamps')->commaSeparatedDateTime()->required();
+        return print_r($userIds, true);
+    }
+
+    public function booleanArray()
+    {
+        $userIds = $this->queryParameter('answers')->commaSeparatedBoolean()->required();
         return print_r($userIds, true);
     }
 }
