@@ -48,6 +48,25 @@ public function index()
 
 That's what this library offers. It allows you to express "_this action requires a page parameter of type int_" or "_this action has an optional parameter createdAt of type DateTime, and will be set to a default value if absent_".
 
+### Data Types
+
+| Date Type  | Input examples | Request example |
+| ------------- | ------------- | ------------- |
+| String  | `'John Doe'`  | `$this->queryParameter('name')->string()->required();` |
+| Comma-Separated String  | `'John Doe,John Oliver'`  | `$this->queryParameter('names')->commaSeparatedString()->required();` |
+| Integer  | `'5'`  | `$this->queryParameter('id')->int()->required()` |
+| Comma-Separated Integer  | `5,6,7,8`  | `$this->queryParameter('groupIds')->commaSeparatedInt()->required()` |
+| Float  | `'0.98'`  | `$this->queryParameter('ratio')->float()->required()` |
+| Comma-Separated Float  | `'0.98,1.24,5.21'`  | `$this->queryParameter('precipitation')->commaSeparatedFloat()->required()` |
+| DateTime  | `'2016-07-20'` | `$this->queryParameter('timestamp')->dateTime()->required()` |
+| Comma-Separated DateTime  | `'2016-07-20 13:10:50,2016-07-21 12:01:07'`  | `$this->queryParameter('eventTimes')->commaSeparatedDateTime()->required()` |
+| Boolean  | `'true'` | `$this->queryParameter('success')->boolean()->required()` |
+| Comma-Separated Boolean  | `'1,0,0,1'`  | `$this->queryParameter('answers')->commaSeparatedBoolean()->required()` |
+| Yes/No Boolean  | `'yes'`  | `$this->queryParameter('success')->yesNoBoolean()->required()` |
+| Comma-Separated Yes/No Boolean  | `'y,n,n,y,n'`  | `$this->queryParameter('answers')->commaSeparatedYesNoBoolean()->required()` |
+| JSON  | `'{"event":"click","timestamp":"2016-07-20 13:10:50"}'`  | `$this->queryParameter('payload')->json()->required()` |
+| Comma-Separated JSON  | `'{"event":"click","timestamp":"2016-07-20 13:10:50"},{"event":"add_to_basket","timestamp":"2016-07-20 13:11:01"}'`  | `$this->queryParameter('events')->json()->required()` |
+
 ### Examples
 
 If you'd like to go straight to the code now, you can just play around with the examples.
@@ -60,7 +79,7 @@ If you'd like to go straight to the code now, you can just play around with the 
 5. `php -S localhost:8080`
 6. Open it: http://localhost:8080/symfony.php?action=hello
 
-There are also several other php files inside the examples directory. To get your hands dirty, I suggest just modifing the examples a bit.
+There are also several other php files inside the examples directory. To get your hands dirty, I suggest just modifying the examples a bit.
 
 ### Getting Started
 
