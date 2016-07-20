@@ -9,7 +9,8 @@
 //   | http://localhost:8080/not-symfony.php?action=hello&name=yourname
 //   | http://localhost:8080/symfony.php?action=helloWithDefault
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
-//   | http://localhost:8080/symfony.php?action=valuesArray&userIds=21,22,23
+//   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
+//   | http://localhost:8080/symfony.php?action=dateTimeArray&timestamps=2016-01-01%2000:00:00,2016-12-31%2023:59:59
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -47,9 +48,15 @@ class MyController
         return print_r($payload, true);
     }
 
-    public function valuesArray()
+    public function intArray()
     {
-        $userIds = $this->queryParameter('userIds')->commaSeparated()->int();
+        $userIds = $this->queryParameter('userIds')->commaSeparatedInt()->required();
+        return print_r($userIds, true);
+    }
+
+    public function dateTimeArray()
+    {
+        $userIds = $this->queryParameter('timestamps')->commaSeparatedDateTime()->required();
         return print_r($userIds, true);
     }
 }
