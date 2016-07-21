@@ -51,7 +51,6 @@ class MyController
 
     public function intArray()
     {
-        //$userIds = $this->queryParameter('userIds')->commaSeparatedInt()->required();
         $userIds = $this->queryParameter('userIds')->commaSeparated()->int()->required();
         return print_r($userIds, true);
     }
