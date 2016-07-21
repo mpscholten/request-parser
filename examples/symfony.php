@@ -51,19 +51,20 @@ class MyController
 
     public function intArray()
     {
-        $userIds = $this->queryParameter('userIds')->commaSeparatedInt()->required();
+        //$userIds = $this->queryParameter('userIds')->commaSeparatedInt()->required();
+        $userIds = $this->queryParameter('userIds')->commaSeparated()->int()->required();
         return print_r($userIds, true);
     }
 
     public function dateTimeArray()
     {
-        $userIds = $this->queryParameter('timestamps')->commaSeparatedDateTime()->required();
+        $userIds = $this->queryParameter('timestamps')->commaSeparated()->dateTime()->required();
         return print_r($userIds, true);
     }
 
     public function booleanArray()
     {
-        $userIds = $this->queryParameter('answers')->commaSeparatedBoolean()->required();
+        $userIds = $this->queryParameter('answers')->commaSeparated()->boolean()->required();
         return print_r($userIds, true);
     }
 }

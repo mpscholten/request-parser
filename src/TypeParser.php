@@ -55,38 +55,8 @@ class TypeParser
         return new BooleanParser($this->exceptionFactory, $this->name, $this->value);
     }
 
-    public function commaSeparatedString()
+    public function commaSeparated()
     {
-        return new CommaSeparatedStringParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function commaSeparatedInt()
-    {
-        return new CommaSeparatedIntParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function commaSeparatedFloat()
-    {
-        return new CommaSeparatedFloatParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function commaSeparatedDateTime()
-    {
-        return new CommaSeparatedDateTimeParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function commaSeparatedJson()
-    {
-        return new CommaSeparatedJsonParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function commaSeparatedBoolean()
-    {
-        return new CommaSeparatedBooleanParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function commaSeparatedYesNoBoolean()
-    {
-        return new CommaSeparatedYesNoBooleanParser($this->exceptionFactory, $this->name, $this->value);
+        return new CommaSeparatedParser($this->exceptionFactory, $this->name, $this->value);
     }
 }
