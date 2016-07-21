@@ -176,7 +176,7 @@ class MyController
     
     public function myAction()
     {
-        $someParameter = $this->queryParameter('someParameter)->string()->defaultsTo('no value given');
+        $someParameter = $this->queryParameter('someParameter')->string()->defaultsTo('no value given');
     }
 }
 ```
