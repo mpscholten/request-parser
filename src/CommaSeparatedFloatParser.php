@@ -11,10 +11,10 @@ class CommaSeparatedFloatParser extends AbstractValueParser
         }
         $returnedIntArr = [];
         foreach (explode(',', $value) as $num) {
-            if (!is_numeric($num)) {
+            if (!is_numeric(trim($num))) {
                 return null;
             }
-            $returnedIntArr[] = $num;
+            $returnedIntArr[] = (float)trim($num);
         }
         return $returnedIntArr;
     }
