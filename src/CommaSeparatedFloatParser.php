@@ -9,8 +9,14 @@ class CommaSeparatedFloatParser extends AbstractValueParser
         if (empty($value)) {
             return null;
         }
-        $value = explode(',', $value);
-        return array_map('floatval', $value);
+        $returnedIntArr = [];
+        foreach (explode(',', $value) as $num) {
+            if (!is_numeric($num)) {
+                return null;
+            }
+            $returnedIntArr[] = $num;
+        }
+        return $returnedIntArr;
     }
 
     /**

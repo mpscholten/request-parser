@@ -6,9 +6,7 @@ class CommaSeparatedJsonParser extends AbstractValueParser
 {
     protected function parse($value)
     {
-        if (!empty($value) && $value[0] !== '[' && $value[strlen($value) - 1] !== ']') {
-            $value = '[' . $value . ']';
-        }
+        $value = '[' . $value . ']';
         try {
             $value = json_decode($value, true);
             return $value;

@@ -12,6 +12,7 @@
 //   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
 //   | http://localhost:8080/symfony.php?action=dateTimeArray&timestamps=2016-01-01%2000:00:00,2016-12-31%2023:59:59
 //   | http://localhost:8080/symfony.php?action=booleanArray&answers=true,false,true
+//   | http://localhost:8080/symfony.php?action=jsonArray&events=[{"a":1}]
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -64,6 +65,12 @@ class MyController
     public function booleanArray()
     {
         $userIds = $this->queryParameter('answers')->commaSeparated()->boolean()->required();
+        return print_r($userIds, true);
+    }
+
+    public function jsonArray()
+    {
+        $userIds = $this->queryParameter('events')->commaSeparated()->json()->required();
         return print_r($userIds, true);
     }
 }

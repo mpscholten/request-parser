@@ -9,8 +9,14 @@ class CommaSeparatedIntParser extends AbstractValueParser
         if (empty($value)) {
             return null;
         }
-        $value = explode(',', $value);
-        return array_map('intval', $value);
+        $returnedIntArr = [];
+        foreach (explode(',', $value) as $num) {
+            if (!ctype_digit($num)) {
+                return null;
+            }
+            $returnedIntArr[] = $num;
+        }
+        return $returnedIntArr;
     }
 
     /**
