@@ -32,7 +32,6 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new JsonParser($this->createExceptionFactory(), 'config', null), ['value' => true]],
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', null), true],
             [new BooleanParser($this->createExceptionFactory(), 'isNice', null), true]
-            // TODO: [spec, default-value] with comma-separated data types
         ];
     }
 

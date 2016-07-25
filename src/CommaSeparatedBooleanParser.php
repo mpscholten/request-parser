@@ -9,11 +9,11 @@ class CommaSeparatedBooleanParser extends AbstractValueParser
         $booleanArr = explode(',', $value);
         foreach ($booleanArr as $key => $item) {
             if (strtoupper($item) === 'TRUE' || $item === '1') {
-                $booleanArr[$key] =  true;
+                $booleanArr[$key] = true;
                 continue;
             }
             if (strtoupper($item) === 'FALSE' || $item === '0') {
-                $booleanArr[$key] =  false;
+                $booleanArr[$key] = false;
                 continue;
             }
             return null;
