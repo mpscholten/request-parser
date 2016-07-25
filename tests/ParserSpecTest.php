@@ -113,12 +113,12 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(NotFoundException::class);
         $spec->required();
     }
-    
+
     public function testStringSpecific()
     {
         $parser = new StringParser($this->createExceptionFactory(), 'name', '');
         $this->assertEquals('default', $parser->defaultsToIfEmpty('default'));
-        
+
         $parser = new StringParser($this->createExceptionFactory(), 'name', 'test');
         $this->assertEquals('test', $parser->defaultsToIfEmpty('default'));
     }

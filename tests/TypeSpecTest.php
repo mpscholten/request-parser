@@ -2,6 +2,13 @@
 
 namespace Test\Common\Foundation\RequestSpec;
 
+use MPScholten\RequestParser\CommaSeparatedBooleanParser;
+use MPScholten\RequestParser\CommaSeparatedDateTimeParser;
+use MPScholten\RequestParser\CommaSeparatedFloatParser;
+use MPScholten\RequestParser\CommaSeparatedIntParser;
+use MPScholten\RequestParser\CommaSeparatedJsonParser;
+use MPScholten\RequestParser\CommaSeparatedStringParser;
+use MPScholten\RequestParser\CommaSeparatedYesNoBooleanParser;
 use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
@@ -68,5 +75,48 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'isAwesome', 'true');
         $this->assertInstanceOf(BooleanParser::class, $spec->boolean());
+    }
+
+    // CSV type spec tests:
+    public function testCommaSeparatedInt()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'hundreds', '100,200,300');
+        $this->assertInstanceOf(CommaSeparatedIntParser::class, $spec->commaSeparated()->int());
+    }
+
+    public function testCommaSeparatedFloat()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'precipitation', '0.91,1.22,4.50');
+        $this->assertInstanceOf(CommaSeparatedFloatParser::class, $spec->commaSeparated()->float());
+    }
+
+    public function testCommaSeparatedString()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'tags', 'quintly,social,media,analytics');
+        $this->assertInstanceOf(CommaSeparatedStringParser::class, $spec->commaSeparated()->string());
+    }
+
+    public function testCommaSeparatedDateTime()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'eventsAt', '2016-01-01,2016-01-02');
+        $this->assertInstanceOf(CommaSeparatedDateTimeParser::class, $spec->commaSeparated()->dateTime());
+    }
+
+    public function testCommaSeparatedJson()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'payload', '{"a":5},{"a":6}');
+        $this->assertInstanceOf(CommaSeparatedJsonParser::class, $spec->commaSeparated()->json());
+    }
+
+    public function testCommaSeparatedYesNoBoolean()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'answers', 'yes,no,yes');
+        $this->assertInstanceOf(CommaSeparatedYesNoBooleanParser::class, $spec->commaSeparated()->yesNoBoolean());
+    }
+
+    public function testCommaSeparatedBoolean()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'answers', 'true,false,true');
+        $this->assertInstanceOf(CommaSeparatedBooleanParser::class, $spec->commaSeparated()->boolean());
     }
 }
