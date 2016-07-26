@@ -30,6 +30,11 @@ class TypeParser
         return new StringParser($this->exceptionFactory, $this->name, $this->value);
     }
 
+    public function url()
+    {
+        return new UrlParser($this->exceptionFactory, $this->name, $this->value);
+    }
+
     public function oneOf(array $validValues)
     {
         return new OneOfParser($this->exceptionFactory, $this->name, $this->value, $validValues);
