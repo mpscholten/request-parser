@@ -10,6 +10,7 @@ use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
+use MPScholten\RequestParser\EmailParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,6 +28,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new IntParser($this->createExceptionFactory(), 'id', null), 1],
             [new FloatParser($this->createExceptionFactory(), 'ratio', null), 0.91],
             [new StringParser($this->createExceptionFactory(), 'name', null), 'default value'],
+            [new EmailParser($this->createExceptionFactory(), 'emailAddress', null), 'john@doe.com'],
             [new OneOfParser($this->createExceptionFactory(), 'type', null, ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
             [new JsonParser($this->createExceptionFactory(), 'config', null), ['value' => true]],
@@ -44,6 +46,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'yes'), true, true],
             [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'true'), true, true],
             [new StringParser($this->createExceptionFactory(), 'name', 'quintly'), '', 'quintly'],
+            [new EmailParser($this->createExceptionFactory(), 'emailAddress', 'john@doe.com'), '', 'john@doe.com'],
             [new OneOfParser($this->createExceptionFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
             [new JsonParser($this->createExceptionFactory(), 'config', '{"value":false}'), ['value' => true], ['value' => false]]
