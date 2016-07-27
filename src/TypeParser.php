@@ -8,7 +8,7 @@ class TypeParser
     private $name;
     private $exceptionFactory;
 
-    public function __construct(callable $exceptionFactory, $name, $value)
+    public function __construct(ExceptionFactory $exceptionFactory, $name, $value)
     {
         $this->exceptionFactory = $exceptionFactory;
         $this->value = $value;

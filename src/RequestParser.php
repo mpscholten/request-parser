@@ -13,9 +13,9 @@ class RequestParser
     public function __construct(callable $readParameter, $exceptionFactory = null)
     {
         if ($exceptionFactory === null) {
-            $exceptionFactory = function($parameter) {
-                return new NotFoundException("Parameter $parameter not found");
-            };
+            $exceptionFactory = new DefaultExceptionFactory();
+        } elseif (is_callable($exceptionFactory)) {
+            $exceptionFactory = new LegacyExceptionFactory($exceptionFactory);
         }
 
         $this->readParameter = $readParameter;

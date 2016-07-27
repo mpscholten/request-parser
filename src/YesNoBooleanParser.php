@@ -12,8 +12,15 @@ class YesNoBooleanParser extends AbstractValueParser
         if (strtoupper($value) === 'NO' || strtoupper($value) === 'N') {
             return false;
         }
+
         return null;
     }
+
+    protected function describe()
+    {
+        return "either YES or NO";
+    }
+
 
     /**
      * @param boolean $defaultValue

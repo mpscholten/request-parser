@@ -26,4 +26,9 @@ class FloatParser extends AbstractValueParser
     {
         return parent::required();
     }
+
+    protected function describe()
+    {
+        return "a valid floating point number";
+    }
 }
