@@ -51,7 +51,7 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     public function testEmail()
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'emailAddress', 'john@doe.com');
-        $this->assertInstanceOf(EmailParser::class, $spec->email());
+        $this->assertInstanceOf(EmailParser::class, $spec->string()->email());
     }
 
     public function testOneOf()

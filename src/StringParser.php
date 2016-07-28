@@ -39,4 +39,9 @@ class StringParser extends AbstractValueParser
         
         return $this->defaultsTo($defaultValue);
     }
+
+    public function email()
+    {
+        return new EmailParser($this->exceptionFactory, $this->name, $this->value);
+    }
 }
