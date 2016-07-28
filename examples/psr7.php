@@ -9,6 +9,7 @@
 //   | http://localhost:8080/psr7.php?action=hello&name=yourname
 //   | http://localhost:8080/psr7.php?action=helloWithDefault
 //   | http://localhost:8080/psr7.php?action=json&payload={%22a%22:1}
+//   | http://localhost:8080/psr7.php?action=url&to=https://www.quintly.com
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -49,6 +50,13 @@ class MyController
         $payload = $this->queryParameter('payload')->json()->required();
 
         return print_r($payload, true);
+    }
+
+    public function url()
+    {
+        $to = $this->queryParameter('to')->string()->url()->required();
+
+        return "$to is indeed a valid URL";
     }
 }
 
