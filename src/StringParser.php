@@ -39,4 +39,9 @@ class StringParser extends AbstractValueParser
         
         return $this->defaultsTo($defaultValue);
     }
+
+    public function url()
+    {
+        return new UrlParser($this->exceptionFactory, $this->name, $this->value);
+    }
 }
