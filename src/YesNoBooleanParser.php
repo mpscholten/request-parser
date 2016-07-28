@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class YesNoBooleanParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "either yes or no";
+    }
+
     protected function parse($value)
     {
         if (strtoupper($value) === 'YES' || strtoupper($value) === 'Y') {
@@ -15,12 +20,6 @@ class YesNoBooleanParser extends AbstractValueParser
 
         return null;
     }
-
-    protected function describe()
-    {
-        return "either YES or NO";
-    }
-
 
     /**
      * @param boolean $defaultValue

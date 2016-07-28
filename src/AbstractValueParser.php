@@ -60,8 +60,5 @@ abstract class AbstractValueParser
         return $this->exceptionFactory->createInvalidValueException($this->name, $this->unparsedValue, $this->describe());
     }
 
-    protected function describe()
-    {
-        return "a value";
-    }
+    abstract protected function describe();
 }

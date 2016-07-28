@@ -12,6 +12,11 @@ class OneOfParser extends AbstractValueParser
         parent::__construct($exceptionFactory, $name, $value);
     }
 
+    protected function describe()
+    {
+        return "one of " . implode(", ", $this->validValues);
+    }
+
     protected function parse($value)
     {
         if (in_array($value, $this->validValues)) {

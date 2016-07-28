@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedJsonParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a comma separated list of json";
+    }
+
     protected function parse($value)
     {
         $value = '[' . $value . ']';

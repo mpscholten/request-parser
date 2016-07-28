@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class DateTimeParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a date or time";
+    }
+
     protected function parse($value)
     {
         if ($value === '') {

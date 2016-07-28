@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedStringParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a comma separated list of text";
+    }
+
     protected function parse($value)
     {
         return explode(',', $value);

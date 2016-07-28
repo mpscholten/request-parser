@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedBooleanParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a comma separated list of true or false";
+    }
+
     protected function parse($value)
     {
         $booleanArr = explode(',', $value);
