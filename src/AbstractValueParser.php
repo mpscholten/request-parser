@@ -8,9 +8,9 @@ namespace MPScholten\RequestParser;
  */
 abstract class AbstractValueParser
 {
-    private $exceptionFactory;
+    protected $exceptionFactory;
     protected $value;
-    private $name;
+    protected $name;
 
     public function __construct(callable $exceptionFactory, $name, $value)
     {

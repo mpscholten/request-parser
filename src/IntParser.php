@@ -26,4 +26,19 @@ class IntParser extends AbstractValueParser
     {
         return parent::required();
     }
+
+    /**
+     * @throws \Exception
+     * @param int $minValue
+     * @param int $maxValue
+     * @return int
+     */
+    public function inRange($minValue, $maxValue)
+    {
+        $value = $this->parse($this->value);
+        if (is_null($value) || $value < $minValue || $value > $maxValue) {
+            throw new \Exception("Out of range");
+        }
+        return $this->value;
+    }
 }
