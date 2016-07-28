@@ -4,6 +4,10 @@ namespace MPScholten\RequestParser;
 
 class DefaultExceptionFactory implements ExceptionFactory
 {
+    /**
+     * @param string $parameterName
+     * @return NotFoundException|\Exception
+     */
     public function createNotFoundException($parameterName)
     {
         $class = $this->getNotFoundExceptionClass();
@@ -23,6 +27,12 @@ class DefaultExceptionFactory implements ExceptionFactory
         return NotFoundException::class;
     }
 
+    /**
+     * @param string $parameterName
+     * @param string $parameterValue
+     * @param string $expected
+     * @return InvalidValueException|\Exception
+     */
     public function createInvalidValueException($parameterName, $parameterValue, $expected)
     {
         $class = $this->getInvalidValueExceptionClass();
@@ -34,7 +44,7 @@ class DefaultExceptionFactory implements ExceptionFactory
      */
     protected function generateInvalidValueMessage($parameterName, $parameterValue, $expected)
     {
-        return "Invalid value for parameter \"$parameterName\". Expected $expected, but got \"$parameterValue\".";
+        return "Invalid value for parameter \"$parameterName\". Expected $expected, but got \"$parameterValue\"";
     }
 
     protected function getInvalidValueExceptionClass()
