@@ -2,13 +2,34 @@
 
 namespace MPScholten\RequestParser;
 
+/**
+ * A flexible ExceptionFactory throwing the built-in `NotFoundException` and `InvalidValue` exceptions.
+ *
+ * To customize the error message: Override `generateNotFoundMessage` or `generateInvalidValueMessage`
+ * To customize the exception class: Override `getNotFoundExceptionClass` or `getInvalidValueExceptionClass`
+ *
+ * Example with custom error messages:
+ *
+ *      class FriendlyExceptionFactory extends DefaultExceptionFactory
+ *      {
+ *          protected function generateNotFoundMessage($parameterName)
+ *          {
+ *              return "$parameterName not found :)";
+ *          }
+ *
+ *          protected function generateInvalidValueMessage($parameterName, $parameterValue, $expected)
+ *          {
+ *              return "$parameterName is invalid :)";
+ *          }
+ *      }
+ */
 class DefaultExceptionFactory implements ExceptionFactory
 {
     /**
      * @param string $parameterName
      * @return NotFoundException|\Exception
      */
-    public function createNotFoundException($parameterName)
+    public final function createNotFoundException($parameterName)
     {
         $class = $this->getNotFoundExceptionClass();
         return new $class($this->generateNotFoundMessage($parameterName));
@@ -22,6 +43,10 @@ class DefaultExceptionFactory implements ExceptionFactory
         return "Parameter \"$parameterName\" not found";
     }
 
+    /**
+     * Override this method to customize the exception class
+     * @return string
+     */
     protected function getNotFoundExceptionClass()
     {
         return NotFoundException::class;
@@ -33,7 +58,7 @@ class DefaultExceptionFactory implements ExceptionFactory
      * @param string $expected
      * @return InvalidValueException|\Exception
      */
-    public function createInvalidValueException($parameterName, $parameterValue, $expected)
+    public final function createInvalidValueException($parameterName, $parameterValue, $expected)
     {
         $class = $this->getInvalidValueExceptionClass();
         return new $class($this->generateInvalidValueMessage($parameterName, $parameterValue, $expected));
@@ -47,6 +72,10 @@ class DefaultExceptionFactory implements ExceptionFactory
         return "Invalid value for parameter \"$parameterName\". Expected $expected, but got \"$parameterValue\"";
     }
 
+    /**
+     * Override this method to customize the exception class
+     * @return string
+     */
     protected function getInvalidValueExceptionClass()
     {
         return InvalidValueException::class;
