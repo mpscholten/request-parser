@@ -10,10 +10,12 @@ abstract class AbstractValueParser
 {
     private $exceptionFactory;
 
-    protected $value;
-    private $invalid;
-    private $unparsedValue;
     private $name;
+    private $unparsedValue;
+
+    protected $value = null;
+    private $invalid = false;
+    private $notFound = false;
 
     public function __construct(ExceptionFactory $exceptionFactory, $name, $value)
     {
@@ -21,13 +23,14 @@ abstract class AbstractValueParser
         $this->unparsedValue = $value;
         $this->exceptionFactory = $exceptionFactory;
 
-        $this->invalid = false;
         if ($value === null) {
-            $this->value = null;
+            $this->notFound = true;
         } else {
-            $this->value = $this->parse($value);
-            if ($this->value === null) {
+            $parsed = $this->parse($value);
+            if ($parsed === null) {
                 $this->invalid = true;
+            } else {
+                $this->value = $parsed;
             }
         }
     }
@@ -36,14 +39,14 @@ abstract class AbstractValueParser
 
     public function defaultsTo($defaultValue)
     {
-        return is_null($this->value) ? $defaultValue : $this->value;
+        return ($this->notFound || $this->invalid) ? $defaultValue : $this->value;
     }
 
     public function required()
     {
         if ($this->invalid) {
             throw $this->createInvalidValueException();
-        } elseif (is_null($this->value)) {
+        } elseif ($this->notFound) {
             throw $this->createNotFoundException();
         }
 
