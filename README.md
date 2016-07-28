@@ -281,22 +281,36 @@ The library also decreases the risk of unexpected null values because parameters
 
 ### Error Handling
 
-When a parameter is required but not found, the library will throw an exception. The default exception is `\MPScholten\RequestParser\NotFoundException`.
-You can override the exception:
+When a parameter is required but not found or when validation fails, the library will throw an exception. The default exceptions are `\MPScholten\RequestParser\NotFoundException` and `\MPScholten\RequestParser\InvalidValueException`.
+You can customize the exceptions:
 
 ```php
+
+class FriendlyExceptionFactory extends \MPScholten\RequestParser\DefaultExceptionFactory
+{
+    protected function generateNotFoundMessage($parameterName)
+    {
+        return "Looks like $parameterName is missing :)";
+    }
+
+    protected function getNotFoundExceptionClass()
+    {
+        return CustomException::class;
+    }
+}
+
 class MyController
 {
     use \MPScholten\RequestParser\Symfony\ControllerHelperTrait;
     
     public function __construct(Request $request)
     {
-        $this->initRequestParser($request, function($parameter) {
-            throw new CustomException($message);
-        });
+        $this->initRequestParser($request, new FriendlyExceptionFactory());
     }
 }
 ```
+
+Check it out [this example about custom exceptions](https://github.com/mpscholten/request-parser/blob/master/examples/custom-exception.php).
 
 The suggested way to handle the errors thrown by the library is to catch them inside your front controller:
 
@@ -304,6 +318,8 @@ The suggested way to handle the errors thrown by the library is to catch them in
 try {
     $controller->$action();
 } catch (NotFoundException $e) {
+    echo $e->getMessage();
+} catch (InvalidValueException $e) {
     echo $e->getMessage();
 }
 ```

@@ -9,26 +9,44 @@ namespace MPScholten\RequestParser;
 abstract class AbstractValueParser
 {
     private $exceptionFactory;
-    protected $value;
-    private $name;
 
-    public function __construct(callable $exceptionFactory, $name, $value)
+    private $name;
+    private $unparsedValue;
+
+    protected $value = null;
+    private $invalid = false;
+    private $notFound = false;
+
+    public function __construct(ExceptionFactory $exceptionFactory, $name, $value)
     {
-        $this->value = is_null($value) ? null : $this->parse($value);
         $this->name = $name;
+        $this->unparsedValue = $value;
         $this->exceptionFactory = $exceptionFactory;
+
+        if ($value === null) {
+            $this->notFound = true;
+        } else {
+            $parsed = $this->parse($value);
+            if ($parsed === null) {
+                $this->invalid = true;
+            } else {
+                $this->value = $parsed;
+            }
+        }
     }
 
     abstract protected function parse($value);
 
     public function defaultsTo($defaultValue)
     {
-        return is_null($this->value) ? $defaultValue : $this->value;
+        return ($this->notFound || $this->invalid) ? $defaultValue : $this->value;
     }
 
     public function required()
     {
-        if (is_null($this->value)) {
+        if ($this->invalid) {
+            throw $this->createInvalidValueException();
+        } elseif ($this->notFound) {
             throw $this->createNotFoundException();
         }
 
@@ -37,6 +55,13 @@ abstract class AbstractValueParser
 
     private function createNotFoundException()
     {
-        return call_user_func($this->exceptionFactory, $this->name);
+        return $this->exceptionFactory->createNotFoundException($this->name);
     }
+
+    final protected function createInvalidValueException()
+    {
+        return $this->exceptionFactory->createInvalidValueException($this->name, $this->unparsedValue, $this->describe());
+    }
+
+    abstract protected function describe();
 }

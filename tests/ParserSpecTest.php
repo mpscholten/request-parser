@@ -2,8 +2,10 @@
 
 use MPScholten\RequestParser\AbstractValueParser;
 use MPScholten\RequestParser\DateTimeParser;
+use MPScholten\RequestParser\DefaultExceptionFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
+use MPScholten\RequestParser\InvalidValueException;
 use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
@@ -15,9 +17,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
 {
     private function createExceptionFactory()
     {
-        return function() {
-            throw new NotFoundException();
-        };
+        return new DefaultExceptionFactory();
     }
 
     public function specWithoutValueAndDefaultValueProvider()
@@ -55,8 +55,8 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         return [
             [new IntParser($this->createExceptionFactory(), 'id', 'string instead of an int'), 1],
             [new FloatParser($this->createExceptionFactory(), 'ration', 'string instead of an float'), 0.91],
-            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', null), false],
-            [new BooleanParser($this->createExceptionFactory(), 'isAwesome', null), false],
+            [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'invalid'), false],
+            [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'invalid'), false],
             // StringParser has no invalid data types
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],
@@ -110,7 +110,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
      */
     public function testRequiredThrowsExceptionOnInvalidValue(AbstractValueParser $spec)
     {
-        $this->setExpectedException(NotFoundException::class);
+        $this->setExpectedException(InvalidValueException::class);
         $spec->required();
     }
 
