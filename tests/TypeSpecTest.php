@@ -51,7 +51,7 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'referrer', 'https://www.quintly.com/');
-        $this->assertInstanceOf(UrlParser::class, $spec->url());
+        $this->assertInstanceOf(UrlParser::class, $spec->string()->url());
     }
 
     public function testOneOf()
