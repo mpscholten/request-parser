@@ -6,13 +6,14 @@
 // - Start webserver: `cd examples && php -S localhost:8080`
 // - Open in browser:
 //   | http://localhost:8080/symfony.php?action=hello
-//   | http://localhost:8080/not-symfony.php?action=hello&name=yourname
+//   | http://localhost:8080/symfony.php?action=hello&name=yourname
 //   | http://localhost:8080/symfony.php?action=helloWithDefault
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
 //   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
 //   | http://localhost:8080/symfony.php?action=dateTimeArray&timestamps=2016-01-01%2000:00:00,2016-12-31%2023:59:59
 //   | http://localhost:8080/symfony.php?action=booleanArray&answers=true,false,true
 //   | http://localhost:8080/symfony.php?action=jsonArray&events=[{"a":1}]
+//   | http://localhost:8080/symfony.php?action=email&recipient=john@doe.com
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -72,6 +73,12 @@ class MyController
     {
         $userIds = $this->queryParameter('events')->commaSeparated()->json()->required();
         return print_r($userIds, true);
+    }
+
+    public function email()
+    {
+        $recipient = $this->queryParameter('recipient')->string()->email()->required();
+        return "'$recipient' is indeed a valid email address";
     }
 }
 
