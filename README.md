@@ -268,8 +268,7 @@ The library allows you to take extensive use of autocompletion features of your 
 your IDE will offer you all the possible input types, e.g. `string()` or `int()`. After picking a type, e.g. `string()`, your IDE will offer
 `required()` or `defaultsTo(defaultValue)` to specify the behavior when the parameter is not set.
 
-![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-type.png?raw=true)
-![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-required.png?raw=true)
+![](https://github.com/mpscholten/request-parser/blob/master/images/autocomplete-anim.gif?raw=true)
 
 ### Static Analysis
 
