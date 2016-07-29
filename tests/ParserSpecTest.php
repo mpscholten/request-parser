@@ -13,6 +13,7 @@ use MPScholten\RequestParser\NotFoundException;
 use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
 use MPScholten\RequestParser\EmailParser;
+use MPScholten\RequestParser\UrlParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,6 +30,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new FloatParser($this->createExceptionFactory(), 'ratio', null), 0.91],
             [new StringParser($this->createExceptionFactory(), 'name', null), 'default value'],
             [new EmailParser($this->createExceptionFactory(), 'emailAddress', null), 'john@doe.com'],
+            [new UrlParser($this->createExceptionFactory(), 'referrer', null), 'https://www.quintly.com/'],
             [new OneOfParser($this->createExceptionFactory(), 'type', null, ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
             [new JsonParser($this->createExceptionFactory(), 'config', null), ['value' => true]],
@@ -46,6 +48,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'yes'), true, true],
             [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'true'), true, true],
             [new StringParser($this->createExceptionFactory(), 'name', 'quintly'), '', 'quintly'],
+            [new UrlParser($this->createExceptionFactory(), 'referrer', 'https://www.quintly.com/'), 'https://www.quintly.com/blog/', 'https://www.quintly.com/'],
             [new EmailParser($this->createExceptionFactory(), 'emailAddress', 'john@doe.com'), '', 'john@doe.com'],
             [new OneOfParser($this->createExceptionFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
@@ -61,6 +64,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'invalid'), false],
             [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'invalid'), false],
             [new EmailParser($this->createExceptionFactory(), 'emailAddress', 'invalid_email'), 'john@doe.com'],
+            [new UrlParser($this->createExceptionFactory(), 'referrer', 'https:://www.invalid.url/^'), 'https://www.quintly.com/'],
             // StringParser has no invalid data types
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],
