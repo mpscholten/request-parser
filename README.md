@@ -270,6 +270,9 @@ your IDE will offer you all the possible input types, e.g. `string()` or `int()`
 
 ![](https://github.com/mpscholten/request-parser/blob/master/images/autocomplete-anim.gif?raw=true)
 
+![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-type.png?raw=true)
+![](https://github.com/mpscholten/request-parser/blob/master/images/autocompletion-required.png?raw=true)
+
 ### Static Analysis
 
 The library supports static analysis by your IDE. E.g. when having a parameter like `$createdAt = $this->queryParameter('createdAt')->dateTime()->required();`,
