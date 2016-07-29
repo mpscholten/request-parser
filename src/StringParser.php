@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class StringParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a text";
+    }
+
     protected function parse($value)
     {
         return (string) $value;

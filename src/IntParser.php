@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class IntParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "an integer";
+    }
+
     protected function parse($value)
     {
         return is_numeric($value) ? (int)$value : null;

@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedDateTimeParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a comma separated list of times";
+    }
+
     protected function parse($value)
     {
         $dateTimeArr = explode(',', $value);

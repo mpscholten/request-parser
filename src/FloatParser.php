@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class FloatParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a floating point number";
+    }
+
     protected function parse($value)
     {
         return is_numeric($value) ? (float)$value : null;

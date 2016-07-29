@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class JsonParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a json encoded value";
+    }
+
     protected function parse($value)
     {
         return json_decode($value, true);

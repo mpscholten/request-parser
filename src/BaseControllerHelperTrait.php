@@ -14,7 +14,7 @@ trait BaseControllerHelperTrait
      */
     private $bodyParser;
 
-    protected final function initRequestParser($request, callable $exceptionFactory = null)
+    protected final function initRequestParser($request, $exceptionFactory = null)
     {
         /** @var $requestParserFactory RequestParserFactory */
         $requestParserFactory = $this->createRequestParserFactory($request, $exceptionFactory);
