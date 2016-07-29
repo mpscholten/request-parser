@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedFloatParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a comma separated list of floating point numbers";
+    }
+
     protected function parse($value)
     {
         if (empty($value)) {

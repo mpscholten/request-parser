@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class BooleanParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "either true or false";
+    }
+
     protected function parse($value)
     {
         if (strtoupper($value) === 'TRUE' || $value === '1') {

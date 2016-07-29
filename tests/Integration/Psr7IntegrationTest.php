@@ -46,7 +46,7 @@ class Psr7IntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotFoundActionThrowsException(Psr7Controller $controller)
     {
-        $this->setExpectedException(\MPScholten\RequestParser\NotFoundException::class, "Parameter notFound not found");
+        $this->setExpectedException(\MPScholten\RequestParser\NotFoundException::class, 'Parameter "notFound" not found');
         $controller->testNotFound();
     }
 }

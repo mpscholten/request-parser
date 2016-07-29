@@ -10,6 +10,7 @@ use MPScholten\RequestParser\CommaSeparatedJsonParser;
 use MPScholten\RequestParser\CommaSeparatedStringParser;
 use MPScholten\RequestParser\CommaSeparatedYesNoBooleanParser;
 use MPScholten\RequestParser\DateTimeParser;
+use MPScholten\RequestParser\DefaultExceptionFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\UrlParser;
@@ -25,9 +26,7 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
 {
     private function createExceptionFactory()
     {
-        return function() {
-            throw new NotFoundException();
-        };
+        return new DefaultExceptionFactory();
     }
 
     public function testInt()

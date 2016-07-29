@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedIntParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a comma separated list of integers";
+    }
+
     protected function parse($value)
     {
         if (empty($value)) {
