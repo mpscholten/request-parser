@@ -24,12 +24,11 @@ class StringParser extends AbstractValueParser
     }
 
     /**
-     * @throws \Exception
      * @return string
      */
-    public function required()
+    public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
-        return parent::required();
+        return parent::required($invalidValueMessage, $notFoundMessage);
     }
 
     /**
@@ -47,11 +46,11 @@ class StringParser extends AbstractValueParser
 
     public function url()
     {
-        return new UrlParser($this->exceptionFactory, $this->name, $this->value);
+        return new UrlParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
     }
 
     public function email()
     {
-        return new EmailParser($this->exceptionFactory, $this->name, $this->value);
+        return new EmailParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
     }
 }

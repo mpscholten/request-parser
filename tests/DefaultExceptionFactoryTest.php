@@ -17,17 +17,17 @@ class DefaultExceptionFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateNotFoundException()
     {
-        $exception = $this->factory->createNotFoundException('id');
+        $exception = $this->factory->createNotFoundException('message');
 
         $this->assertInstanceOf(NotFoundException::class, $exception);
-        $this->assertEquals('Parameter "id" not found', $exception->getMessage());
+        $this->assertEquals('message', $exception->getMessage());
     }
 
     public function testCreateInvalidValueException()
     {
-        $exception = $this->factory->createInvalidValueException('id', 'invalidinteger', 'an integer');
+        $exception = $this->factory->createInvalidValueException('message');
 
         $this->assertInstanceOf(NotFoundException::class, $exception);
-        $this->assertEquals('Invalid value for parameter "id". Expected an integer, but got "invalidinteger"', $exception->getMessage());
+        $this->assertEquals('message', $exception->getMessage());
     }
 }

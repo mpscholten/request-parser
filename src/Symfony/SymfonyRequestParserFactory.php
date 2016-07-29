@@ -10,11 +10,13 @@ class SymfonyRequestParserFactory implements RequestParserFactory
 {
     private $request;
     private $exceptionFactory;
+    private $messageFactory;
 
-    public function __construct(Request $request, $exceptionFactory = null)
+    public function __construct(Request $request, $exceptionFactory = null, $messageFactory = null)
     {
         $this->request = $request;
         $this->exceptionFactory = $exceptionFactory;
+        $this->messageFactory = $messageFactory;
     }
 
     public function createQueryParser()
@@ -23,7 +25,7 @@ class SymfonyRequestParserFactory implements RequestParserFactory
             return $this->request->query->get($name, null);
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->exceptionFactory, $this->messageFactory);
     }
 
     public function createBodyParser()
@@ -32,6 +34,6 @@ class SymfonyRequestParserFactory implements RequestParserFactory
             return $this->request->request->get($name, null);
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->exceptionFactory, $this->messageFactory);
     }
 }

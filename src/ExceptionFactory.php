@@ -5,28 +5,26 @@ namespace MPScholten\RequestParser;
 interface ExceptionFactory
 {
     /**
-     * Creates a new exception based on the parameter name which is thrown when the parameter
-     * is not found in the request.
+     * Creates a new exception based on the message
      *
      * A possible implementation could be just:
      *
-     *      return new Exception("$parameterName not found");
+     *      return new Exception($message);
      *
-     * @param string $parameterName
+     * @param string $message
      * @return \Exception
      */
-    public function createNotFoundException($parameterName);
+    public function createNotFoundException($message);
 
     /**
-     * Creates a new exception based on the parameter name, parameter value and a description
-     * of what is expected ("an integer", "either yes or no", "a string").
+     * Creates a new exception based on the message
      *
      * A possible implementation could be just:
      *
-     *      return new Exception("$parameterName was invalid. Got $parameterValue but expected $expected");
+     *      return new Exception($message);
      *
      * @param string $parameterName
      * @return \Exception
      */
-    public function createInvalidValueException($parameterName, $parameterValue, $expected);
+    public function createInvalidValueException($message);
 }

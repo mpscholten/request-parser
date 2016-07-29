@@ -4,6 +4,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use MPScholten\RequestParser\DefaultExceptionFactory;
+use MPScholten\RequestParser\DefaultMessageFactory;
 use MPScholten\RequestParser\Symfony\ControllerHelperTrait;
 
 $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
@@ -13,26 +15,16 @@ class CustomException extends Exception
 
 }
 
-class FriendlyExceptionFactory extends \MPScholten\RequestParser\DefaultExceptionFactory
+class FriendlyMessageFactory extends DefaultMessageFactory
 {
-    protected function generateNotFoundMessage($parameterName)
+    public function createNotFoundMessage($parameterName)
     {
         return "Looks like $parameterName is missing :)";
     }
 
-    protected function generateInvalidValueMessage($parameterName, $parameterValue, $expected)
+    public function createInvalidValueMessage($parameterName, $parameterValue, $expected)
     {
         return "Whoops :) $parameterName seems to be invalid. We're looking for $expected but you provided '$parameterValue'";
-    }
-
-    protected function getNotFoundExceptionClass()
-    {
-        return CustomException::class;
-    }
-
-    protected function getInvalidValueExceptionClass()
-    {
-        return CustomException::class;
     }
 }
 
@@ -42,7 +34,10 @@ class MyController
 
     public function __construct(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $this->initRequestParser($request, new FriendlyExceptionFactory());
+        $exceptionFactory = new DefaultExceptionFactory(CustomException::class, CustomException::class);
+        $messageFactory = new FriendlyMessageFactory();
+
+        $this->initRequestParser($request, $exceptionFactory, $messageFactory);
     }
 
     public function hello()

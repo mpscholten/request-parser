@@ -10,11 +10,13 @@ class Psr7RequestParserFactory implements RequestParserFactory
 {
     private $request;
     private $exceptionFactory;
-    
-    public function __construct(ServerRequestInterface $request, $exceptionFactory = null)
+    private $messageFactory;
+
+    public function __construct(ServerRequestInterface $request, $exceptionFactory = null, $messageFactory = null)
     {
         $this->request = $request;
         $this->exceptionFactory = $exceptionFactory;
+        $this->messageFactory = $messageFactory;
     }
 
     public function createQueryParser()
@@ -29,7 +31,7 @@ class Psr7RequestParserFactory implements RequestParserFactory
             return $query[$name];
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->exceptionFactory, $this->messageFactory);
     }
 
     public function createBodyParser()
@@ -44,6 +46,6 @@ class Psr7RequestParserFactory implements RequestParserFactory
             return $body[$name];
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->exceptionFactory, $this->messageFactory);
     }
 }

@@ -9,6 +9,7 @@ namespace MPScholten\RequestParser;
 abstract class AbstractValueParser
 {
     protected $exceptionFactory;
+    protected $messageFactory;
 
     protected $name;
     private $unparsedValue;
@@ -17,11 +18,12 @@ abstract class AbstractValueParser
     private $invalid = false;
     private $notFound = false;
 
-    public function __construct(ExceptionFactory $exceptionFactory, $name, $value)
+    public function __construct(ExceptionFactory $exceptionFactory, MessageFactory $messageFactory, $name, $value)
     {
         $this->name = $name;
         $this->unparsedValue = $value;
         $this->exceptionFactory = $exceptionFactory;
+        $this->messageFactory = $messageFactory;
 
         if ($value === null) {
             $this->notFound = true;
@@ -42,25 +44,19 @@ abstract class AbstractValueParser
         return ($this->notFound || $this->invalid) ? $defaultValue : $this->value;
     }
 
-    public function required()
+    public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
+        $messageFactory = new StaticMessageFactory($notFoundMessage, $invalidValueMessage, $this->messageFactory);
+
         if ($this->invalid) {
-            throw $this->createInvalidValueException();
+            $message = $messageFactory->createInvalidValueMessage($this->name, $this->unparsedValue, $this->describe());
+            throw $this->exceptionFactory->createInvalidValueException($message);
         } elseif ($this->notFound) {
-            throw $this->createNotFoundException();
+            $message = $messageFactory->createNotFoundMessage($this->name);
+            throw $this->exceptionFactory->createInvalidValueException($message);
         }
 
         return $this->value;
-    }
-
-    private function createNotFoundException()
-    {
-        return $this->exceptionFactory->createNotFoundException($this->name);
-    }
-
-    final protected function createInvalidValueException()
-    {
-        return $this->exceptionFactory->createInvalidValueException($this->name, $this->unparsedValue, $this->describe());
     }
 
     abstract protected function describe();

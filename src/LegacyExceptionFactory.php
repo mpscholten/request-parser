@@ -34,13 +34,13 @@ class LegacyExceptionFactory implements ExceptionFactory
         $this->closure = $closure;
     }
 
-    public function createNotFoundException($parameterName)
+    public function createNotFoundException($message)
     {
-        return call_user_func($this->closure, $parameterName);
+        return call_user_func($this->closure, $message);
     }
 
-    public function createInvalidValueException($parameterName, $parameterValue, $expected)
+    public function createInvalidValueException($message)
     {
-        return call_user_func($this->closure, $parameterName);
+        return call_user_func($this->closure, $message);
     }
 }

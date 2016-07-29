@@ -6,10 +6,10 @@ class OneOfParser extends AbstractValueParser
 {
     private $validValues;
 
-    public function __construct($exceptionFactory, $name, $value, array $validValues)
+    public function __construct(ExceptionFactory $exceptionFactory, MessageFactory $messageFactory, $name, $value, array $validValues)
     {
         $this->validValues = $validValues;
-        parent::__construct($exceptionFactory, $name, $value);
+        parent::__construct($exceptionFactory, $messageFactory, $name, $value);
     }
 
     protected function describe()
@@ -39,8 +39,8 @@ class OneOfParser extends AbstractValueParser
      * @throws \Exception
      * @return string
      */
-    public function required()
+    public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
-        return parent::required();
+        return parent::required($invalidValueMessage, $notFoundMessage);
     }
 }
