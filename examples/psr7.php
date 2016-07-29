@@ -9,7 +9,6 @@
 //   | http://localhost:8080/psr7.php?action=hello&name=yourname
 //   | http://localhost:8080/psr7.php?action=helloWithDefault
 //   | http://localhost:8080/psr7.php?action=json&payload={%22a%22:1}
-//   | http://localhost:8080/psr7.php?action=email&recipient=john@doe.com
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -50,12 +49,6 @@ class MyController
         $payload = $this->queryParameter('payload')->json()->required();
 
         return print_r($payload, true);
-    }
-
-    public function email()
-    {
-        $recipient = $this->queryParameter('recipient')->string()->email()->required();
-        return "'$recipient' is indeed a valid email address";
     }
 }
 
