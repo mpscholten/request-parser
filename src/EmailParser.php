@@ -2,15 +2,18 @@
 
 namespace MPScholten\RequestParser;
 
-class StringParser extends AbstractValueParser
+class EmailParser extends AbstractValueParser
 {
     protected function describe()
     {
-        return "a text";
+        return "a valid email address";
     }
 
     protected function parse($value)
     {
+        if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+            return null;
+        }
         return (string) $value;
     }
 
@@ -41,17 +44,7 @@ class StringParser extends AbstractValueParser
         if ($this->value === '') {
             return $defaultValue;
         }
-        
+
         return $this->defaultsTo($defaultValue);
-    }
-
-    public function url()
-    {
-        return new UrlParser($this->exceptionFactory, $this->name, $this->value);
-    }
-
-    public function email()
-    {
-        return new EmailParser($this->exceptionFactory, $this->name, $this->value);
     }
 }

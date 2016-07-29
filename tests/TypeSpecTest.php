@@ -10,6 +10,7 @@ use MPScholten\RequestParser\CommaSeparatedJsonParser;
 use MPScholten\RequestParser\CommaSeparatedStringParser;
 use MPScholten\RequestParser\CommaSeparatedYesNoBooleanParser;
 use MPScholten\RequestParser\DateTimeParser;
+use MPScholten\RequestParser\EmailParser;
 use MPScholten\RequestParser\DefaultExceptionFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
@@ -51,6 +52,12 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'referrer', 'https://www.quintly.com/');
         $this->assertInstanceOf(UrlParser::class, $spec->string()->url());
+    }
+
+    public function testEmail()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'emailAddress', 'john@doe.com');
+        $this->assertInstanceOf(EmailParser::class, $spec->string()->email());
     }
 
     public function testOneOf()

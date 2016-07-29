@@ -6,7 +6,7 @@
 // - Start webserver: `cd examples && php -S localhost:8080`
 // - Open in browser:
 //   | http://localhost:8080/symfony.php?action=hello
-//   | http://localhost:8080/not-symfony.php?action=hello&name=yourname
+//   | http://localhost:8080/symfony.php?action=hello&name=yourname
 //   | http://localhost:8080/symfony.php?action=helloWithDefault
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
 //   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
