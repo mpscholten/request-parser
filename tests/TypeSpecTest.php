@@ -13,6 +13,7 @@ use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\DefaultExceptionFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
+use MPScholten\RequestParser\UrlParser;
 use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
@@ -44,6 +45,12 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser($this->createExceptionFactory(), 'name', 'quintly');
         $this->assertInstanceOf(StringParser::class, $spec->string());
+    }
+
+    public function testUrl()
+    {
+        $spec = new TypeParser($this->createExceptionFactory(), 'referrer', 'https://www.quintly.com/');
+        $this->assertInstanceOf(UrlParser::class, $spec->string()->url());
     }
 
     public function testOneOf()
