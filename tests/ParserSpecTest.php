@@ -60,6 +60,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new FloatParser($this->createExceptionFactory(), 'ration', 'string instead of an float'), 0.91],
             [new YesNoBooleanParser($this->createExceptionFactory(), 'isAwesome', 'invalid'), false],
             [new BooleanParser($this->createExceptionFactory(), 'isAwesome', 'invalid'), false],
+            [new EmailParser($this->createExceptionFactory(), 'emailAddress', 'invalid_email'), 'john@doe.com'],
             // StringParser has no invalid data types
             [new OneOfParser($this->createExceptionFactory(), 'type', 'x', ['a', 'b']), 'a'],
             [new DateTimeParser($this->createExceptionFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],

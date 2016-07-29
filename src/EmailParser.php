@@ -4,6 +4,11 @@ namespace MPScholten\RequestParser;
 
 class EmailParser extends AbstractValueParser
 {
+    protected function describe()
+    {
+        return "a valid email address";
+    }
+
     protected function parse($value)
     {
         if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
