@@ -14,11 +14,11 @@ class RequestParser
     public function __construct(callable $readParameter, $exceptionFactory = null, $messageFactory = null)
     {
         if ($exceptionFactory === null) {
-            $exceptionFactory = new DefaultExceptionFactory();
+            $exceptionFactory = new ExceptionFactory();
         } elseif (is_callable($exceptionFactory)) {
             if ($messageFactory !== null) {
                 $exceptionClass = get_class($exceptionFactory('some parameter'));
-                throw new \RuntimeException("To use a custom MessageFactory, you have to upgrade the ExceptionFactory. Currently you're providing a callable. This way is deprecated. Just pass `new DefaultExceptionFactory($exceptionClass::class)`");
+                throw new \RuntimeException("To use a custom MessageFactory, you have to upgrade the ExceptionFactory. Currently you're providing a callable. This way is deprecated. Just pass `new ExceptionFactory($exceptionClass::class)`");
             }
 
             $exceptionFactory = new LegacyExceptionFactory($exceptionFactory);
@@ -26,7 +26,7 @@ class RequestParser
         }
 
         if ($messageFactory === null) {
-            $messageFactory = new DefaultMessageFactory();
+            $messageFactory = new MessageFactory();
         }
 
         $this->readParameter = $readParameter;

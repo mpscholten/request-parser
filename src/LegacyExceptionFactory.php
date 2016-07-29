@@ -25,7 +25,7 @@ namespace MPScholten\RequestParser;
  * an integer parameter with value "invalidInt" it just says "Parameter not found"
  * instead of "Invalid value for integer".
  */
-class LegacyExceptionFactory implements ExceptionFactory
+class LegacyExceptionFactory extends ExceptionFactory
 {
     private $closure;
 

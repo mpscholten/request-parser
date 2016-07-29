@@ -305,7 +305,7 @@ class MyController
     
     public function __construct(Request $request)
     {
-        $this->initRequestParser($request, new DefaultExceptionFactory(CustomNotFoundException::class, CustomInvalidValueException::class));
+        $this->initRequestParser($request, new ExceptionFactory(CustomNotFoundException::class, CustomInvalidValueException::class));
     }
 }
 ```
@@ -314,7 +314,7 @@ class MyController
 
 ```php
 
-class FriendlyMessageFactory extends \MPScholten\RequestParser\DefaultMessageFactory
+class FriendlyMessageFactory extends \MPScholten\RequestParser\MessageFactory
 {
     protected function createNotFoundMessage($parameterName)
     {

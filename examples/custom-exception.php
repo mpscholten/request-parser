@@ -4,8 +4,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use MPScholten\RequestParser\DefaultExceptionFactory;
-use MPScholten\RequestParser\DefaultMessageFactory;
+use MPScholten\RequestParser\ExceptionFactory;
+use MPScholten\RequestParser\MessageFactory;
 use MPScholten\RequestParser\Symfony\ControllerHelperTrait;
 
 $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
@@ -15,7 +15,7 @@ class CustomException extends Exception
 
 }
 
-class FriendlyMessageFactory extends DefaultMessageFactory
+class FriendlyMessageFactory extends MessageFactory
 {
     public function createNotFoundMessage($parameterName)
     {
@@ -34,7 +34,7 @@ class MyController
 
     public function __construct(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $exceptionFactory = new DefaultExceptionFactory(CustomException::class, CustomException::class);
+        $exceptionFactory = new ExceptionFactory(CustomException::class, CustomException::class);
         $messageFactory = new FriendlyMessageFactory();
 
         $this->initRequestParser($request, $exceptionFactory, $messageFactory);

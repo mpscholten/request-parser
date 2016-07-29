@@ -5,7 +5,7 @@ namespace MPScholten\RequestParser;
 /**
  * Used together with `LegacyExceptionFactory`
  */
-class LegacyMessageFactory implements MessageFactory
+class LegacyMessageFactory extends MessageFactory
 {
     public function createNotFoundMessage($parameterName)
     {

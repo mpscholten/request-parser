@@ -1,17 +1,17 @@
 <?php
 
-use MPScholten\RequestParser\DefaultMessageFactory;
+use MPScholten\RequestParser\MessageFactory;
 
-class DefaultMessageFactoryTest extends PHPUnit_Framework_TestCase
+class MessageFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var DefaultMessageFactory
+     * @var MessageFactory
      */
     private $factory;
 
     protected function setUp()
     {
-        $this->factory = new DefaultMessageFactory();
+        $this->factory = new MessageFactory();
     }
 
     public function testCreateNotFoundException()

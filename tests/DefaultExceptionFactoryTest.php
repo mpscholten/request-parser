@@ -1,18 +1,18 @@
 <?php
 
-use MPScholten\RequestParser\DefaultExceptionFactory;
+use MPScholten\RequestParser\ExceptionFactory;
 use MPScholten\RequestParser\NotFoundException;
 
-class DefaultExceptionFactoryTest extends PHPUnit_Framework_TestCase
+class ExceptionFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var DefaultExceptionFactory
+     * @var ExceptionFactory
      */
     private $factory;
 
     protected function setUp()
     {
-        $this->factory = new DefaultExceptionFactory();
+        $this->factory = new ExceptionFactory();
     }
 
     public function testCreateNotFoundException()

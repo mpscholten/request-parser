@@ -46,14 +46,18 @@ abstract class AbstractValueParser
 
     public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
-        $messageFactory = new StaticMessageFactory($notFoundMessage, $invalidValueMessage, $this->messageFactory);
-
         if ($this->invalid) {
-            $message = $messageFactory->createInvalidValueMessage($this->name, $this->unparsedValue, $this->describe());
-            throw $this->exceptionFactory->createInvalidValueException($message);
+            if ($invalidValueMessage === null) {
+                $invalidValueMessage = $this->messageFactory->createInvalidValueMessage($this->name, $this->unparsedValue, $this->describe());
+            }
+
+            throw $this->exceptionFactory->createInvalidValueException($invalidValueMessage);
         } elseif ($this->notFound) {
-            $message = $messageFactory->createNotFoundMessage($this->name);
-            throw $this->exceptionFactory->createInvalidValueException($message);
+            if ($notFoundMessage === null) {
+                $notFoundMessage = $this->messageFactory->createNotFoundMessage($this->name);
+            }
+
+            throw $this->exceptionFactory->createInvalidValueException($notFoundMessage);
         }
 
         return $this->value;
