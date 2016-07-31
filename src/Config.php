@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser;
 
-class Config
+final class Config
 {
     private $exceptionFactory;
     private $exceptionMessageFactory;
