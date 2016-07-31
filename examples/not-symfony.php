@@ -10,8 +10,6 @@
 //   | http://localhost:8080/not-symfony.php?action=helloWithDefault
 //   | http://localhost:8080/not-symfony.php?action=json&payload={%22a%22:1}
 
-use MPScholten\RequestParser\Config;
-
 require __DIR__ . '/../vendor/autoload.php';
 
 class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestParserFactory
