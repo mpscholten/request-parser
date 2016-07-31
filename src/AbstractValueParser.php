@@ -8,8 +8,7 @@ namespace MPScholten\RequestParser;
  */
 abstract class AbstractValueParser
 {
-    protected $exceptionFactory;
-    protected $messageFactory;
+    protected $config;
 
     protected $name;
     private $unparsedValue;
@@ -18,12 +17,11 @@ abstract class AbstractValueParser
     private $invalid = false;
     private $notFound = false;
 
-    public function __construct(ExceptionFactory $exceptionFactory, MessageFactory $messageFactory, $name, $value)
+    public function __construct(Config $config, $name, $value)
     {
+        $this->config = $config;
         $this->name = $name;
         $this->unparsedValue = $value;
-        $this->exceptionFactory = $exceptionFactory;
-        $this->messageFactory = $messageFactory;
 
         if ($value === null) {
             $this->notFound = true;
@@ -48,16 +46,16 @@ abstract class AbstractValueParser
     {
         if ($this->invalid) {
             if ($invalidValueMessage === null) {
-                $invalidValueMessage = $this->messageFactory->createInvalidValueMessage($this->name, $this->unparsedValue, $this->describe());
+                $invalidValueMessage = $this->config->getExceptionMessageFactory()->createInvalidValueMessage($this->name, $this->unparsedValue, $this->describe());
             }
 
-            throw $this->exceptionFactory->createInvalidValueException($invalidValueMessage);
+            throw $this->config->getExceptionFactory()->createInvalidValueException($invalidValueMessage);
         } elseif ($this->notFound) {
             if ($notFoundMessage === null) {
-                $notFoundMessage = $this->messageFactory->createNotFoundMessage($this->name);
+                $notFoundMessage = $this->config->getExceptionMessageFactory()->createNotFoundMessage($this->name);
             }
 
-            throw $this->exceptionFactory->createInvalidValueException($notFoundMessage);
+            throw $this->config->getExceptionFactory()->createInvalidValueException($notFoundMessage);
         }
 
         return $this->value;

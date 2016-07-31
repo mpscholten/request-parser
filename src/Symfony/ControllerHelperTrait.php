@@ -8,8 +8,8 @@ trait ControllerHelperTrait
 {
     use BaseControllerHelperTrait;
 
-    protected final function createRequestParserFactory($request, $exceptionFactory, $messageFactory)
+    protected final function createRequestParserFactory($request, $config)
     {
-        return new SymfonyRequestParserFactory($request, $exceptionFactory, $messageFactory);
+        return new SymfonyRequestParserFactory($request, $config);
     }
 }

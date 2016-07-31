@@ -1,9 +1,10 @@
 <?php
 
 use MPScholten\RequestParser\AbstractValueParser;
+use MPScholten\RequestParser\Config;
 use MPScholten\RequestParser\DateTimeParser;
 use MPScholten\RequestParser\ExceptionFactory;
-use MPScholten\RequestParser\MessageFactory;
+use MPScholten\RequestParser\ExceptionMessageFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\InvalidValueException;
@@ -18,25 +19,20 @@ use MPScholten\RequestParser\UrlParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase
 {
-    private function createExceptionFactory()
-    {
-        return new ExceptionFactory();
-    }
-
     public function specWithoutValueAndDefaultValueProvider()
     {
         return [
             // [spec, default-value]
-            [new IntParser($this->createExceptionFactory(), new MessageFactory(), 'id', null), 1],
-            [new FloatParser($this->createExceptionFactory(), new MessageFactory(), 'ratio', null), 0.91],
-            [new StringParser($this->createExceptionFactory(), new MessageFactory(), 'name', null), 'default value'],
-            [new EmailParser($this->createExceptionFactory(), new MessageFactory(), 'emailAddress', null), 'john@doe.com'],
-            [new UrlParser($this->createExceptionFactory(), new MessageFactory(), 'referrer', null), 'https://www.quintly.com/'],
-            [new OneOfParser($this->createExceptionFactory(), new MessageFactory(), 'type', null, ['a', 'b']), 'a'],
-            [new DateTimeParser($this->createExceptionFactory(), new MessageFactory(), 'createdAt', null), new \DateTime('2015-01-01')],
-            [new JsonParser($this->createExceptionFactory(), new MessageFactory(), 'config', null), ['value' => true]],
-            [new YesNoBooleanParser($this->createExceptionFactory(), new MessageFactory(), 'isAwesome', null), true],
-            [new BooleanParser($this->createExceptionFactory(), new MessageFactory(), 'isNice', null), true]
+            [new IntParser(new Config(), 'id', null), 1],
+            [new FloatParser(new Config(), 'ratio', null), 0.91],
+            [new StringParser(new Config(), 'name', null), 'default value'],
+            [new EmailParser(new Config(), 'emailAddress', null), 'john@doe.com'],
+            [new UrlParser(new Config(), 'referrer', null), 'https://www.quintly.com/'],
+            [new OneOfParser(new Config(), 'type', null, ['a', 'b']), 'a'],
+            [new DateTimeParser(new Config(), 'createdAt', null), new \DateTime('2015-01-01')],
+            [new JsonParser(new Config(), 'config', null), ['value' => true]],
+            [new YesNoBooleanParser(new Config(), 'isAwesome', null), true],
+            [new BooleanParser(new Config(), 'isNice', null), true]
         ];
     }
 
@@ -44,32 +40,32 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // [spec, default-value, real-value]
-            [new IntParser($this->createExceptionFactory(), new MessageFactory(), 'id', 1337), 1, 1337],
-            [new FloatParser($this->createExceptionFactory(), new MessageFactory(), 'ratio', 0.91), 1.0, 0.91],
-            [new YesNoBooleanParser($this->createExceptionFactory(), new MessageFactory(), 'isAwesome', 'yes'), true, true],
-            [new BooleanParser($this->createExceptionFactory(), new MessageFactory(), 'isAwesome', 'true'), true, true],
-            [new StringParser($this->createExceptionFactory(), new MessageFactory(), 'name', 'quintly'), '', 'quintly'],
-            [new UrlParser($this->createExceptionFactory(), new MessageFactory(), 'referrer', 'https://www.quintly.com/'), 'https://www.quintly.com/blog/', 'https://www.quintly.com/'],
-            [new EmailParser($this->createExceptionFactory(), new MessageFactory(), 'emailAddress', 'john@doe.com'), '', 'john@doe.com'],
-            [new OneOfParser($this->createExceptionFactory(), new MessageFactory(), 'type', 'a', ['a', 'b']), 'b', 'a'],
-            [new DateTimeParser($this->createExceptionFactory(), new MessageFactory(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
-            [new JsonParser($this->createExceptionFactory(), new MessageFactory(), 'config', '{"value":false}'), ['value' => true], ['value' => false]]
+            [new IntParser(new Config(), 'id', 1337), 1, 1337],
+            [new FloatParser(new Config(), 'ratio', 0.91), 1.0, 0.91],
+            [new YesNoBooleanParser(new Config(), 'isAwesome', 'yes'), true, true],
+            [new BooleanParser(new Config(), 'isAwesome', 'true'), true, true],
+            [new StringParser(new Config(), 'name', 'quintly'), '', 'quintly'],
+            [new UrlParser(new Config(), 'referrer', 'https://www.quintly.com/'), 'https://www.quintly.com/blog/', 'https://www.quintly.com/'],
+            [new EmailParser(new Config(), 'emailAddress', 'john@doe.com'), '', 'john@doe.com'],
+            [new OneOfParser(new Config(), 'type', 'a', ['a', 'b']), 'b', 'a'],
+            [new DateTimeParser(new Config(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
+            [new JsonParser(new Config(), 'config', '{"value":false}'), ['value' => true], ['value' => false]]
         ];
     }
 
     public function specWithInvalidValueAndDefaultValue()
     {
         return [
-            [new IntParser($this->createExceptionFactory(), new MessageFactory(), 'id', 'string instead of an int'), 1],
-            [new FloatParser($this->createExceptionFactory(), new MessageFactory(), 'ration', 'string instead of an float'), 0.91],
-            [new YesNoBooleanParser($this->createExceptionFactory(), new MessageFactory(), 'isAwesome', 'invalid'), false],
-            [new BooleanParser($this->createExceptionFactory(), new MessageFactory(), 'isAwesome', 'invalid'), false],
-            [new EmailParser($this->createExceptionFactory(), new MessageFactory(), 'emailAddress', 'invalid_email'), 'john@doe.com'],
-            [new UrlParser($this->createExceptionFactory(), new MessageFactory(), 'referrer', 'https:://www.invalid.url/^'), 'https://www.quintly.com/'],
+            [new IntParser(new Config(), 'id', 'string instead of an int'), 1],
+            [new FloatParser(new Config(), 'ration', 'string instead of an float'), 0.91],
+            [new YesNoBooleanParser(new Config(), 'isAwesome', 'invalid'), false],
+            [new BooleanParser(new Config(), 'isAwesome', 'invalid'), false],
+            [new EmailParser(new Config(), 'emailAddress', 'invalid_email'), 'john@doe.com'],
+            [new UrlParser(new Config(), 'referrer', 'https:://www.invalid.url/^'), 'https://www.quintly.com/'],
             // StringParser has no invalid data types
-            [new OneOfParser($this->createExceptionFactory(), new MessageFactory(), 'type', 'x', ['a', 'b']), 'a'],
-            [new DateTimeParser($this->createExceptionFactory(), new MessageFactory(), 'createdAt', ''), new \DateTime('2015-01-01')],
-            [new JsonParser($this->createExceptionFactory(), new MessageFactory(), 'config', 'invalid json{'), ['value' => true]]
+            [new OneOfParser(new Config(), 'type', 'x', ['a', 'b']), 'a'],
+            [new DateTimeParser(new Config(), 'createdAt', ''), new \DateTime('2015-01-01')],
+            [new JsonParser(new Config(), 'config', 'invalid json{'), ['value' => true]]
         ];
     }
 
@@ -144,10 +140,10 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
 
     public function testStringSpecific()
     {
-        $parser = new StringParser($this->createExceptionFactory(), new MessageFactory(), 'name', '');
+        $parser = new StringParser(new Config(), 'name', '');
         $this->assertEquals('default', $parser->defaultsToIfEmpty('default'));
 
-        $parser = new StringParser($this->createExceptionFactory(), new MessageFactory(), 'name', 'test');
+        $parser = new StringParser(new Config(), 'name', 'test');
         $this->assertEquals('test', $parser->defaultsToIfEmpty('default'));
     }
 }

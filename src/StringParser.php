@@ -46,11 +46,11 @@ class StringParser extends AbstractValueParser
 
     public function url()
     {
-        return new UrlParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new UrlParser($this->config, $this->name, $this->value);
     }
 
     public function email()
     {
-        return new EmailParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new EmailParser($this->config, $this->name, $this->value);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser;
 
-class MessageFactory
+class ExceptionMessageFactory
 {
 
     /**

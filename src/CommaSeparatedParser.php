@@ -4,51 +4,49 @@ namespace MPScholten\RequestParser;
 
 class CommaSeparatedParser
 {
+    private $config;
     private $value;
     private $name;
-    private $exceptionFactory;
-    private $messageFactory;
 
-    public function __construct(ExceptionFactory $exceptionFactory, MessageFactory $messageFactory, $name, $value)
+    public function __construct(Config $config, $name, $value)
     {
-        $this->messageFactory = $messageFactory;
-        $this->exceptionFactory = $exceptionFactory;
+        $this->config = $config;
         $this->value = $value;
         $this->name = $name;
     }
 
     public function int()
     {
-        return new CommaSeparatedIntParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedIntParser($this->config, $this->name, $this->value);
     }
 
     public function float()
     {
-        return new CommaSeparatedFloatParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedFloatParser($this->config, $this->name, $this->value);
     }
 
     public function string()
     {
-        return new CommaSeparatedStringParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedStringParser($this->config, $this->name, $this->value);
     }
 
     public function dateTime()
     {
-        return new CommaSeparatedDateTimeParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedDateTimeParser($this->config, $this->name, $this->value);
     }
 
     public function json()
     {
-        return new CommaSeparatedJsonParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedJsonParser($this->config, $this->name, $this->value);
     }
 
     public function yesNoBoolean()
     {
-        return new CommaSeparatedYesNoBooleanParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedYesNoBooleanParser($this->config, $this->name, $this->value);
     }
 
     public function boolean()
     {
-        return new CommaSeparatedBooleanParser($this->exceptionFactory, $this->messageFactory, $this->name, $this->value);
+        return new CommaSeparatedBooleanParser($this->config, $this->name, $this->value);
     }
 }
