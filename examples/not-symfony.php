@@ -10,6 +10,8 @@
 //   | http://localhost:8080/not-symfony.php?action=helloWithDefault
 //   | http://localhost:8080/not-symfony.php?action=json&payload={%22a%22:1}
 
+use MPScholten\RequestParser\Config;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestParserFactory
@@ -18,14 +20,12 @@ class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestPar
      * @var array
      */
     private $request;
-    private $exceptionFactory;
-    private $messageFactory;
+    private $config;
 
-    public function __construct(array $request, $exceptionFactory, $messageFactory)
+    public function __construct(array $request, $config)
     {
         $this->request = $request;
-        $this->exceptionFactory = $exceptionFactory;
-        $this->messageFactory = $messageFactory;
+        $this->config = $config;
     }
 
     public function createQueryParser()
@@ -38,8 +38,7 @@ class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestPar
 
                 return null;
             },
-            $this->exceptionFactory,
-            $this->messageFactory
+            $this->config
         );
     }
 
@@ -53,8 +52,7 @@ class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestPar
 
                 return null;
             },
-            $this->exceptionFactory,
-            $this->messageFactory
+            $this->config
         );
     }
 }
@@ -66,9 +64,9 @@ trait CustomControllerHelperTrait
     /**
      * Will be called during the `initRequestParser()` call in `MyController`
      */
-    protected final function createRequestParserFactory($request, $exceptionFactory, $messageFactory)
+    protected final function createRequestParserFactory($request, $config)
     {
-        return new CustomRequestParserFactory($request, $exceptionFactory, $messageFactory);
+        return new CustomRequestParserFactory($request, $config);
     }
 }
 
