@@ -9,12 +9,12 @@ use Psr\Http\Message\ServerRequestInterface;
 class Psr7RequestParserFactory implements RequestParserFactory
 {
     private $request;
-    private $exceptionFactory;
-    
-    public function __construct(ServerRequestInterface $request, $exceptionFactory = null)
+    private $config;
+
+    public function __construct(ServerRequestInterface $request, $config = null)
     {
         $this->request = $request;
-        $this->exceptionFactory = $exceptionFactory;
+        $this->config = $config;
     }
 
     public function createQueryParser()
@@ -29,7 +29,7 @@ class Psr7RequestParserFactory implements RequestParserFactory
             return $query[$name];
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->config);
     }
 
     public function createBodyParser()
@@ -44,6 +44,6 @@ class Psr7RequestParserFactory implements RequestParserFactory
             return $body[$name];
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->config);
     }
 }

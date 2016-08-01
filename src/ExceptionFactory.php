@@ -2,31 +2,35 @@
 
 namespace MPScholten\RequestParser;
 
-interface ExceptionFactory
+/**
+ * A flexible ExceptionFactory throwing the built-in `NotFoundException` and `InvalidValue` exceptions.
+ */
+class ExceptionFactory
 {
-    /**
-     * Creates a new exception based on the parameter name which is thrown when the parameter
-     * is not found in the request.
-     *
-     * A possible implementation could be just:
-     *
-     *      return new Exception("$parameterName not found");
-     *
-     * @param string $parameterName
-     * @return \Exception
-     */
-    public function createNotFoundException($parameterName);
+    private $notFoundExceptionClass;
+    private $invalidValueExceptionClass;
+
+    public function __construct($notFoundExceptionClass = NotFoundException::class, $invalidValueExceptionClass = InvalidValueException::class)
+    {
+        $this->notFoundExceptionClass = $notFoundExceptionClass;
+        $this->invalidValueExceptionClass = $invalidValueExceptionClass;
+    }
 
     /**
-     * Creates a new exception based on the parameter name, parameter value and a description
-     * of what is expected ("an integer", "either yes or no", "a string").
-     *
-     * A possible implementation could be just:
-     *
-     *      return new Exception("$parameterName was invalid. Got $parameterValue but expected $expected");
-     *
-     * @param string $parameterName
-     * @return \Exception
+     * @param string $message
+     * @return NotFoundException|\Exception
      */
-    public function createInvalidValueException($parameterName, $parameterValue, $expected);
+    public function createNotFoundException($message)
+    {
+        return new $this->notFoundExceptionClass($message);
+    }
+
+    /*
+     * @param string $message
+     * @return InvalidValueException|\Exception
+     */
+    public function createInvalidValueException($message)
+    {
+        return new $this->invalidValueExceptionClass($message);
+    }
 }

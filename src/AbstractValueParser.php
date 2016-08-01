@@ -8,7 +8,7 @@ namespace MPScholten\RequestParser;
  */
 abstract class AbstractValueParser
 {
-    protected $exceptionFactory;
+    protected $config;
 
     protected $name;
     private $unparsedValue;
@@ -17,11 +17,11 @@ abstract class AbstractValueParser
     private $invalid = false;
     private $notFound = false;
 
-    public function __construct(ExceptionFactory $exceptionFactory, $name, $value)
+    public function __construct(Config $config, $name, $value)
     {
+        $this->config = $config;
         $this->name = $name;
         $this->unparsedValue = $value;
-        $this->exceptionFactory = $exceptionFactory;
 
         if ($value === null) {
             $this->notFound = true;
@@ -42,25 +42,23 @@ abstract class AbstractValueParser
         return ($this->notFound || $this->invalid) ? $defaultValue : $this->value;
     }
 
-    public function required()
+    public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
         if ($this->invalid) {
-            throw $this->createInvalidValueException();
+            if ($invalidValueMessage === null) {
+                $invalidValueMessage = $this->config->getExceptionMessageFactory()->createInvalidValueMessage($this->name, $this->unparsedValue, $this->describe());
+            }
+
+            throw $this->config->getExceptionFactory()->createInvalidValueException($invalidValueMessage);
         } elseif ($this->notFound) {
-            throw $this->createNotFoundException();
+            if ($notFoundMessage === null) {
+                $notFoundMessage = $this->config->getExceptionMessageFactory()->createNotFoundMessage($this->name);
+            }
+
+            throw $this->config->getExceptionFactory()->createInvalidValueException($notFoundMessage);
         }
 
         return $this->value;
-    }
-
-    private function createNotFoundException()
-    {
-        return $this->exceptionFactory->createNotFoundException($this->name);
-    }
-
-    final protected function createInvalidValueException()
-    {
-        return $this->exceptionFactory->createInvalidValueException($this->name, $this->unparsedValue, $this->describe());
     }
 
     abstract protected function describe();

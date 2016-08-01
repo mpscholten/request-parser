@@ -284,36 +284,6 @@ The library also decreases the risk of unexpected null values because parameters
 ### Error Handling
 
 When a parameter is required but not found or when validation fails, the library will throw an exception. The default exceptions are `\MPScholten\RequestParser\NotFoundException` and `\MPScholten\RequestParser\InvalidValueException`.
-You can customize the exceptions:
-
-```php
-
-class FriendlyExceptionFactory extends \MPScholten\RequestParser\DefaultExceptionFactory
-{
-    protected function generateNotFoundMessage($parameterName)
-    {
-        return "Looks like $parameterName is missing :)";
-    }
-
-    protected function getNotFoundExceptionClass()
-    {
-        return CustomException::class;
-    }
-}
-
-class MyController
-{
-    use \MPScholten\RequestParser\Symfony\ControllerHelperTrait;
-    
-    public function __construct(Request $request)
-    {
-        $this->initRequestParser($request, new FriendlyExceptionFactory());
-    }
-}
-```
-
-Check it out [this example about custom exceptions](https://github.com/mpscholten/request-parser/blob/master/examples/custom-exception.php).
-
 The suggested way to handle the errors thrown by the library is to catch them inside your front controller:
 
 ```php
@@ -325,6 +295,59 @@ try {
     echo $e->getMessage();
 }
 ```
+
+#### Using Custom Exception Classes
+
+```php
+class MyController
+{
+    use \MPScholten\RequestParser\Symfony\ControllerHelperTrait;
+    
+    public function __construct(Request $request)
+    {
+        $exceptionFactory = new ExceptionFactory(CustomNotFoundException::class, CustomInvalidValueException::class));
+
+        $config = new \MPScholten\RequestParser\Config();
+        $config->setExceptionFactory($exceptionFactory);
+
+        $this->initRequestParser($request, $config);
+    }
+}
+```
+
+#### Using Custom Exception Messages
+
+```php
+
+class FriendlyExceptionMessageFactory extends \MPScholten\RequestParser\ExceptionMessageFactory
+{
+    protected function createNotFoundMessage($parameterName)
+    {
+        return "Looks like $parameterName is missing :)";
+    }
+
+    protected function createInvalidValueMessage($parameterName, $parameterValue, $expected)
+    {
+        return "Whoops :) $parameterName seems to be invalid. We're looking for $expected but you provided '$parameterValue'";
+    }
+}
+
+class MyController
+{
+    use \MPScholten\RequestParser\Symfony\ControllerHelperTrait;
+    
+    public function __construct(Request $request)
+    {
+        $config = new \MPScholten\RequestParser\Config();
+        $config->setExceptionMessageFactory(new FriendlyExceptionMessageFactory());
+
+        $this->initRequestParser($request, $config);
+    }
+}
+```
+
+Check it out [this example about custom exceptions](https://github.com/mpscholten/request-parser/blob/master/examples/custom-exception.php).
+
 
 ### Is It Production Ready?
 

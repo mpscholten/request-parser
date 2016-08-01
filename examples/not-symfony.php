@@ -18,12 +18,12 @@ class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestPar
      * @var array
      */
     private $request;
-    private $exceptionFactory;
+    private $config;
 
-    public function __construct(array $request, $exceptionFactory)
+    public function __construct(array $request, $config)
     {
         $this->request = $request;
-        $this->exceptionFactory = $exceptionFactory;
+        $this->config = $config;
     }
 
     public function createQueryParser()
@@ -36,7 +36,7 @@ class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestPar
 
                 return null;
             },
-            $this->exceptionFactory
+            $this->config
         );
     }
 
@@ -50,7 +50,7 @@ class CustomRequestParserFactory implements \MPScholten\RequestParser\RequestPar
 
                 return null;
             },
-            $this->exceptionFactory
+            $this->config
         );
     }
 }
@@ -62,9 +62,9 @@ trait CustomControllerHelperTrait
     /**
      * Will be called during the `initRequestParser()` call in `MyController`
      */
-    protected final function createRequestParserFactory($request, $exceptionFactory)
+    protected final function createRequestParserFactory($request, $config)
     {
-        return new CustomRequestParserFactory($request, $exceptionFactory);
+        return new CustomRequestParserFactory($request, $config);
     }
 }
 

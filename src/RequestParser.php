@@ -8,18 +8,30 @@ class RequestParser
      * @var callable
      */
     private $readParameter;
-    private $exceptionFactory;
 
-    public function __construct(callable $readParameter, $exceptionFactory = null)
+    /**
+     * @var Config
+     */
+    private $config;
+
+    /**
+     * @param callable $readParameter
+     * @param Config|callable $config
+     */
+    public function __construct(callable $readParameter, $config)
     {
-        if ($exceptionFactory === null) {
-            $exceptionFactory = new DefaultExceptionFactory();
-        } elseif (is_callable($exceptionFactory)) {
-            $exceptionFactory = new LegacyExceptionFactory($exceptionFactory);
+        if ($config === null) {
+            $config = new Config();
+        } elseif (is_callable($config)) {
+            // Support for legacy config
+            $exceptionFactory = $config;
+            $config = new Config();
+            $config->setExceptionMessageFactory(new LegacyExceptionMessageFactory());
+            $config->setExceptionFactory(new LegacyExceptionFactory($exceptionFactory));
         }
 
         $this->readParameter = $readParameter;
-        $this->exceptionFactory = $exceptionFactory;
+        $this->config = $config;
     }
 
     protected final function readValue($name)
@@ -29,6 +41,6 @@ class RequestParser
 
     public function get($name)
     {
-        return new TypeParser($this->exceptionFactory, $name, $this->readValue($name));
+        return new TypeParser($this->config, $name, $this->readValue($name));
     }
 }

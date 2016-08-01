@@ -37,8 +37,8 @@ class CommaSeparatedIntParser extends AbstractValueParser
      * @throws \Exception
      * @return integer[]
      */
-    public function required()
+    public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
-        return parent::required();
+        return parent::required($invalidValueMessage, $notFoundMessage);
     }
 }

@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 class SymfonyRequestParserFactory implements RequestParserFactory
 {
     private $request;
-    private $exceptionFactory;
+    private $config;
 
-    public function __construct(Request $request, $exceptionFactory = null)
+    public function __construct(Request $request, $config = null)
     {
         $this->request = $request;
-        $this->exceptionFactory = $exceptionFactory;
+        $this->config = $config;
     }
 
     public function createQueryParser()
@@ -23,7 +23,7 @@ class SymfonyRequestParserFactory implements RequestParserFactory
             return $this->request->query->get($name, null);
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->config);
     }
 
     public function createBodyParser()
@@ -32,6 +32,6 @@ class SymfonyRequestParserFactory implements RequestParserFactory
             return $this->request->request->get($name, null);
         };
 
-        return new RequestParser($readParameter, $this->exceptionFactory);
+        return new RequestParser($readParameter, $this->config);
     }
 }

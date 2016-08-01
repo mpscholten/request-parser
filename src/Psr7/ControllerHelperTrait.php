@@ -8,8 +8,8 @@ trait ControllerHelperTrait
 {
     use BaseControllerHelperTrait;
 
-    protected final function createRequestParserFactory($request, $exceptionFactory)
+    protected final function createRequestParserFactory($request, $config)
     {
-        return new Psr7RequestParserFactory($request, $exceptionFactory);
+        return new Psr7RequestParserFactory($request, $config);
     }
 }

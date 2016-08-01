@@ -30,9 +30,9 @@ class EmailParser extends AbstractValueParser
      * @throws \Exception
      * @return string
      */
-    public function required()
+    public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
-        return parent::required();
+        return parent::required($invalidValueMessage, $notFoundMessage);
     }
 
     /**
