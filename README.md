@@ -1,8 +1,31 @@
 # request parser
 
-[![Latest Stable Version](https://poser.pugx.org/mpscholten/request-parser/version)](https://packagist.org/packages/mpscholten/request-parser) [![License](https://poser.pugx.org/mpscholten/request-parser/license)](https://packagist.org/packages/mpscholten/request-parser) [![Circle CI](https://circleci.com/gh/mpscholten/request-parser.svg?style=shield)](https://circleci.com/gh/mpscholten/request-parser)
+[![Latest Stable Version](https://poser.pugx.org/mpscholten/request-parser/version)](https://packagist.org/packages/mpscholten/request-parser) 
+[![License](https://poser.pugx.org/mpscholten/request-parser/license)](https://packagist.org/packages/mpscholten/request-parser) 
+[![Circle CI](https://circleci.com/gh/mpscholten/request-parser.svg?style=shield)](https://circleci.com/gh/mpscholten/request-parser)
+[![Total Downloads](https://poser.pugx.org/mpscholten/request-parser/downloads)](https://packagist.org/packages/mpscholten/request-parser)
 
 Small PHP Library for type-safe input handling.
+
+* [The Problem](https://github.com/mpscholten/request-parser/#the-problem)
+* [Examples](https://github.com/mpscholten/request-parser/#examples)
+* [Getting Started](https://github.com/mpscholten/request-parser/#getting-started)
+* [Integrations](https://github.com/mpscholten/request-parser/#integrations)
+ * [Symfony HttpFoundation](https://github.com/mpscholten/request-parser/#symfony-httpfoundation)
+ * [Psr7](https://github.com/mpscholten/request-parser/#psr7)
+* [Optional Parameters](https://github.com/mpscholten/request-parser/#additional-parameters)
+ * [Integers, Enums, DateTimes and Json Payloads](https://github.com/mpscholten/request-parser/#integers-enums-datetimes-and-json-payloads)
+ * [Supported Data Types](https://github.com/mpscholten/request-parser/#supported-data-types)
+* [GET Requests](https://github.com/mpscholten/request-parser/#get-requests)
+* [POST Requests](https://github.com/mpscholten/request-parser/#post-requests)
+* [Autocompletion](https://github.com/mpscholten/request-parser/#autocompletion)
+* [Static Analysis](https://github.com/mpscholten/request-parser/#static-analysis)
+* [Error Handling](https://github.com/mpscholten/request-parser/#error-handling)
+ * [Using Custom Exception Classes](https://github.com/mpscholten/request-parser/#using-custom-exception-classes)
+ * [Using Custom Exception Messages](https://github.com/mpscholten/request-parser/#using-custom-exception-messages)
+* [Is It Production Ready?](https://github.com/mpscholten/request-parser/#is-it-production-ready)
+* [Tests](https://github.com/mpscholten/request-parser/#tests)
+* [Contributing](https://github.com/mpscholten/request-parser/#contributing)
 
 ### The Problem
 
