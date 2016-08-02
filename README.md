@@ -4,8 +4,6 @@
 
 Small PHP Library for type-safe input handling.
 
-### Table of Contents:
-
 * [The Problem](https://github.com/mpscholten/request-parser/#the-problem)
 * [Examples](https://github.com/mpscholten/request-parser/#examples)
 * [Getting Started](https://github.com/mpscholten/request-parser/#getting-started)
