@@ -94,7 +94,7 @@ composer require mpscholten/request-parser
 ```
 
 
-**Integrations:**
+### Integrations
 
  - If you're using `symfony/http-foundation`, [click here](#symfony-httpfoundation).
  - If you're using a Psr7 `ServerRequestInterface` implementation, [click here](#psr7).
