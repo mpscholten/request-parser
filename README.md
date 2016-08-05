@@ -340,6 +340,22 @@ class MyController
 
 #### Using Custom Exception Messages
 
+##### Overriding Single Messages
+If you need to override the exception message thrown by the library just once or twice, you can do this by passing the exception messages as the first and second argument to `->required()`:
+
+```php
+class DashboardController
+{
+    public function show()
+    {
+        $dashboardId = $this->queryParameter('id')->int()->required("The dashboard id has to be a valid number", "No dashboard id given");
+    }
+}
+```
+
+##### Overriding All Messages
+If you don't want to specify a custom exception message for all your actions, but still don't want to use the built-in exception messages, you can provide your own exception message generator:
+
 ```php
 
 class FriendlyExceptionMessageFactory extends \MPScholten\RequestParser\ExceptionMessageFactory
