@@ -11,11 +11,11 @@ abstract class AbstractValueParser
     protected $config;
 
     protected $name;
-    protected $unparsedValue;
+    private $unparsedValue;
 
     protected $value = null;
-    protected $invalid = false;
-    protected $notFound = false;
+    private $invalid = false;
+    private $notFound = false;
 
     public function __construct(Config $config, $name, $value)
     {
