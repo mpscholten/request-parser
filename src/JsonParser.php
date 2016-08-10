@@ -27,4 +27,9 @@ class JsonParser extends AbstractValueParser
     {
         return parent::required($invalidValueMessage, $notFoundMessage);
     }
+
+    public function withSchema($jsonSchema, $isRemote)
+    {
+        return new SchemaValidationParser($this->config, $this->name, $this->value, $jsonSchema, $isRemote);
+    }
 }

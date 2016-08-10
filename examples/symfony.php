@@ -50,6 +50,13 @@ class MyController
         return print_r($payload, true);
     }
 
+    public function jsonWithSchema()
+    {
+        $schema = "{\"\$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"a\":{\"type\":\"integer\"}},\"required\":[\"a\"]}";
+        $payload = $this->queryParameter('payload')->json()->withSchema($schema, false)->required();
+        return print_r($payload, true);
+    }
+
     public function intArray()
     {
         $userIds = $this->queryParameter('userIds')->commaSeparated()->int()->required();
