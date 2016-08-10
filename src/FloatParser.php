@@ -31,4 +31,14 @@ class FloatParser extends AbstractValueParser
     {
         return parent::required($invalidValueMessage, $notFoundMessage);
     }
+
+    /**
+     * @param float $minvalue
+     * @param float $maxValue
+     * @return InRangeParser
+     */
+    public function inRange($minvalue, $maxValue)
+    {
+        return new InRangeParser($this->config, $this->name, $this->value, $minvalue, $maxValue, 'float');
+    }
 }

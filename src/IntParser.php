@@ -31,4 +31,14 @@ class IntParser extends AbstractValueParser
     {
         return parent::required($invalidValueMessage, $notFoundMessage);
     }
+
+    /**
+     * @param int $minvalue
+     * @param int $maxValue
+     * @return InRangeParser
+     */
+    public function inRange($minvalue, $maxValue)
+    {
+        return new InRangeParser($this->config, $this->name, $this->value, $minvalue, $maxValue, 'int');
+    }
 }
