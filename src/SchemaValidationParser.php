@@ -28,7 +28,6 @@ class SchemaValidationParser extends AbstractValueParser
 
         $jsonSchema = json_decode($this->jsonSchema);
 
-
         $validator = new Validator();
         $validator->check($inspectedValue, $jsonSchema);
         if ($validator->isValid()) {
