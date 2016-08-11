@@ -29,13 +29,6 @@ class MyController
         $this->initRequestParser($request);
     }
 
-    public function inRange()
-    {
-        $name = $this->queryParameter('name')->int()->inRange(1, 5)->required();
-
-        return "Hello $name";
-    }
-
     public function hello()
     {
         $name = $this->queryParameter('name')->string()->required();
