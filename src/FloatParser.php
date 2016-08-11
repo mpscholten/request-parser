@@ -33,12 +33,12 @@ class FloatParser extends AbstractValueParser
     }
 
     /**
-     * @param float $minvalue
+     * @param float $minValue
      * @param float $maxValue
-     * @return InRangeParser
+     * @return FloatInRangeParser
      */
-    public function inRange($minvalue, $maxValue)
+    public function inRange($minValue, $maxValue)
     {
-        return new InRangeParser($this->config, $this->name, $this->value, $minvalue, $maxValue, 'float');
+        return new FloatInRangeParser($this->config, $this->name, $this->value, $minValue, $maxValue);
     }
 }
