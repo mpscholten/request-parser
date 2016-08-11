@@ -29,5 +29,6 @@ abstract class AbstractInRangeParser extends AbstractValueParser
         if ($value >= $this->minValue && $value <= $this->maxValue) {
             return $value;
         }
+        return null;
     }
 }
