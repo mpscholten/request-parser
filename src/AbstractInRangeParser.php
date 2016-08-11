@@ -4,13 +4,7 @@ namespace MPScholten\RequestParser;
 
 abstract class AbstractInRangeParser extends AbstractValueParser
 {
-    /**
-     * @var int|float $minValue
-     */
     protected $minValue;
-    /**
-     * @var int|float $maxValue
-     */
     protected $maxValue;
 
     public function __construct(Config $config, $name, $value, $minValue, $maxValue)
