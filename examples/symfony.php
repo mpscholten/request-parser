@@ -52,9 +52,13 @@ class MyController
 
     public function jsonWithSchema()
     {
-        $schema = "{\"\$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"a\":{\"type\":\"integer\"}},\"required\":[\"a\"]}";
-        $payload = $this->queryParameter('payload')->json()->withSchema($schema, false)->required();
-        return print_r($payload, true);
+        try {
+            $schema = "{\"\$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"a\":{\"type\":\"integer\"}},\"required\":[\"a\"]}";
+            $payload = $this->queryParameter('payload')->json()->withSchema($schema)->required();
+            return print_r($payload, true);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function intArray()

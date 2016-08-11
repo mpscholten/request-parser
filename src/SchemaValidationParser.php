@@ -10,12 +10,10 @@ use JsonSchema\Uri\UriResolver;
 class SchemaValidationParser extends AbstractValueParser
 {
     private $jsonSchema;
-    private $isRemote;
 
-    public function __construct(Config $config, $name, $value, $jsonSchema, $isRemote)
+    public function __construct(Config $config, $name, $value, $jsonSchema)
     {
         $this->jsonSchema = $jsonSchema;
-        $this->isRemote = $isRemote;
         parent::__construct($config, $name, $value);
     }
 
@@ -27,16 +25,11 @@ class SchemaValidationParser extends AbstractValueParser
     protected function parse($value)
     {
         $inspectedValue = (object) $value;
-        $refResolver = new RefResolver(new UriRetriever(), new UriResolver());
 
-        if ($this->isRemote) {
-            $jsonSchema = $refResolver->resolve($this->jsonSchema);
-        } else {
-            $jsonSchema = json_decode($this->jsonSchema);
-        }
+        $jsonSchema = json_decode($this->jsonSchema);
+
 
         $validator = new Validator();
-
         $validator->check($inspectedValue, $jsonSchema);
         if ($validator->isValid()) {
             return $value;
