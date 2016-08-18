@@ -147,34 +147,34 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $parser->defaultsToIfEmpty('default'));
     }
 
-    public function testInRangeValidatorWithValidValues()
+    public function testBetweenValidatorWithValidValues()
     {
         $parser = new IntParser(new Config(), 'groupId', 1);
-        $parser->inRange(1, 6);
+        $parser->between(1, 6);
         $this->assertEquals(1, $parser->required());
         $parser = new IntParser(new Config(), 'groupId', 6);
-        $parser->inRange(1, 6);
+        $parser->between(1, 6);
         $this->assertEquals(6, $parser->required());
 
         $parser = new FloatParser(new Config(), 'precipitation', 60.99);
-        $parser->inRange(60.99, 101.12);
+        $parser->between(60.99, 101.12);
         $this->assertEquals(60.99, $parser->required());
         $parser = new FloatParser(new Config(), 'precipitation', 101.12);
-        $parser->inRange(60.99, 101.12);
+        $parser->between(60.99, 101.12);
         $this->assertEquals(101.12, $parser->required());
     }
 
-    public function testIntInRangeValidatorWithValuesOutOfRange()
+    public function testIntBetweenValidatorWithValuesOutOfRange()
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer value between 1 and 6, but got "7"');
         $parser = new IntParser(new Config(), 'groupId', 7);
-        $groupId = $parser->inRange(1, 6)->required();
+        $groupId = $parser->between(1, 6)->required();
     }
 
-    public function testFloatInRangeValidatorWithValuesOutOfRange()
+    public function testFloatBetweenValidatorWithValuesOutOfRange()
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float value between 60.99 and 101.12, but got "101.13"');
         $parser = new FloatParser(new Config(), 'precipitation', 101.13);
-        $precipitation = $parser->inRange(60.99, 101.12)->required();
+        $precipitation = $parser->between(60.99, 101.12)->required();
     }
 }

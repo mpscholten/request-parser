@@ -35,10 +35,10 @@ class IntParser extends AbstractValueParser
     /**
      * @param int $minvalue
      * @param int $maxValue
-     * @return IntInRangeParser
+     * @return IntBetweenParser
      */
-    public function inRange($minvalue, $maxValue)
+    public function between($minvalue, $maxValue)
     {
-        return new IntInRangeParser($this->config, $this->name, $this->value, $minvalue, $maxValue);
+        return new IntBetweenParser($this->config, $this->name, $this->value, $minvalue, $maxValue);
     }
 }

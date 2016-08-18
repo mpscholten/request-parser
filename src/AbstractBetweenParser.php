@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser;
 
-abstract class AbstractInRangeParser extends AbstractValueParser
+abstract class AbstractBetweenParser extends AbstractValueParser
 {
     protected $minValue;
     protected $maxValue;

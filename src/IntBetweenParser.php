@@ -2,29 +2,29 @@
 
 namespace MPScholten\RequestParser;
 
-class FloatInRangeParser extends AbstractInRangeParser
+class IntBetweenParser extends AbstractBetweenParser
 {
     protected function describe()
     {
-        return "a float value between $this->minValue and $this->maxValue";
+        return "an integer between $this->minValue and $this->maxValue";
     }
 
     /**
      * @param $value
-     * @return float
+     * @return int
      */
     protected function parse($value)
     {
         if (!is_numeric($value)) {
             return null;
         }
-        $value = (float) $value;
+        $value = (int) $value;
         return parent::parse($value);
     }
 
     /**
-     * @param float $defaultValue
-     * @return float
+     * @param int $defaultValue
+     * @return int
      */
     public function defaultsTo($defaultValue)
     {
@@ -35,7 +35,7 @@ class FloatInRangeParser extends AbstractInRangeParser
      * @throws \Exception
      * @param string $invalidValueMessage
      * @param string $notFoundMessage
-     * @return float
+     * @return int
      */
     public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
