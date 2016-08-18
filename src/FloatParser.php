@@ -31,4 +31,14 @@ class FloatParser extends AbstractValueParser
     {
         return parent::required($invalidValueMessage, $notFoundMessage);
     }
+
+    /**
+     * @param float $minValue
+     * @param float $maxValue
+     * @return FloatBetweenParser
+     */
+    public function between($minValue, $maxValue)
+    {
+        return new FloatBetweenParser($this->config, $this->name, $this->value, $minValue, $maxValue);
+    }
 }

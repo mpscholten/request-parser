@@ -57,7 +57,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [new IntParser(new Config(), 'id', 'string instead of an int'), 1],
-            [new FloatParser(new Config(), 'ration', 'string instead of an float'), 0.91],
+            [new FloatParser(new Config(), 'ration', 'string instead of a float'), 0.91],
             [new YesNoBooleanParser(new Config(), 'isAwesome', 'invalid'), false],
             [new BooleanParser(new Config(), 'isAwesome', 'invalid'), false],
             [new EmailParser(new Config(), 'emailAddress', 'invalid_email'), 'john@doe.com'],
@@ -145,5 +145,36 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
 
         $parser = new StringParser(new Config(), 'name', 'test');
         $this->assertEquals('test', $parser->defaultsToIfEmpty('default'));
+    }
+
+    public function testBetweenValidatorWithValidValues()
+    {
+        $parser = new IntParser(new Config(), 'groupId', 1);
+        $parser->between(1, 6);
+        $this->assertEquals(1, $parser->required());
+        $parser = new IntParser(new Config(), 'groupId', 6);
+        $parser->between(1, 6);
+        $this->assertEquals(6, $parser->required());
+
+        $parser = new FloatParser(new Config(), 'precipitation', 60.99);
+        $parser->between(60.99, 101.12);
+        $this->assertEquals(60.99, $parser->required());
+        $parser = new FloatParser(new Config(), 'precipitation', 101.12);
+        $parser->between(60.99, 101.12);
+        $this->assertEquals(101.12, $parser->required());
+    }
+
+    public function testIntBetweenValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer between 1 and 6, but got "7"');
+        $parser = new IntParser(new Config(), 'groupId', 7);
+        $groupId = $parser->between(1, 6)->required();
+    }
+
+    public function testFloatBetweenValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float between 60.99 and 101.12, but got "101.13"');
+        $parser = new FloatParser(new Config(), 'precipitation', 101.13);
+        $precipitation = $parser->between(60.99, 101.12)->required();
     }
 }
