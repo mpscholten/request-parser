@@ -15,6 +15,10 @@ class FloatInRangeParser extends AbstractInRangeParser
      */
     protected function parse($value)
     {
+        if (!is_numeric($value)) {
+            return null;
+        }
+        $value = (float) $value;
         return parent::parse($value);
     }
 

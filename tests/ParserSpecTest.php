@@ -166,14 +166,14 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
 
     public function testIntInRangeValidatorWithValuesOutOfRange()
     {
-        $this->setExpectedException(InvalidValueException::class, "Invalid value for parameter \"groupId\". Expected an integer value between 1 and 6, but got \"7\"");
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer value between 1 and 6, but got "7"');
         $parser = new IntParser(new Config(), 'groupId', 7);
         $groupId = $parser->inRange(1, 6)->required();
     }
 
     public function testFloatInRangeValidatorWithValuesOutOfRange()
     {
-        $this->setExpectedException(InvalidValueException::class, "Invalid value for parameter \"precipitation\". Expected a float value between 60.99 and 101.12, but got \"101.13\"");
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float value between 60.99 and 101.12, but got "101.13"');
         $parser = new FloatParser(new Config(), 'precipitation', 101.13);
         $precipitation = $parser->inRange(60.99, 101.12)->required();
     }

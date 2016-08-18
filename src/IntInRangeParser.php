@@ -15,6 +15,10 @@ class IntInRangeParser extends AbstractInRangeParser
      */
     protected function parse($value)
     {
+        if (!is_numeric($value)) {
+            return null;
+        }
+        $value = (int) $value;
         return parent::parse($value);
     }
 
