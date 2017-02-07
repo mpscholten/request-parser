@@ -8,8 +8,8 @@ class TrimParser extends AbstractValueParser
 
     public function __construct(Config $config, $name, $value, $trimType)
     {
-        parent::__construct($config, $name, $value);
         $this->trimType = $trimType;
+        parent::__construct($config, $name, $value);
     }
 
     protected function describe()
