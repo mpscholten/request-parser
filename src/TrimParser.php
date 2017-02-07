@@ -2,15 +2,30 @@
 
 namespace MPScholten\RequestParser;
 
-class StringParser extends AbstractValueParser
+class TrimParser extends AbstractValueParser
 {
+    private $trimType;
+
+    public function __construct(Config $config, $name, $value, $trimType)
+    {
+        parent::__construct($config, $name, $value);
+        $this->trimType = $trimType;
+    }
+
     protected function describe()
     {
-        return "a text";
+        return "a valid email address";
     }
 
     protected function parse($value)
     {
+        if ($this->trimType === TrimType::TRIM) {
+            return trim((string) $value);
+        } elseif ($this->trimType === TrimType::LEFT_TRIM) {
+            return ltrim((string) $value);
+        } elseif ($this->trimType === TrimType::RIGHT_TRIM) {
+            return rtrim((string) $value);
+        }
         return (string) $value;
     }
 
@@ -24,6 +39,7 @@ class StringParser extends AbstractValueParser
     }
 
     /**
+     * @throws \Exception
      * @return string
      */
     public function required($invalidValueMessage = null, $notFoundMessage = null)
@@ -40,31 +56,7 @@ class StringParser extends AbstractValueParser
         if ($this->value === '') {
             return $defaultValue;
         }
-        
+
         return $this->defaultsTo($defaultValue);
-    }
-
-    public function url()
-    {
-        return new UrlParser($this->config, $this->name, $this->value);
-    }
-
-    public function email()
-    {
-        return new EmailParser($this->config, $this->name, $this->value);
-    }
-
-    public function trim()
-    {
-        return new TrimParser($this->config, $this->name, $this->value, TrimType::TRIM);
-    }
-
-    public function leftTrim()
-    {
-        return new TrimParser($this->config, $this->name, $this->value, TrimType::LEFT_TRIM);
-    }
-    public function rightTrim()
-    {
-        return new TrimParser($this->config, $this->name, $this->value, TrimType::RIGHT_TRIM);
     }
 }

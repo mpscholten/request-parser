@@ -16,6 +16,7 @@ use MPScholten\RequestParser\EmailParser;
 use MPScholten\RequestParser\ExceptionFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
+use MPScholten\RequestParser\TrimParser;
 use MPScholten\RequestParser\UrlParser;
 use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
@@ -55,6 +56,12 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser(new Config(), 'emailAddress', 'john@doe.com');
         $this->assertInstanceOf(EmailParser::class, $spec->string()->email());
+    }
+
+    public function testTrim()
+    {
+        $spec = new TypeParser(new Config(), 'emailAddress', '   john@doe.com   ');
+        $this->assertInstanceOf(TrimParser::class, $spec->string()->trim());
     }
 
     public function testOneOf()

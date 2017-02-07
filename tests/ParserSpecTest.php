@@ -3,8 +3,6 @@
 use MPScholten\RequestParser\AbstractValueParser;
 use MPScholten\RequestParser\Config;
 use MPScholten\RequestParser\DateTimeParser;
-use MPScholten\RequestParser\ExceptionFactory;
-use MPScholten\RequestParser\ExceptionMessageFactory;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\InvalidValueException;
@@ -16,6 +14,8 @@ use MPScholten\RequestParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
 use MPScholten\RequestParser\EmailParser;
 use MPScholten\RequestParser\UrlParser;
+use MPScholten\RequestParser\TrimType;
+use MPScholten\RequestParser\TrimParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,6 +47,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new StringParser(new Config(), 'name', 'quintly'), '', 'quintly'],
             [new UrlParser(new Config(), 'referrer', 'https://www.quintly.com/'), 'https://www.quintly.com/blog/', 'https://www.quintly.com/'],
             [new EmailParser(new Config(), 'emailAddress', 'john@doe.com'), '', 'john@doe.com'],
+            [new TrimParser(new Config(), 'emailAddress', 'john@doe.com', TrimType::TRIM), '', '  john@doe.com  '],
             [new OneOfParser(new Config(), 'type', 'a', ['a', 'b']), 'b', 'a'],
             [new DateTimeParser(new Config(), 'createdAt', '2015-02-02'), new \DateTime('2015-01-01'), new \DateTime('2015-02-02')],
             [new JsonParser(new Config(), 'config', '{"value":false}'), ['value' => true], ['value' => false]]
