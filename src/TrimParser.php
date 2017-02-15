@@ -14,7 +14,7 @@ class TrimParser extends AbstractValueParser
 
     protected function describe()
     {
-        return "a valid email address";
+        return "a text string";
     }
 
     protected function parse($value)
