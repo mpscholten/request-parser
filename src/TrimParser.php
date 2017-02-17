@@ -2,15 +2,34 @@
 
 namespace MPScholten\RequestParser;
 
-class StringParser extends AbstractValueParser
+class TrimParser extends AbstractValueParser
 {
+    const TRIM = 'trim';
+    const LEFT_TRIM = 'left_trim';
+    const RIGHT_TRIM = 'right_trim';
+
+    private $trimType;
+
+    public function __construct(Config $config, $name, $value, $trimType)
+    {
+        $this->trimType = $trimType;
+        parent::__construct($config, $name, $value);
+    }
+
     protected function describe()
     {
-        return "a text";
+        return "a text string";
     }
 
     protected function parse($value)
     {
+        if ($this->trimType === self::TRIM) {
+            return trim((string) $value);
+        } elseif ($this->trimType === self::LEFT_TRIM) {
+            return ltrim((string) $value);
+        } elseif ($this->trimType === self::RIGHT_TRIM) {
+            return rtrim((string) $value);
+        }
         return (string) $value;
     }
 
@@ -24,6 +43,7 @@ class StringParser extends AbstractValueParser
     }
 
     /**
+     * @throws \Exception
      * @return string
      */
     public function required($invalidValueMessage = null, $notFoundMessage = null)
@@ -40,32 +60,7 @@ class StringParser extends AbstractValueParser
         if ($this->value === '') {
             return $defaultValue;
         }
-        
+
         return $this->defaultsTo($defaultValue);
-    }
-
-    public function url()
-    {
-        return new UrlParser($this->config, $this->name, $this->value);
-    }
-
-    public function email()
-    {
-        return new EmailParser($this->config, $this->name, $this->value);
-    }
-
-    public function trim()
-    {
-        return new TrimParser($this->config, $this->name, $this->value, TrimParser::TRIM);
-    }
-
-    public function leftTrim()
-    {
-        return new TrimParser($this->config, $this->name, $this->value, TrimParser::LEFT_TRIM);
-    }
-    
-    public function rightTrim()
-    {
-        return new TrimParser($this->config, $this->name, $this->value, TrimParser::RIGHT_TRIM);
     }
 }
