@@ -64,6 +64,18 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(TrimParser::class, $spec->string()->trim());
     }
 
+    public function testLeftTrim()
+    {
+        $spec = new TypeParser(new Config(), 'emailAddress', '   john@doe.com');
+        $this->assertInstanceOf(TrimParser::class, $spec->string()->leftTrim());
+    }
+
+    public function testRightTrim()
+    {
+        $spec = new TypeParser(new Config(), 'emailAddress', 'john@doe.com   ');
+        $this->assertInstanceOf(TrimParser::class, $spec->string()->rightTrim());
+    }
+
     public function testOneOf()
     {
         $spec = new TypeParser(new Config(), 'type', 'b');

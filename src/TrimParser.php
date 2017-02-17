@@ -4,6 +4,10 @@ namespace MPScholten\RequestParser;
 
 class TrimParser extends AbstractValueParser
 {
+    const TRIM = 'trim';
+    const LEFT_TRIM = 'left_trim';
+    const RIGHT_TRIM = 'right_trim';
+
     private $trimType;
 
     public function __construct(Config $config, $name, $value, $trimType)
@@ -19,11 +23,11 @@ class TrimParser extends AbstractValueParser
 
     protected function parse($value)
     {
-        if ($this->trimType === TrimType::TRIM) {
+        if ($this->trimType === self::TRIM) {
             return trim((string) $value);
-        } elseif ($this->trimType === TrimType::LEFT_TRIM) {
+        } elseif ($this->trimType === self::LEFT_TRIM) {
             return ltrim((string) $value);
-        } elseif ($this->trimType === TrimType::RIGHT_TRIM) {
+        } elseif ($this->trimType === self::RIGHT_TRIM) {
             return rtrim((string) $value);
         }
         return (string) $value;

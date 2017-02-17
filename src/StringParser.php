@@ -56,16 +56,16 @@ class StringParser extends AbstractValueParser
 
     public function trim()
     {
-        return new TrimParser($this->config, $this->name, $this->value, TrimType::TRIM);
+        return new TrimParser($this->config, $this->name, $this->value, TrimParser::TRIM);
     }
 
     public function leftTrim()
     {
-        return new TrimParser($this->config, $this->name, $this->value, TrimType::LEFT_TRIM);
+        return new TrimParser($this->config, $this->name, $this->value, TrimParser::LEFT_TRIM);
     }
     
     public function rightTrim()
     {
-        return new TrimParser($this->config, $this->name, $this->value, TrimType::RIGHT_TRIM);
+        return new TrimParser($this->config, $this->name, $this->value, TrimParser::RIGHT_TRIM);
     }
 }
