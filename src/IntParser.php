@@ -2,6 +2,12 @@
 
 namespace MPScholten\RequestParser;
 
+use MPScholten\RequestParser\ValidationParser\IntBetweenParser;
+use MPScholten\RequestParser\ValidationParser\IntLargerThanOrEqualToParser;
+use MPScholten\RequestParser\ValidationParser\IntLargerThanParser;
+use MPScholten\RequestParser\ValidationParser\IntSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\ValidationParser\IntSmallerThanParser;
+
 class IntParser extends AbstractValueParser
 {
     protected function describe()
@@ -33,12 +39,48 @@ class IntParser extends AbstractValueParser
     }
 
     /**
-     * @param int $minvalue
+     * @param int $minValue
      * @param int $maxValue
      * @return IntBetweenParser
      */
-    public function between($minvalue, $maxValue)
+    public function between($minValue, $maxValue)
     {
-        return new IntBetweenParser($this->config, $this->name, $this->value, $minvalue, $maxValue);
+        return new IntBetweenParser($this->config, $this->name, $this->value, $minValue, $maxValue);
+    }
+
+    /**
+     * @param int $minValue
+     * @return IntLargerThanParser
+     */
+    public function largerThan($minValue)
+    {
+        return new IntLargerThanParser($this->config, $this->name, $this->value, $minValue);
+    }
+
+    /**
+     * @param int $minValue
+     * @return IntLargerThanOrEqualToParser
+     */
+    public function largerThanOrEqualTo($minValue)
+    {
+        return new IntLargerThanOrEqualToParser($this->config, $this->name, $this->value, $minValue);
+    }
+
+    /**
+     * @param int $maxValue
+     * @return IntSmallerThanParser
+     */
+    public function smallerThan($maxValue)
+    {
+        return new IntSmallerThanParser($this->config, $this->name, $this->value, $maxValue);
+    }
+
+    /**
+     * @param int $maxValue
+     * @return IntSmallerThanOrEqualToParser
+     */
+    public function smallerThanOrEqualTo($maxValue)
+    {
+        return new IntSmallerThanOrEqualToParser($this->config, $this->name, $this->value, $maxValue);
     }
 }

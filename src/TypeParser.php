@@ -2,6 +2,8 @@
 
 namespace MPScholten\RequestParser;
 
+use MPScholten\RequestParser\ValidationParser\OneOfParser;
+
 class TypeParser
 {
     private $value;

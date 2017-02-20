@@ -1,12 +1,12 @@
 <?php
 
-namespace MPScholten\RequestParser;
+namespace MPScholten\RequestParser\ValidationParser;
 
-class IntBetweenParser extends AbstractBetweenParser
+class IntSmallerThanOrEqualToParser extends AbstractSmallerThanOrEqualToParser
 {
     protected function describe()
     {
-        return "an integer between $this->minValue and $this->maxValue";
+        return "an integer smaller than or equal to $this->maxValue";
     }
 
     /**

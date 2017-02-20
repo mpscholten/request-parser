@@ -10,10 +10,10 @@ use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
-use MPScholten\RequestParser\OneOfParser;
+use MPScholten\RequestParser\ValidationParser\OneOfParser;
 use MPScholten\RequestParser\StringParser;
-use MPScholten\RequestParser\EmailParser;
-use MPScholten\RequestParser\UrlParser;
+use MPScholten\RequestParser\ValidationParser\EmailParser;
+use MPScholten\RequestParser\ValidationParser\UrlParser;
 use MPScholten\RequestParser\TrimParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase
@@ -166,6 +166,44 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(101.12, $parser->required());
     }
 
+    public function testLargerThanValidatorWithValidValues()
+    {
+        $parser = new IntParser(new Config(), 'groupId', 1);
+        $parser->largerThan(0);
+        $this->assertEquals(1, $parser->required());
+
+        $parser = new IntParser(new Config(), 'groupId', 1);
+        $parser->largerThanOrEqualTo(1);
+        $this->assertEquals(1, $parser->required());
+
+        $parser = new FloatParser(new Config(), 'precipitation', 1.01);
+        $parser->largerThan(1.001);
+        $this->assertEquals(1.01, $parser->required());
+
+        $parser = new FloatParser(new Config(), 'precipitation', 1.01);
+        $parser->largerThanOrEqualTo(1.01);
+        $this->assertEquals(1.01, $parser->required());
+    }
+
+    public function testSmallerThanValidatorWithValidValues()
+    {
+        $parser = new IntParser(new Config(), 'groupId', -1);
+        $parser->smallerThan(0);
+        $this->assertEquals(-1, $parser->required());
+
+        $parser = new IntParser(new Config(), 'groupId', -1);
+        $parser->largerThanOrEqualTo(-1);
+        $this->assertEquals(-1, $parser->required());
+
+        $parser = new FloatParser(new Config(), 'precipitation', -2.01);
+        $parser->largerThan(-3.01);
+        $this->assertEquals(-2.01, $parser->required());
+
+        $parser = new FloatParser(new Config(), 'precipitation', -2.01);
+        $parser->largerThanOrEqualTo(-2.01);
+        $this->assertEquals(-2.01, $parser->required());
+    }
+
     public function testIntBetweenValidatorWithValuesOutOfRange()
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer between 1 and 6, but got "7"');
@@ -178,5 +216,61 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float between 60.99 and 101.12, but got "101.13"');
         $parser = new FloatParser(new Config(), 'precipitation', 101.13);
         $precipitation = $parser->between(60.99, 101.12)->required();
+    }
+
+    public function testIntLargerThanValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer larger than 1, but got "0"');
+        $parser = new IntParser(new Config(), 'groupId', 0);
+        $groupId = $parser->largerThan(1)->required();
+    }
+
+    public function testIntLargerThanOrEqualToValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer larger than or equal to 1, but got "0"');
+        $parser = new IntParser(new Config(), 'groupId', 0);
+        $groupId = $parser->largerThanOrEqualTo(1)->required();
+    }
+
+    public function testFloatLargerThanValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float larger than 1.01, but got "0.01"');
+        $parser = new FloatParser(new Config(), 'precipitation', 0.01);
+        $precipitation = $parser->largerThan(1.01)->required();
+    }
+
+    public function testFloatLargerThanOrEqualToValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float larger than or equal to 1.01, but got "0.01"');
+        $parser = new FloatParser(new Config(), 'precipitation', 0.01);
+        $precipitation = $parser->largerThanOrEqualTo(1.01)->required();
+    }
+
+    public function testIntSmallerThanValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer smaller than 0, but got "1"');
+        $parser = new IntParser(new Config(), 'groupId', 1);
+        $groupId = $parser->smallerThan(0)->required();
+    }
+
+    public function testIntSmallerThanOrEqualToValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer smaller than or equal to 0, but got "1"');
+        $parser = new IntParser(new Config(), 'groupId', 1);
+        $groupId = $parser->largerThanOrEqualTo(0)->required();
+    }
+
+    public function testFloatSmallerThanValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float smaller than 0.01, but got "1.01"');
+        $parser = new FloatParser(new Config(), 'precipitation', 1.01);
+        $precipitation = $parser->smallerThan(0.01)->required();
+    }
+
+    public function testFloatSmallerThanOrEqualToValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float smaller than or equal to 0.01, but got "1.01"');
+        $parser = new FloatParser(new Config(), 'precipitation', 1.01);
+        $precipitation = $parser->smallerThanOrEqualTo(0.01)->required();
     }
 }
