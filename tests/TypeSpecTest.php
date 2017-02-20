@@ -103,7 +103,7 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     public function testFloatLargerThanOrEqualTo()
     {
         $spec = new TypeParser(new Config(), 'precipitation', '1.01');
-        $this->assertInstanceOf(FloatLargerThanOrEqualToParser::class, $spec->float()->largerThan(1.01));
+        $this->assertInstanceOf(FloatLargerThanOrEqualToParser::class, $spec->float()->largerThanOrEqualTo(1.01));
     }
 
     public function testFloatSmallerThan()

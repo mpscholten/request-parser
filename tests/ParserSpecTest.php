@@ -257,7 +257,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer smaller than or equal to 0, but got "1"');
         $parser = new IntParser(new Config(), 'groupId', 1);
-        $groupId = $parser->largerThanOrEqualTo(0)->required();
+        $groupId = $parser->smallerThanOrEqualTo(0)->required();
     }
 
     public function testFloatSmallerThanValidatorWithValuesOutOfRange()
