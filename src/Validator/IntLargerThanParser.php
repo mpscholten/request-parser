@@ -1,12 +1,12 @@
 <?php
 
-namespace MPScholten\RequestParser\ValidationParser;
+namespace MPScholten\RequestParser\Validator;
 
-class IntSmallerThanOrEqualToParser extends AbstractSmallerThanOrEqualToParser
+class IntLargerThanParser extends AbstractLargerThanParser
 {
     protected function describe()
     {
-        return "an integer smaller than or equal to $this->maxValue";
+        return "an integer larger than $this->minValue";
     }
 
     /**

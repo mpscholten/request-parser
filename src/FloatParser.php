@@ -2,11 +2,11 @@
 
 namespace MPScholten\RequestParser;
 
-use MPScholten\RequestParser\ValidationParser\FloatBetweenParser;
-use MPScholten\RequestParser\ValidationParser\FloatLargerThanOrEqualToParser;
-use MPScholten\RequestParser\ValidationParser\FloatLargerThanParser;
-use MPScholten\RequestParser\ValidationParser\FloatSmallerThanOrEqualToParser;
-use MPScholten\RequestParser\ValidationParser\FloatSmallerThanParser;
+use MPScholten\RequestParser\Validator\FloatBetweenParser;
+use MPScholten\RequestParser\Validator\FloatLargerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\FloatLargerThanParser;
+use MPScholten\RequestParser\Validator\FloatSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\FloatSmallerThanParser;
 
 class FloatParser extends AbstractValueParser
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace MPScholten\RequestParser\ValidationParser;
+namespace MPScholten\RequestParser\Validator;
 
-class FloatLargerThanOrEqualToParser extends AbstractLargerThanOrEqualToParser
+class FloatLargerThanParser extends AbstractLargerThanParser
 {
     protected function describe()
     {
-        return "a float larger than or equal to $this->minValue";
+        return "a float larger than $this->minValue";
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser;
 
-use MPScholten\RequestParser\ValidationParser\OneOfParser;
+use MPScholten\RequestParser\Validator\OneOfParser;
 
 class TypeParser
 {

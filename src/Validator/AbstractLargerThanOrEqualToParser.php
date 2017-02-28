@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\RequestParser\ValidationParser;
+namespace MPScholten\RequestParser\Validator;
 
 use MPScholten\RequestParser\AbstractValueParser;
 use MPScholten\RequestParser\Config;

@@ -1,12 +1,12 @@
 <?php
 
-namespace MPScholten\RequestParser\ValidationParser;
+namespace MPScholten\RequestParser\Validator;
 
-class IntSmallerThanParser extends AbstractSmallerThanParser
+class FloatSmallerThanOrEqualToParser extends AbstractSmallerThanOrEqualToParser
 {
     protected function describe()
     {
-        return "an integer smaller than $this->maxValue";
+        return "a float smaller than or equal to $this->maxValue";
     }
 
     /**
@@ -18,13 +18,13 @@ class IntSmallerThanParser extends AbstractSmallerThanParser
         if (!is_numeric($value)) {
             return null;
         }
-        $value = (int) $value;
+        $value = (float) $value;
         return parent::parse($value);
     }
 
     /**
-     * @param int $defaultValue
-     * @return int
+     * @param float $defaultValue
+     * @return float
      */
     public function defaultsTo($defaultValue)
     {
@@ -35,7 +35,7 @@ class IntSmallerThanParser extends AbstractSmallerThanParser
      * @throws \Exception
      * @param string $invalidValueMessage
      * @param string $notFoundMessage
-     * @return int
+     * @return float
      */
     public function required($invalidValueMessage = null, $notFoundMessage = null)
     {

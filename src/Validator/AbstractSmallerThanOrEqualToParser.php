@@ -1,25 +1,23 @@
 <?php
 
-namespace MPScholten\RequestParser\ValidationParser;
+namespace MPScholten\RequestParser\Validator;
 
 use MPScholten\RequestParser\AbstractValueParser;
 use MPScholten\RequestParser\Config;
 
-abstract class AbstractBetweenParser extends AbstractValueParser
+abstract class AbstractSmallerThanOrEqualToParser extends AbstractValueParser
 {
-    protected $minValue;
     protected $maxValue;
 
-    public function __construct(Config $config, $name, $value, $minValue, $maxValue)
+    public function __construct(Config $config, $name, $value, $maxValue)
     {
-        $this->minValue = $minValue;
         $this->maxValue = $maxValue;
         parent::__construct($config, $name, $value);
     }
 
     protected function parse($value)
     {
-        if ($value >= $this->minValue && $value <= $this->maxValue) {
+        if ($value <= $this->maxValue) {
             return $value;
         }
         return null;

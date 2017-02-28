@@ -2,8 +2,8 @@
 
 namespace MPScholten\RequestParser;
 
-use MPScholten\RequestParser\ValidationParser\EmailParser;
-use MPScholten\RequestParser\ValidationParser\UrlParser;
+use MPScholten\RequestParser\Validator\EmailParser;
+use MPScholten\RequestParser\Validator\UrlParser;
 
 class StringParser extends AbstractValueParser
 {

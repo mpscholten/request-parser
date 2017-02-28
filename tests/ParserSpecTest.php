@@ -10,10 +10,10 @@ use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
-use MPScholten\RequestParser\ValidationParser\OneOfParser;
+use MPScholten\RequestParser\Validator\OneOfParser;
 use MPScholten\RequestParser\StringParser;
-use MPScholten\RequestParser\ValidationParser\EmailParser;
-use MPScholten\RequestParser\ValidationParser\UrlParser;
+use MPScholten\RequestParser\Validator\EmailParser;
+use MPScholten\RequestParser\Validator\UrlParser;
 use MPScholten\RequestParser\TrimParser;
 
 class ParserSpecTest extends \PHPUnit_Framework_TestCase

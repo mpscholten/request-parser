@@ -1,19 +1,19 @@
 <?php
 
-namespace MPScholten\RequestParser\ValidationParser;
+namespace MPScholten\RequestParser\Validator;
 
 use MPScholten\RequestParser\AbstractValueParser;
 
-class EmailParser extends AbstractValueParser
+class UrlParser extends AbstractValueParser
 {
     protected function describe()
     {
-        return "a valid email address";
+        return "a valid URL";
     }
 
     protected function parse($value)
     {
-        if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+        if (filter_var($value, FILTER_VALIDATE_URL) === false) {
             return null;
         }
         return (string) $value;

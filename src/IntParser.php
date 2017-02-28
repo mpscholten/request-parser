@@ -2,11 +2,11 @@
 
 namespace MPScholten\RequestParser;
 
-use MPScholten\RequestParser\ValidationParser\IntBetweenParser;
-use MPScholten\RequestParser\ValidationParser\IntLargerThanOrEqualToParser;
-use MPScholten\RequestParser\ValidationParser\IntLargerThanParser;
-use MPScholten\RequestParser\ValidationParser\IntSmallerThanOrEqualToParser;
-use MPScholten\RequestParser\ValidationParser\IntSmallerThanParser;
+use MPScholten\RequestParser\Validator\IntBetweenParser;
+use MPScholten\RequestParser\Validator\IntLargerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\IntLargerThanParser;
+use MPScholten\RequestParser\Validator\IntSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\IntSmallerThanParser;
 
 class IntParser extends AbstractValueParser
 {
