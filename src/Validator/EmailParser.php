@@ -1,6 +1,8 @@
 <?php
 
-namespace MPScholten\RequestParser;
+namespace MPScholten\RequestParser\Validator;
+
+use MPScholten\RequestParser\AbstractValueParser;
 
 class EmailParser extends AbstractValueParser
 {

@@ -11,18 +11,24 @@ use MPScholten\RequestParser\CommaSeparatedStringParser;
 use MPScholten\RequestParser\CommaSeparatedYesNoBooleanParser;
 use MPScholten\RequestParser\Config;
 use MPScholten\RequestParser\DateTimeParser;
-use MPScholten\RequestParser\ExceptionMessageFactory;
-use MPScholten\RequestParser\EmailParser;
-use MPScholten\RequestParser\ExceptionFactory;
+use MPScholten\RequestParser\Validator\EmailParser;
+use MPScholten\RequestParser\Validator\FloatBetweenParser;
+use MPScholten\RequestParser\Validator\IntBetweenParser;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\TrimParser;
-use MPScholten\RequestParser\UrlParser;
+use MPScholten\RequestParser\Validator\UrlParser;
+use MPScholten\RequestParser\Validator\FloatLargerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\FloatLargerThanParser;
+use MPScholten\RequestParser\Validator\FloatSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\FloatSmallerThanParser;
+use MPScholten\RequestParser\Validator\IntLargerThanParser;
+use MPScholten\RequestParser\Validator\IntSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\IntSmallerThanParser;
 use MPScholten\RequestParser\YesNoBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
-use MPScholten\RequestParser\NotFoundException;
-use MPScholten\RequestParser\OneOfParser;
+use MPScholten\RequestParser\Validator\OneOfParser;
 use MPScholten\RequestParser\StringParser;
 use MPScholten\RequestParser\TypeParser;
 
@@ -56,6 +62,66 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser(new Config(), 'emailAddress', 'john@doe.com');
         $this->assertInstanceOf(EmailParser::class, $spec->string()->email());
+    }
+
+    public function testIntBetween()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', '1');
+        $this->assertInstanceOf(IntBetweenParser::class, $spec->int()->between(0, 100));
+    }
+
+    public function testIntLargerThan()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', '1');
+        $this->assertInstanceOf(IntLargerThanParser::class, $spec->int()->largerThan(0));
+    }
+
+    public function testIntLargerThanOrEqualTo()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', '1');
+        $this->assertInstanceOf(IntLargerThanParser::class, $spec->int()->largerThan(1));
+    }
+
+    public function testIntSmallerThan()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', '-1');
+        $this->assertInstanceOf(IntSmallerThanParser::class, $spec->int()->smallerThan(0));
+    }
+
+    public function testIntSmallerThanOrEqualTo()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', '1');
+        $this->assertInstanceOf(IntSmallerThanOrEqualToParser::class, $spec->int()->smallerThanOrEqualTo(1));
+    }
+
+    public function testFloatLargerThan()
+    {
+        $spec = new TypeParser(new Config(), 'precipitation', '1.01');
+        $this->assertInstanceOf(FloatLargerThanParser::class, $spec->float()->largerThan(0));
+    }
+
+    public function testFloatLargerThanOrEqualTo()
+    {
+        $spec = new TypeParser(new Config(), 'precipitation', '1.01');
+        $this->assertInstanceOf(FloatLargerThanOrEqualToParser::class, $spec->float()->largerThanOrEqualTo(1.01));
+    }
+
+    public function testFloatSmallerThan()
+    {
+        $spec = new TypeParser(new Config(), 'precipitation', '-1.19');
+        $this->assertInstanceOf(FloatSmallerThanParser::class, $spec->float()->smallerThan(-1));
+    }
+
+    public function testFloatSmallerThanOrEqualTo()
+    {
+        $spec = new TypeParser(new Config(), 'precipitation', '-1.19');
+        $this->assertInstanceOf(FloatSmallerThanOrEqualToParser::class, $spec->float()->smallerThanOrEqualTo(-1.19));
+    }
+
+    public function testFloatBetween()
+    {
+        $spec = new TypeParser(new Config(), 'precipitation', '101.39');
+        $this->assertInstanceOf(FloatBetweenParser::class, $spec->float()->between(0.01, 1000.09));
     }
 
     public function testTrim()

@@ -2,6 +2,9 @@
 
 namespace MPScholten\RequestParser;
 
+use MPScholten\RequestParser\Validator\EmailParser;
+use MPScholten\RequestParser\Validator\UrlParser;
+
 class StringParser extends AbstractValueParser
 {
     protected function describe()

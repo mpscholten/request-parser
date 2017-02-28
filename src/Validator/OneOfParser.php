@@ -1,6 +1,9 @@
 <?php
 
-namespace MPScholten\RequestParser;
+namespace MPScholten\RequestParser\Validator;
+
+use MPScholten\RequestParser\AbstractValueParser;
+use MPScholten\RequestParser\Config;
 
 class OneOfParser extends AbstractValueParser
 {
