@@ -17,6 +17,12 @@ use MPScholten\RequestParser\Validator\IntBetweenParser;
 use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\TrimParser;
+use MPScholten\RequestParser\Validator\IntLargerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\StringBetweenParser;
+use MPScholten\RequestParser\Validator\StringLargerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\StringLargerThanParser;
+use MPScholten\RequestParser\Validator\StringSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\StringSmallerThanParser;
 use MPScholten\RequestParser\Validator\UrlParser;
 use MPScholten\RequestParser\Validator\FloatLargerThanOrEqualToParser;
 use MPScholten\RequestParser\Validator\FloatLargerThanParser;
@@ -79,7 +85,7 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     public function testIntLargerThanOrEqualTo()
     {
         $spec = new TypeParser(new Config(), 'groupId', '1');
-        $this->assertInstanceOf(IntLargerThanParser::class, $spec->int()->largerThan(1));
+        $this->assertInstanceOf(IntLargerThanOrEqualToParser::class, $spec->int()->largerThanOrEqualTo(1));
     }
 
     public function testIntSmallerThan()
@@ -213,5 +219,35 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser(new Config(), 'answers', 'true,false,true');
         $this->assertInstanceOf(CommaSeparatedBooleanParser::class, $spec->commaSeparated()->boolean());
+    }
+    
+    public function testStringBetween()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', 'A');
+        $this->assertInstanceOf(StringBetweenParser::class, $spec->string()->between(0, 1));
+    }
+
+    public function testStringLargerThan()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', 'A');
+        $this->assertInstanceOf(StringLargerThanParser::class, $spec->string()->largerThan(0));
+    }
+
+    public function testStringLargerThanOrEqualTo()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', 'A');
+        $this->assertInstanceOf(StringLargerThanOrEqualToParser::class, $spec->string()->largerThanOrEqualTo(1));
+    }
+
+    public function testStringSmallerThan()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', 'A');
+        $this->assertInstanceOf(StringSmallerThanParser::class, $spec->string()->smallerThan(2));
+    }
+
+    public function testStringSmallerThanOrEqualTo()
+    {
+        $spec = new TypeParser(new Config(), 'groupId', 'A');
+        $this->assertInstanceOf(StringSmallerThanOrEqualToParser::class, $spec->string()->smallerThanOrEqualTo(1));
     }
 }

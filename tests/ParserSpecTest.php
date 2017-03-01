@@ -164,6 +164,13 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $parser = new FloatParser(new Config(), 'precipitation', 101.12);
         $parser->between(60.99, 101.12);
         $this->assertEquals(101.12, $parser->required());
+
+        $parser = new StringParser(new Config(), 'name', '');
+        $parser->between(0, 1);
+        $this->assertEquals('', $parser->required());
+        $parser = new StringParser(new Config(), 'groupId', 'A');
+        $parser->between(0, 1);
+        $this->assertEquals('A', $parser->required());
     }
 
     public function testLargerThanValidatorWithValidValues()
@@ -183,6 +190,14 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $parser = new FloatParser(new Config(), 'precipitation', 1.01);
         $parser->largerThanOrEqualTo(1.01);
         $this->assertEquals(1.01, $parser->required());
+
+        $parser = new StringParser(new Config(), 'name', 'A');
+        $parser->largerThan(0);
+        $this->assertEquals('A', $parser->required());
+
+        $parser = new StringParser(new Config(), 'groupId', 'A');
+        $parser->largerThanOrEqualTo(1);
+        $this->assertEquals('A', $parser->required());
     }
 
     public function testSmallerThanValidatorWithValidValues()
@@ -202,6 +217,14 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $parser = new FloatParser(new Config(), 'precipitation', -2.01);
         $parser->largerThanOrEqualTo(-2.01);
         $this->assertEquals(-2.01, $parser->required());
+
+        $parser = new StringParser(new Config(), 'groupId', 'A');
+        $parser->smallerThan(2);
+        $this->assertEquals('A', $parser->required());
+
+        $parser = new StringParser(new Config(), 'groupId', 'A');
+        $parser->largerThanOrEqualTo(1);
+        $this->assertEquals('A', $parser->required());
     }
 
     public function testIntBetweenValidatorWithValuesOutOfRange()
@@ -216,6 +239,13 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float between 60.99 and 101.12, but got "101.13"');
         $parser = new FloatParser(new Config(), 'precipitation', 101.13);
         $precipitation = $parser->between(60.99, 101.12)->required();
+    }
+
+    public function testStringBetweenValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string with character length between 0 and 1, but got "AB"');
+        $parser = new StringParser(new Config(), 'name', 'AB');
+        $parser->between(0, 1)->required();
     }
 
     public function testIntLargerThanValidatorWithValuesOutOfRange()
@@ -246,6 +276,20 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $precipitation = $parser->largerThanOrEqualTo(1.01)->required();
     }
 
+    public function testStringLargerThanValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string longer than 0 characters, but got ""');
+        $parser = new StringParser(new Config(), 'name', '');
+        $parser->largerThan(0)->required();
+    }
+
+    public function testStringLargerThanOrEqualToValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string longer than or equal to 2 characters, but got "A"');
+        $parser = new StringParser(new Config(), 'name', 'A');
+        $parser->largerThanOrEqualTo(2)->required();
+    }
+
     public function testIntSmallerThanValidatorWithValuesOutOfRange()
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "groupId". Expected an integer smaller than 0, but got "1"');
@@ -272,5 +316,19 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "precipitation". Expected a float smaller than or equal to 0.01, but got "1.01"');
         $parser = new FloatParser(new Config(), 'precipitation', 1.01);
         $precipitation = $parser->smallerThanOrEqualTo(0.01)->required();
+    }
+
+    public function testStringSmallerThanValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string shorter than 1 characters, but got "A"');
+        $parser = new StringParser(new Config(), 'name', 'A');
+        $parser->smallerThan(1)->required();
+    }
+
+    public function testStringSmallerThanOrEqualToValidatorWithValuesOutOfRange()
+    {
+        $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string shorter than or equal to 1 characters, but got "AB"');
+        $parser = new StringParser(new Config(), 'name', 'AB');
+        $parser->smallerThanOrEqualTo(1)->required();
     }
 }
