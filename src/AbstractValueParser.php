@@ -55,7 +55,7 @@ abstract class AbstractValueParser
                 $notFoundMessage = $this->config->getExceptionMessageFactory()->createNotFoundMessage($this->name);
             }
 
-            throw $this->config->getExceptionFactory()->createInvalidValueException($notFoundMessage);
+            throw $this->config->getExceptionFactory()->createNotFoundException($notFoundMessage);
         }
 
         return $this->value;
