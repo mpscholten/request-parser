@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser\Validator;
 
-class StringBetweenParser extends AbstractBetweenParser
+class StringLengthBetween extends AbstractBetweenParser
 {
     protected function describe()
     {

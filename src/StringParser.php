@@ -3,11 +3,11 @@
 namespace MPScholten\RequestParser;
 
 use MPScholten\RequestParser\Validator\EmailParser;
-use MPScholten\RequestParser\Validator\StringBetweenParser;
-use MPScholten\RequestParser\Validator\StringLargerThanOrEqualToParser;
-use MPScholten\RequestParser\Validator\StringLargerThanParser;
-use MPScholten\RequestParser\Validator\StringSmallerThanOrEqualToParser;
-use MPScholten\RequestParser\Validator\StringSmallerThanParser;
+use MPScholten\RequestParser\Validator\StringLengthBetween;
+use MPScholten\RequestParser\Validator\StringLengthLargerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\StringLengthLargerThanParser;
+use MPScholten\RequestParser\Validator\StringLengthSmallerThanOrEqualToParser;
+use MPScholten\RequestParser\Validator\StringLengthSmallerThanParser;
 use MPScholten\RequestParser\Validator\UrlParser;
 
 class StringParser extends AbstractValueParser
@@ -83,46 +83,51 @@ class StringParser extends AbstractValueParser
     /**
      * @param int $minValue
      * @param int $maxValue
-     * @return StringBetweenParser
+     *
+     * @return StringLengthBetween
      */
-    public function between($minValue, $maxValue)
+    public function lengthBetween($minValue, $maxValue)
     {
-        return new StringBetweenParser($this->config, $this->name, $this->value, $minValue, $maxValue);
+        return new StringLengthBetween($this->config, $this->name, $this->value, $minValue, $maxValue);
     }
 
     /**
      * @param int $minValue
-     * @return StringLargerThanParser
+     *
+     * @return StringLengthLargerThanParser
      */
-    public function largerThan($minValue)
+    public function lengthLargerThan($minValue)
     {
-        return new StringLargerThanParser($this->config, $this->name, $this->value, $minValue);
+        return new StringLengthLargerThanParser($this->config, $this->name, $this->value, $minValue);
     }
 
     /**
      * @param int $minValue
-     * @return StringLargerThanOrEqualToParser
+     *
+     * @return StringLengthLargerThanOrEqualToParser
      */
-    public function largerThanOrEqualTo($minValue)
+    public function lengthLargerThanOrEqualTo($minValue)
     {
-        return new StringLargerThanOrEqualToParser($this->config, $this->name, $this->value, $minValue);
+        return new StringLengthLargerThanOrEqualToParser($this->config, $this->name, $this->value, $minValue);
     }
 
     /**
      * @param int $maxValue
-     * @return StringSmallerThanParser
+     *
+     * @return StringLengthSmallerThanParser
      */
-    public function smallerThan($maxValue)
+    public function lengthSmallerThan($maxValue)
     {
-        return new StringSmallerThanParser($this->config, $this->name, $this->value, $maxValue);
+        return new StringLengthSmallerThanParser($this->config, $this->name, $this->value, $maxValue);
     }
 
     /**
      * @param int $maxValue
-     * @return StringSmallerThanOrEqualToParser
+     *
+     * @return StringLengthSmallerThanOrEqualToParser
      */
-    public function smallerThanOrEqualTo($maxValue)
+    public function lengthSmallerThanOrEqualTo($maxValue)
     {
-        return new StringSmallerThanOrEqualToParser($this->config, $this->name, $this->value, $maxValue);
+        return new StringLengthSmallerThanOrEqualToParser($this->config, $this->name, $this->value, $maxValue);
     }
 }

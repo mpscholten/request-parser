@@ -166,10 +166,10 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(101.12, $parser->required());
 
         $parser = new StringParser(new Config(), 'name', '');
-        $parser->between(0, 1);
+        $parser->lengthBetween(0, 1);
         $this->assertEquals('', $parser->required());
         $parser = new StringParser(new Config(), 'groupId', 'A');
-        $parser->between(0, 1);
+        $parser->lengthBetween(0, 1);
         $this->assertEquals('A', $parser->required());
     }
 
@@ -192,11 +192,11 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1.01, $parser->required());
 
         $parser = new StringParser(new Config(), 'name', 'A');
-        $parser->largerThan(0);
+        $parser->lengthLargerThan(0);
         $this->assertEquals('A', $parser->required());
 
         $parser = new StringParser(new Config(), 'groupId', 'A');
-        $parser->largerThanOrEqualTo(1);
+        $parser->lengthLargerThanOrEqualTo(1);
         $this->assertEquals('A', $parser->required());
     }
 
@@ -219,11 +219,11 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-2.01, $parser->required());
 
         $parser = new StringParser(new Config(), 'groupId', 'A');
-        $parser->smallerThan(2);
+        $parser->lengthSmallerThan(2);
         $this->assertEquals('A', $parser->required());
 
         $parser = new StringParser(new Config(), 'groupId', 'A');
-        $parser->largerThanOrEqualTo(1);
+        $parser->lengthLargerThanOrEqualTo(1);
         $this->assertEquals('A', $parser->required());
     }
 
@@ -245,7 +245,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string with character length between 0 and 1, but got "AB"');
         $parser = new StringParser(new Config(), 'name', 'AB');
-        $parser->between(0, 1)->required();
+        $parser->lengthBetween(0, 1)->required();
     }
 
     public function testIntLargerThanValidatorWithValuesOutOfRange()
@@ -280,14 +280,14 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string longer than 0 characters, but got ""');
         $parser = new StringParser(new Config(), 'name', '');
-        $parser->largerThan(0)->required();
+        $parser->lengthLargerThan(0)->required();
     }
 
     public function testStringLargerThanOrEqualToValidatorWithValuesOutOfRange()
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string longer than or equal to 2 characters, but got "A"');
         $parser = new StringParser(new Config(), 'name', 'A');
-        $parser->largerThanOrEqualTo(2)->required();
+        $parser->lengthLargerThanOrEqualTo(2)->required();
     }
 
     public function testIntSmallerThanValidatorWithValuesOutOfRange()
@@ -322,13 +322,13 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string shorter than 1 characters, but got "A"');
         $parser = new StringParser(new Config(), 'name', 'A');
-        $parser->smallerThan(1)->required();
+        $parser->lengthSmallerThan(1)->required();
     }
 
     public function testStringSmallerThanOrEqualToValidatorWithValuesOutOfRange()
     {
         $this->setExpectedException(InvalidValueException::class, 'Invalid value for parameter "name". Expected a string shorter than or equal to 1 characters, but got "AB"');
         $parser = new StringParser(new Config(), 'name', 'AB');
-        $parser->smallerThanOrEqualTo(1)->required();
+        $parser->lengthSmallerThanOrEqualTo(1)->required();
     }
 }

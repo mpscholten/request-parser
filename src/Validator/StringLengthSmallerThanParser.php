@@ -2,7 +2,7 @@
 
 namespace MPScholten\RequestParser\Validator;
 
-class StringSmallerThanParser extends AbstractSmallerThanParser
+class StringLengthSmallerThanParser extends AbstractSmallerThanParser
 {
     protected function describe()
     {
