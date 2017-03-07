@@ -15,11 +15,10 @@ class StringLengthLargerThanParser extends AbstractLargerThanParser
      */
     protected function parse($value)
     {
-        if (!is_string($value)) {
-            return null;
+        if (strlen($value) > $this->minValue) {
+            return $value;
         }
-        $value = strlen($value);
-        return parent::parse($value);
+        return null;
     }
 
     /**
