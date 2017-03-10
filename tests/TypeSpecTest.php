@@ -255,6 +255,6 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     public function testOnOffBoolean()
     {
         $spec = new TypeParser(new Config(), 'isCheckboxChecked', 'on');
-        $this->assertInstanceOf(OnOffBooleanParser::class, $spec->yesNoBoolean());
+        $this->assertInstanceOf(OnOffBooleanParser::class, $spec->onOffBoolean());
     }
 }
