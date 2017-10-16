@@ -44,7 +44,6 @@ abstract class AbstractIntegrationTestController
 
     public function __construct($request)
     {
-        $this->setCookies();
         $this->initRequestParser($request);
         $this->request = $request;
     }
@@ -60,12 +59,6 @@ abstract class AbstractIntegrationTestController
         } else {
             return $this->cookieParameter($name);
         }
-    }
-
-    private function setCookies()
-    {
-        $_COOKIE['string'] = 'Test';
-        $_COOKIE['int'] = 1;
     }
 
     public function testString($fromCookie = false)

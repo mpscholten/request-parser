@@ -55,7 +55,7 @@ trait BaseControllerHelperTrait
     }
 
     /**
-     * Use this method to access the cookie parameters (e.g. $_COOKIE).
+     * Use this method to access the request cookie parameters.
      *
      *     $userId = $this->cookieParameter('userId')->int()->defaultsTo(null)
      *
