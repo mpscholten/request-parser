@@ -7,6 +7,7 @@
 // - Open in browser:
 //   | http://localhost:8080/psr7.php?action=hello
 //   | http://localhost:8080/psr7.php?action=hello&name=yourname
+//   | http://localhost:8080/psr7.php?action=helloFromCookie
 //   | http://localhost:8080/psr7.php?action=helloWithDefault
 //   | http://localhost:8080/psr7.php?action=json&payload={%22a%22:1}
 
@@ -37,6 +38,14 @@ class MyController
         return "Hello $name";
     }
 
+    public function helloFromCookie()
+    {
+        $this->setCookie();
+        $fullName = $this->cookieParameter('fullName')->string()->required();
+
+        return "Hello $fullName";
+    }
+
     public function helloWithDefault()
     {
         $name = $this->queryParameter('name')->string()->defaultsTo('unknown');
@@ -49,6 +58,13 @@ class MyController
         $payload = $this->queryParameter('payload')->json()->required();
 
         return print_r($payload, true);
+    }
+
+    private function setCookie()
+    {
+        $cookie_name = "fullName";
+        $cookie_value = "John Doe";
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
     }
 }
 

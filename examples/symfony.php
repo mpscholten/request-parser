@@ -8,6 +8,7 @@
 //   | http://localhost:8080/symfony.php?action=hello
 //   | http://localhost:8080/symfony.php?action=hello&name=yourname
 //   | http://localhost:8080/symfony.php?action=helloWithDefault
+//   | http://localhost:8080/symfony.php?action=helloFromCookie
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
 //   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
 //   | http://localhost:8080/symfony.php?action=dateTimeArray&timestamps=2016-01-01%2000:00:00,2016-12-31%2023:59:59
@@ -26,7 +27,11 @@ class MyController
 
     public function __construct(\Symfony\Component\HttpFoundation\Request $request)
     {
+        $cookie_name = "user";
+        $cookie_value = "John Doe";
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
         $this->initRequestParser($request);
+        $a = $this->cookieParser;
     }
 
     public function hello()
@@ -34,6 +39,14 @@ class MyController
         $name = $this->queryParameter('name')->string()->required();
 
         return "Hello $name";
+    }
+
+    public function helloFromCookie()
+    {
+        $this->setCookie();
+        $fullName = $this->cookieParameter('fullName')->string()->required();
+
+        return "Hello $fullName";
     }
 
     public function helloWithDefault()
@@ -72,6 +85,13 @@ class MyController
     {
         $userIds = $this->queryParameter('events')->commaSeparated()->json()->required();
         return print_r($userIds, true);
+    }
+
+    private function setCookie()
+    {
+        $cookie_name = "fullName";
+        $cookie_value = "John Doe";
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
     }
 }
 

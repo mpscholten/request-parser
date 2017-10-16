@@ -2,19 +2,19 @@
 
 namespace MPScholten\RequestParser\Symfony;
 
+use MPScholten\RequestParser\AbstractRequestParserFactory;
 use MPScholten\RequestParser\RequestParser;
 use MPScholten\RequestParser\RequestParserFactory;
 use Symfony\Component\HttpFoundation\Request;
 
-class SymfonyRequestParserFactory implements RequestParserFactory
+class SymfonyRequestParserFactory extends AbstractRequestParserFactory implements RequestParserFactory
 {
     private $request;
-    private $config;
 
     public function __construct(Request $request, $config = null)
     {
+        parent::__construct($config);
         $this->request = $request;
-        $this->config = $config;
     }
 
     public function createQueryParser()
