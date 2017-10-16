@@ -89,9 +89,9 @@ class MyController
 
     private function setCookie()
     {
-        $cookie_name = "fullName";
-        $cookie_value = "John Doe";
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+        $cookieName = "fullName";
+        $cookieValue = "John Doe";
+        setcookie($cookieName, $cookieValue, time() + (86400 * 30), "/");
     }
 }
 
