@@ -15,10 +15,12 @@ class Psr7IntegrationTest extends AbstractIntegrationTest
 
         $getRequest = $request
             ->withMethod('GET')
+            ->withCookieParams($parameters)
             ->withQueryParams($parameters);
 
         $postRequest = $request
             ->withMethod('POST')
+            ->withCookieParams($parameters)
             ->withParsedBody($parameters);
 
         return [

@@ -2,19 +2,19 @@
 
 namespace MPScholten\RequestParser\Psr7;
 
-use MPScholten\RequestParser\AbstractRequestParserFactory;
 use MPScholten\RequestParser\RequestParser;
 use MPScholten\RequestParser\RequestParserFactory;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Psr7RequestParserFactory extends AbstractRequestParserFactory implements RequestParserFactory
+class Psr7RequestParserFactory implements RequestParserFactory
 {
     private $request;
+    private $config;
 
     public function __construct(ServerRequestInterface $request, $config = null)
     {
-        parent::__construct($config);
         $this->request = $request;
+        $this->config = $config;
     }
 
     public function createQueryParser()
@@ -42,6 +42,20 @@ class Psr7RequestParserFactory extends AbstractRequestParserFactory implements R
             }
 
             return $body[$name];
+        };
+
+        return new RequestParser($readParameter, $this->config);
+    }
+
+    public function createCookieParser()
+    {
+        $cookies = $this->request->getCookieParams();
+        $readParameter = function ($name) use ($cookies) {
+            if (!isset($cookies[$name])) {
+                return null;
+            }
+
+            return $cookies[$name];
         };
 
         return new RequestParser($readParameter, $this->config);

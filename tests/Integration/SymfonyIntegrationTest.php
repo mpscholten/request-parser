@@ -11,10 +11,10 @@ class SymfonyIntegrationTest extends AbstractIntegrationTest
             'int' => 1
         ];
 
-        $getRequest = new \Symfony\Component\HttpFoundation\Request($parameters);
+        $getRequest = new \Symfony\Component\HttpFoundation\Request($parameters, [], [], $parameters);
         $getRequest->setMethod('GET');
 
-        $postRequest = new \Symfony\Component\HttpFoundation\Request([], $parameters);
+        $postRequest = new \Symfony\Component\HttpFoundation\Request([], $parameters, [], $parameters);
         $postRequest->setMethod('POST');
 
         return [
