@@ -19,6 +19,7 @@ use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Component\HttpFoundation\Request;
 
 $symfonyRequest = Request::createFromGlobals();
+$symfonyRequest->cookies->add(["user", "John Doe"]);
 $psr7Factory = new DiactorosFactory();
 $request = $psr7Factory->createRequest($symfonyRequest);
 
@@ -40,7 +41,6 @@ class MyController
 
     public function helloFromCookie()
     {
-        $this->setCookie();
         $fullName = $this->cookieParameter('fullName')->string()->required();
 
         return "Hello $fullName";
@@ -58,13 +58,6 @@ class MyController
         $payload = $this->queryParameter('payload')->json()->required();
 
         return print_r($payload, true);
-    }
-
-    private function setCookie()
-    {
-        $cookieName = "fullName";
-        $cookieValue = "John Doe";
-        setcookie($cookieName, $cookieValue, time() + (86400 * 30), "/");
     }
 }
 

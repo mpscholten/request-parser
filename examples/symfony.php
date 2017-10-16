@@ -27,11 +27,8 @@ class MyController
 
     public function __construct(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $cookie_name = "user";
-        $cookie_value = "John Doe";
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+        $request->cookies->add(["user", "John Doe"]);
         $this->initRequestParser($request);
-        $a = $this->cookieParser;
     }
 
     public function hello()
@@ -43,7 +40,6 @@ class MyController
 
     public function helloFromCookie()
     {
-        $this->setCookie();
         $fullName = $this->cookieParameter('fullName')->string()->required();
 
         return "Hello $fullName";
@@ -85,13 +81,6 @@ class MyController
     {
         $userIds = $this->queryParameter('events')->commaSeparated()->json()->required();
         return print_r($userIds, true);
-    }
-
-    private function setCookie()
-    {
-        $cookieName = "fullName";
-        $cookieValue = "John Doe";
-        setcookie($cookieName, $cookieValue, time() + (86400 * 30), "/");
     }
 }
 
