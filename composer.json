@@ -16,5 +16,9 @@
     },
     "autoload": {
         "psr-4": {"MPScholten\\RequestParser\\": "src/"}
+    },
+    "scripts": {
+        "tests" : "vendor/bin/phpunit",
+        "tests-coverage" : "vendor/bin/phpunit --coverage-text"
     }
 }

@@ -395,7 +395,8 @@ Absolutely. This library was initially developed at [quintly](https://www.quintl
 ### Tests
 
 ```
-vendor/bin/phpunit
+composer tests
+composer tests-coverage
 ```
 
 ### Contributing
