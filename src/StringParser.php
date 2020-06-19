@@ -35,7 +35,7 @@ class StringParser extends AbstractValueParser
      * @param string $invalidValueMessage
      * @param string $notFoundMessage
      *
-     * @return null
+     * @return string
      */
     public function required($invalidValueMessage = null, $notFoundMessage = null)
     {
@@ -51,7 +51,7 @@ class StringParser extends AbstractValueParser
         if ($this->value === '') {
             return $defaultValue;
         }
-        
+
         return $this->defaultsTo($defaultValue);
     }
 
@@ -74,7 +74,7 @@ class StringParser extends AbstractValueParser
     {
         return new TrimParser($this->config, $this->name, $this->value, TrimParser::LEFT_TRIM);
     }
-    
+
     public function rightTrim()
     {
         return new TrimParser($this->config, $this->name, $this->value, TrimParser::RIGHT_TRIM);
