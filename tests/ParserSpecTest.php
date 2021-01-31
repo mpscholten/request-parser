@@ -7,6 +7,7 @@ use MPScholten\RequestParser\IntParser;
 use MPScholten\RequestParser\FloatParser;
 use MPScholten\RequestParser\InvalidValueException;
 use MPScholten\RequestParser\YesNoBooleanParser;
+use MPScholten\RequestParser\OnOffBooleanParser;
 use MPScholten\RequestParser\BooleanParser;
 use MPScholten\RequestParser\JsonParser;
 use MPScholten\RequestParser\NotFoundException;
@@ -31,6 +32,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new DateTimeParser(new Config(), 'createdAt', null), new \DateTime('2015-01-01')],
             [new JsonParser(new Config(), 'config', null), ['value' => true]],
             [new YesNoBooleanParser(new Config(), 'isAwesome', null), true],
+            [new OnOffBooleanParser(new Config(), 'isChecked', null), true],
             [new BooleanParser(new Config(), 'isNice', null), true]
         ];
     }
@@ -42,6 +44,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new IntParser(new Config(), 'id', 1337), 1, 1337],
             [new FloatParser(new Config(), 'ratio', 0.91), 1.0, 0.91],
             [new YesNoBooleanParser(new Config(), 'isAwesome', 'yes'), true, true],
+            [new OnOffBooleanParser(new Config(), 'isChecked', 'on'), true, true],
             [new BooleanParser(new Config(), 'isAwesome', 'true'), true, true],
             [new StringParser(new Config(), 'name', 'quintly'), '', 'quintly'],
             [new UrlParser(new Config(), 'referrer', 'https://www.quintly.com/'), 'https://www.quintly.com/blog/', 'https://www.quintly.com/'],
@@ -61,6 +64,7 @@ class ParserSpecTest extends \PHPUnit_Framework_TestCase
             [new IntParser(new Config(), 'id', 'string instead of an int'), 1],
             [new FloatParser(new Config(), 'ration', 'string instead of a float'), 0.91],
             [new YesNoBooleanParser(new Config(), 'isAwesome', 'invalid'), false],
+            [new OnOffBooleanParser(new Config(), 'isChecked', 'invalid'), false],
             [new BooleanParser(new Config(), 'isAwesome', 'invalid'), false],
             [new EmailParser(new Config(), 'emailAddress', 'invalid_email'), 'john@doe.com'],
             [new UrlParser(new Config(), 'referrer', 'https:://www.invalid.url/^'), 'https://www.quintly.com/'],

@@ -11,6 +11,7 @@ use MPScholten\RequestParser\CommaSeparatedStringParser;
 use MPScholten\RequestParser\CommaSeparatedYesNoBooleanParser;
 use MPScholten\RequestParser\Config;
 use MPScholten\RequestParser\DateTimeParser;
+use MPScholten\RequestParser\OnOffBooleanParser;
 use MPScholten\RequestParser\Validator\EmailParser;
 use MPScholten\RequestParser\Validator\FloatBetweenParser;
 use MPScholten\RequestParser\Validator\IntBetweenParser;
@@ -249,5 +250,11 @@ class TypeSpecTest extends \PHPUnit_Framework_TestCase
     {
         $spec = new TypeParser(new Config(), 'groupId', 'A');
         $this->assertInstanceOf(StringLengthSmallerThanOrEqualToParser::class, $spec->string()->lengthSmallerThanOrEqualTo(1));
+    }
+
+    public function testOnOffBoolean()
+    {
+        $spec = new TypeParser(new Config(), 'isCheckboxChecked', 'on');
+        $this->assertInstanceOf(OnOffBooleanParser::class, $spec->onOffBoolean());
     }
 }

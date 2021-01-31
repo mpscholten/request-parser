@@ -61,4 +61,9 @@ class TypeParser
     {
         return new CommaSeparatedParser($this->config, $this->name, $this->value);
     }
+
+    public function onOffBoolean()
+    {
+        return new OnOffBooleanParser($this->config, $this->name, $this->value);
+    }
 }
