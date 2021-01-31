@@ -46,4 +46,18 @@ class Psr7RequestParserFactory implements RequestParserFactory
 
         return new RequestParser($readParameter, $this->config);
     }
+
+    public function createCookieParser()
+    {
+        $cookies = $this->request->getCookieParams();
+        $readParameter = function ($name) use ($cookies) {
+            if (!isset($cookies[$name])) {
+                return null;
+            }
+
+            return $cookies[$name];
+        };
+
+        return new RequestParser($readParameter, $this->config);
+    }
 }

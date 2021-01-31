@@ -5,22 +5,30 @@ abstract class AbstractIntegrationTest extends \PHPUnit_Framework_TestCase
     abstract public function controllersProvider();
 
     /**
+     * @param AbstractIntegrationTestController $controller
+     *
      * @dataProvider controllersProvider
      */
     public function testStringAction(AbstractIntegrationTestController $controller)
     {
         $this->assertEquals('Test', $controller->testString());
+        $this->assertEquals('Test', $controller->testString(true));
     }
 
     /**
+     * @param AbstractIntegrationTestController $controller
+     *
      * @dataProvider controllersProvider
      */
     public function testIntAction(AbstractIntegrationTestController $controller)
     {
         $this->assertEquals(1, $controller->testInt());
+        $this->assertEquals(1, $controller->testInt(true));
     }
 
     /**
+     * @param AbstractIntegrationTestController $controller
+     *
      * @dataProvider controllersProvider
      */
     public function testNotFoundActionThrowsException(AbstractIntegrationTestController $controller)
@@ -40,23 +48,27 @@ abstract class AbstractIntegrationTestController
         $this->request = $request;
     }
 
-    protected function parameter($name)
+    protected function parameter($name, $cookie = false)
     {
-        if ($this->request->getMethod() === 'GET') {
-            return $this->queryParameter($name);
+        if (!$cookie) {
+            if ($this->request->getMethod() === 'GET') {
+                return $this->queryParameter($name);
+            } else {
+                return $this->bodyParameter($name);
+            }
         } else {
-            return $this->bodyParameter($name);
+            return $this->cookieParameter($name);
         }
     }
 
-    public function testString()
+    public function testString($fromCookie = false)
     {
-        return $this->parameter('string')->string()->required();
+        return $this->parameter('string', $fromCookie)->string()->required();
     }
 
-    public function testInt()
+    public function testInt($fromCookie = false)
     {
-        return $this->parameter('int')->int()->required();
+        return $this->parameter('int', $fromCookie)->int()->required();
     }
 
     public function testNotFound()

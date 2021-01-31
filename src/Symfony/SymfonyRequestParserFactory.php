@@ -34,4 +34,14 @@ class SymfonyRequestParserFactory implements RequestParserFactory
 
         return new RequestParser($readParameter, $this->config);
     }
+
+    public function createCookieParser()
+    {
+        $readParameter = function ($name) {
+            $cookies = $this->request->cookies;
+            return $cookies->has($name) ? $cookies->get($name) : null;
+        };
+
+        return new RequestParser($readParameter, $this->config);
+    }
 }

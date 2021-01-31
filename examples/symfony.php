@@ -8,6 +8,7 @@
 //   | http://localhost:8080/symfony.php?action=hello
 //   | http://localhost:8080/symfony.php?action=hello&name=yourname
 //   | http://localhost:8080/symfony.php?action=helloWithDefault
+//   | http://localhost:8080/symfony.php?action=helloFromCookie
 //   | http://localhost:8080/symfony.php?action=json&payload={%22a%22:1}
 //   | http://localhost:8080/symfony.php?action=intArray&userIds=21,22,23
 //   | http://localhost:8080/symfony.php?action=dateTimeArray&timestamps=2016-01-01%2000:00:00,2016-12-31%2023:59:59
@@ -26,6 +27,7 @@ class MyController
 
     public function __construct(\Symfony\Component\HttpFoundation\Request $request)
     {
+        $request->cookies->add(["user", "John Doe"]);
         $this->initRequestParser($request);
     }
 
@@ -34,6 +36,13 @@ class MyController
         $name = $this->queryParameter('name')->string()->required();
 
         return "Hello $name";
+    }
+
+    public function helloFromCookie()
+    {
+        $fullName = $this->cookieParameter('fullName')->string()->required();
+
+        return "Hello $fullName";
     }
 
     public function helloWithDefault()
